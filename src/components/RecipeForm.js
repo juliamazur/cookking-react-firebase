@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { storageRef } from '../config/firebase'
+import { recipeRef } from "../config/firebase";
 import md5 from 'md5';
 // import _ from "lodash";
 // import { withStyles } from '@material-ui/core/styles';
@@ -61,6 +62,28 @@ class RecipeForm extends Component {
     imageUrl: '',
     ingredients: [],
   };
+
+
+  componentDidUpdate(prevProps) {
+    if (this.props.editRecipeId !== prevProps.editRecipeId) {
+      //this.fetchData(this.props.userID);
+      console.log('RecipeForm, new ID dectected: ' + this.props.editRecipeId);
+      recipeRef.child(this.props.editRecipeId).on("value", snapshot => {
+        const recipeToEdit = snapshot.val();
+        console.log(recipeToEdit);
+        this.setState({
+          name: recipeToEdit.name,
+          description: recipeToEdit.description,
+          ingredients: recipeToEdit.ingredients,
+         });
+      });
+      //this.props.fetchRecipeList();
+      //this.props.fetchRecipe(this.props.editRecipeId).then(() => {
+        //console.log(this.state);
+      //});
+      //console.log('recipeToEdit: ' + recipeToEdit)
+    }
+  }
 
   ingredientsCallback = (ingredients) => {
         this.setState({ ingredients: ingredients });
@@ -145,7 +168,6 @@ class RecipeForm extends Component {
         <img src={this.state.imageUrl} alt=''/>
         <input
             accept="image/*"
-
             id="button-file"
             multiple
             type="file"

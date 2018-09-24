@@ -15,10 +15,15 @@ class RecipeList extends Component {
   // state = {
   // };
 
+  editRecipe = id => {
+    console.log('EDIT recipe RecipeList: ', id);
+    this.props.appCallback(id);
+  };
+
   renderRecipies() {
     const { data } = this.props;
     const recipies = _.map(data, (value, key) => {
-      return <RecipeCard key={key} id={key} item={value} />;
+      return <RecipeCard key={key} id={key} item={value} callbackEditRecipe={this.editRecipe}/>;
     });
     if (!_.isEmpty(recipies)) {
       return recipies;

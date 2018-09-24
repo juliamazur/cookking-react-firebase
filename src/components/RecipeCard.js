@@ -17,6 +17,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -55,7 +56,13 @@ const styles = theme => ({
 });
 
 class RecipeCard extends Component {
+
   state = { expanded: false };
+
+  editRecipe = id => {
+    console.log('EDIT recipe RecipeCard: ', id);
+    this.props.callbackEditRecipe(id);
+  };
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
@@ -103,6 +110,9 @@ class RecipeCard extends Component {
         ) : ('')}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
+        <IconButton aria-label="Edytuj" onClick={() => this.editRecipe(id)}>
+          <EditIcon />
+        </IconButton>
         <IconButton aria-label="Kasuj" onClick={() => this.deleteRecipe(id)}>
           <DeleteIcon />
         </IconButton>

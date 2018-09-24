@@ -10,8 +10,8 @@ import ingredientsJson from '../fixtures/ingredients.json';
 
 class AddIngredient extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       open: false,
