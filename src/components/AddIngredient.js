@@ -13,34 +13,28 @@ class AddIngredient extends React.Component {
   constructor() {
     super();
 
-    let ingredientsArray = [];
-    for (let i in ingredientsJson) {
-      ingredientsArray[ingredientsJson[i].id] = ingredientsJson[i].name;
-    }
-
     this.state = {
       open: false,
       ingredient: '',
-      ingredientsList: [],
+      ingredients: [],
       allIngredients: ingredientsJson,
-      ingredientsArray: ingredientsArray,
     };
   }
 
   handleChange = name => event => {
     this.setState(prevState => ({
-      ingredientsList: [...prevState.ingredientsList, event.target.value]
-    }))
+      ingredients: [...prevState.ingredients, event.target.value],
+    }), () => {
+      this.props.callbackFromParent(this.state.ingredients);
+    });
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
       <ul>
-          {this.state.ingredientsList.map(ingredient => {
-            return (<li key={ingredient}>{this.state.ingredientsArray[ingredient]}</li>)
+          {this.state.ingredients.map(ingredient => {
+            return (<li key={ingredient}>{ingredient}</li>)
           })
         }
       </ul>

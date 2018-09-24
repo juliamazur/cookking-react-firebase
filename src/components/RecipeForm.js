@@ -52,6 +52,7 @@ import AddIngredient from './AddIngredient';
 
 
 class RecipeForm extends Component {
+
   state = {
     name: '',
     description: '',
@@ -60,6 +61,11 @@ class RecipeForm extends Component {
     imageUrl: '',
     ingredients: [],
   };
+
+  ingredientsCallback = (ingredients) => {
+        this.setState({ ingredients: ingredients });
+        // console.log('INGREDIENTS (callback): ', ingredients);
+    };
 
   handleNameChange = event => {
     this.setState({ name: event.target.value });
@@ -86,31 +92,42 @@ class RecipeForm extends Component {
 
   handleFormSubmit = event => {
     const {addRecipe} = this.props;
-    const imageRef = storageRef.child(this.state.imageName);
-    const uploadTask = imageRef.put(this.state.image);
 
     const name = this.state.name;
     const description = this.state.description;
     const imageName = this.state.imageName;
-    const ingredientsArray = this.state.ingredientsArray;
+    const ingredients = this.state.ingredients;
 
-    uploadTask.on('state_changed', function(snapshot){
-      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-    }, function(error) {
-      // Handle unsuccessful uploads
-    }, function() {
-      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        console.log('File available at', downloadURL);
-        addRecipe({
-          name: name,
-          description: description,
-          imageName: imageName,
-          imageUrl: downloadURL,
-          ingredients: ingredientsArray,
-         });
+    console.log('INGREDIENTS: ', ingredients);
+
+    if (this.state.image) {
+      const imageRef = storageRef.child(this.state.imageName);
+      const uploadTask = imageRef.put(this.state.image);
+
+      uploadTask.on('state_changed', function(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      }, function(error) {
+        // Handle unsuccessful uploads
+      }, function() {
+        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+          console.log('File available at', downloadURL);
+          addRecipe({
+            name: name,
+            description: description,
+            imageName: imageName,
+            imageUrl: downloadURL,
+            ingredients: ingredients,
+           });
+        });
       });
-    });
+    } else {
+      addRecipe({
+        name: name,
+        description: description,
+        ingredients: ingredients,
+       });
+    }
 
     this.setState({
       name: '',
@@ -149,7 +166,7 @@ class RecipeForm extends Component {
               onChange={this.handleNameChange}
             />
           </FormControl>
-          <AddIngredient/>
+          <AddIngredient callbackFromParent={this.ingredientsCallback}/>
           <FormControl fullWidth={true}>
                 <TextField
                   id="recipe-description"

@@ -24,6 +24,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { deleteRecipe } from "../actions";
 
+import ingredientsJson from '../fixtures/ingredients.json';
+
 const styles = theme => ({
   card: {
     maxWidth: 400,
@@ -91,9 +93,14 @@ class RecipeCard extends Component {
           title={item.name}
         />
         <CardContent>
-          <Typography component="p">
-            {item.description}
-          </Typography>
+        {item.ingredients ? (
+          <ul>
+              {item.ingredients.map(ingredient => {
+                return (<li key={ingredient}>{ingredientsJson.filter(v => v.id === ingredient)[0].name}</li>)
+              })
+            }
+          </ul>
+        ) : ('')}
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
         <IconButton aria-label="Kasuj" onClick={() => this.deleteRecipe(id)}>
@@ -118,9 +125,9 @@ class RecipeCard extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph variant="body2">
-              {item.description}
-            </Typography>
+          <Typography component="p">
+            {item.description}
+          </Typography>
           </CardContent>
         </Collapse>
       </Card>
