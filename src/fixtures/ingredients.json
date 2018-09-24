@@ -1,0 +1,78 @@
+[
+	{
+		"id" : 9,
+		"name" : "batat"
+	},
+	{
+		"id" : 5,
+		"name" : "buraki"
+	},
+	{
+		"id" : 3,
+		"name" : "cebula"
+	},
+	{
+		"id" : 4,
+		"name" : "czosnek"
+	},
+	{
+		"id" : 6,
+		"name" : "dynia"
+	},
+	{
+		"id" : 18,
+		"name" : "grzyby mun suszone"
+	},
+	{
+		"id" : 19,
+		"name" : "grzyby shitake suszone"
+	},
+	{
+		"id" : 15,
+		"name" : "kotlety sojowe"
+	},
+	{
+		"id" : 1,
+		"name" : "makaron kokardki"
+	},
+	{
+		"id" : 2,
+		"name" : "makaron razowy spaghetti"
+	},
+	{
+		"id" : 10,
+		"name" : "mascarpone"
+	},
+	{
+		"id" : 14,
+		"name" : "oliwki czarne"
+	},
+	{
+		"id" : 13,
+		"name" : "oliwki zielone"
+	},
+	{
+		"id" : 12,
+		"name" : "parmezan"
+	},
+	{
+		"id" : 17,
+		"name" : "podgrzybki suszone"
+	},
+	{
+		"id" : 16,
+		"name" : "prawdziwki suszone"
+	},
+	{
+		"id" : 11,
+		"name" : "śmietanka 30%"
+	},
+	{
+		"id" : 8,
+		"name" : "szpinak"
+	},
+	{
+		"id" : 7,
+		"name" : "ziemniaki"
+	}
+]
