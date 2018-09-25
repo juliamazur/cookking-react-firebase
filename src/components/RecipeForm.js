@@ -8,12 +8,12 @@ import md5 from 'md5';
 
 import * as actions from "../actions";
 
-// import Input from '@material-ui/core/Input';
-// import InputLabel from '@material-ui/core/InputLabel';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+// import Input from '@material-ui/core/Input';
+// import InputLabel from '@material-ui/core/InputLabel';
 // import Card from '@material-ui/core/Card';
 // import CardMedia from '@material-ui/core/CardMedia';
 import AddIcon from '@material-ui/icons/Add';
@@ -57,31 +57,43 @@ class RecipeForm extends Component {
   state = {
     name: '',
     description: '',
+    ingredients: [],
     image: null,
     imageName: '',
     imageUrl: '',
-    ingredients: [],
   };
 
+  setInitialState = () => {
+    const initialState = {
+      name: '',
+      description: '',
+      ingredients: [],
+      image: null,
+      imageName: '',
+      imageUrl: '',
+    }
+    this.setState(initialState);
+  }
 
   componentDidUpdate(prevProps) {
-    if (this.props.editRecipeId !== prevProps.editRecipeId) {
-      //this.fetchData(this.props.userID);
-      console.log('RecipeForm, new ID dectected: ' + this.props.editRecipeId);
-      recipeRef.child(this.props.editRecipeId).on("value", snapshot => {
-        const recipeToEdit = snapshot.val();
-        console.log(recipeToEdit);
+    if (this.props.id !== prevProps.id || this.props.edit !== prevProps.edit) {
+      console.log('RecipeForm, ID dectected: ' + this.props.id);
+      if (this.props.edit) {
+        console.log('RecipeForm, Recipe will be EDITED');
+      } else {
+        console.log('RecipeForm, Recipe will be FORKED');
+      }
+      // @TODO use fetchRecipe from actions
+      recipeRef.child(this.props.id).on("value", snapshot => {
+        const recipeFromBase = snapshot.val();
+        console.log(recipeFromBase);
         this.setState({
-          name: recipeToEdit.name,
-          description: recipeToEdit.description,
-          ingredients: recipeToEdit.ingredients,
+          name: recipeFromBase.name,
+          description: recipeFromBase.description,
+          ingredients: recipeFromBase.ingredients,
+          imageUrl: recipeFromBase.imageUrl,
          });
       });
-      //this.props.fetchRecipeList();
-      //this.props.fetchRecipe(this.props.editRecipeId).then(() => {
-        //console.log(this.state);
-      //});
-      //console.log('recipeToEdit: ' + recipeToEdit)
     }
   }
 
@@ -114,20 +126,12 @@ class RecipeForm extends Component {
   };
 
   handleFormSubmit = event => {
-    const {addRecipe} = this.props;
-
-    const name = this.state.name;
-    const description = this.state.description;
-    const imageName = this.state.imageName;
-    const ingredients = this.state.ingredients;
-
-    console.log('INGREDIENTS: ', ingredients);
-
     if (this.state.image) {
       const imageRef = storageRef.child(this.state.imageName);
       const uploadTask = imageRef.put(this.state.image);
+      const saveToDB = this.saveToDB;
 
-      uploadTask.on('state_changed', function(snapshot) {
+      uploadTask.on('state_changed', function(snapshot, saveToDB) {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
       }, function(error) {
@@ -135,31 +139,30 @@ class RecipeForm extends Component {
       }, function() {
         uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
           console.log('File available at', downloadURL);
-          addRecipe({
-            name: name,
-            description: description,
-            imageName: imageName,
-            imageUrl: downloadURL,
-            ingredients: ingredients,
-           });
+          saveToDB(downloadURL);
         });
       });
     } else {
-      addRecipe({
-        name: name,
-        description: description,
-        ingredients: ingredients,
-       });
+      this.saveToDB('');
+    }
+  };
+
+  saveToDB = newImageUrl => {
+    const data = {
+      name: this.state.name,
+      description: this.state.description,
+      ingredients: this.state.ingredients,
+      imageUrl: newImageUrl ? newImageUrl : this.state.imageUrl,
+    };
+
+    if (this.props.edit) {
+      this.props.editRecipe(this.props.id, data);
+    } else {
+      this.props.addRecipe(data);
     }
 
-    this.setState({
-      name: '',
-      description: '',
-      image: null,
-      imageName: '',
-      imageUrl: '',
-    });
-  };
+    this.setInitialState();
+  }
 
   renderAddForm = () => {
 
@@ -188,7 +191,7 @@ class RecipeForm extends Component {
               onChange={this.handleNameChange}
             />
           </FormControl>
-          <AddIngredient callbackFromParent={this.ingredientsCallback}/>
+          <AddIngredient ingredients={this.state.ingredients} callbackFromParent={this.ingredientsCallback}/>
           <FormControl fullWidth={true}>
                 <TextField
                   id="recipe-description"

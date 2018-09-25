@@ -12,18 +12,21 @@ import Grid from '@material-ui/core/Grid';
 // });
 
 class RecipeList extends Component {
-  // state = {
-  // };
 
   editRecipe = id => {
     console.log('EDIT recipe RecipeList: ', id);
-    this.props.appCallback(id);
+    this.props.appEditCallback(id);
+  };
+
+  forkRecipe = id => {
+    console.log('FORK recipe RecipeList: ', id);
+    this.props.appForkCallback(id);
   };
 
   renderRecipies() {
     const { data } = this.props;
     const recipies = _.map(data, (value, key) => {
-      return <RecipeCard key={key} id={key} item={value} callbackEditRecipe={this.editRecipe}/>;
+      return <RecipeCard key={key} id={key} item={value} callbackEditRecipe={this.editRecipe} callbackForkRecipe={this.forkRecipe}/>;
     });
     if (!_.isEmpty(recipies)) {
       return recipies;

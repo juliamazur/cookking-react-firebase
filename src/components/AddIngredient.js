@@ -21,6 +21,14 @@ class AddIngredient extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.ingredients !== prevProps.ingredients) {
+      this.setState({
+        ingredients: this.props.ingredients,
+       });
+    }
+  }
+
   handleChange = name => event => {
     this.setState(prevState => ({
       ingredients: [...prevState.ingredients, event.target.value],

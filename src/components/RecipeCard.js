@@ -64,6 +64,11 @@ class RecipeCard extends Component {
     this.props.callbackEditRecipe(id);
   };
 
+  forkRecipe = id => {
+    console.log('FORK recipe RecipeCard: ', id);
+    this.props.callbackForkRecipe(id);
+  };
+
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
@@ -119,7 +124,7 @@ class RecipeCard extends Component {
           <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="Share">
+          <IconButton aria-label="Fork" onClick={() => this.forkRecipe(id)}>
             <ShareIcon />
           </IconButton>
           <IconButton

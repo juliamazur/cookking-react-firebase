@@ -6,19 +6,33 @@ import RecipeList from "./components/RecipeList";
 
 class App extends Component {
 
-  state = { editRecipeId: null };
+  state = {
+    recipeId: null,
+    editRecipe: false,
+  };
 
   editRecipe = id => {
     console.log('EDIT recipe App: ', id);
-    this.setState({ editRecipeId: id });
+    this.setState({
+      recipeId: id,
+      editRecipe: true,
+     });
+  };
+
+  forkRecipe = id => {
+    console.log('FORK recipe App: ', id);
+    this.setState({
+      recipeId: id,
+      editRecipe: false,
+     });
   };
 
   render() {
     return (
       <div className="App">
         <Header/>
-        <RecipeForm editRecipeId={this.state.editRecipeId}/>
-        <RecipeList appCallback={this.editRecipe}/>
+        <RecipeForm id={this.state.recipeId} edit={this.state.editRecipe}/>
+        <RecipeList appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
       </div>
     );
   }
