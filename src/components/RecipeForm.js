@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import { storageRef } from '../config/firebase'
 import { recipeRef } from "../config/firebase";
 import md5 from 'md5';
@@ -76,7 +77,10 @@ class RecipeForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id || this.props.edit !== prevProps.edit) {
+    if (this.props.id === prevProps.id && this.props.edit === prevProps.edit) {
+      return false;
+    }
+    
       console.log('RecipeForm, ID dectected: ' + this.props.id);
       if (this.props.edit) {
         console.log('RecipeForm, Recipe will be EDITED');
@@ -94,7 +98,6 @@ class RecipeForm extends Component {
           imageUrl: recipeFromBase.imageUrl,
          });
       });
-    }
   }
 
   ingredientsCallback = (ingredients) => {
@@ -167,8 +170,12 @@ class RecipeForm extends Component {
   renderAddForm = () => {
 
       return (
+        <Grid container>
         <Grid item xs={12} lg={6}>
-        <img src={this.state.imageUrl} alt=''/>
+        <img
+          src={this.state.imageUrl}
+          alt = ''
+        />
         <input
             accept="image/*"
             id="button-file"
@@ -181,6 +188,8 @@ class RecipeForm extends Component {
               <AddIcon />
             </Button>
           </label>
+          </Grid>
+          <Grid item xs={12} lg={6}>
         <FormControl fullWidth={true}>
             <TextField
               id="recipe-name"
@@ -202,6 +211,7 @@ class RecipeForm extends Component {
                   onChange={this.handleDescriptionChange}
                 />
           </FormControl>
+        </Grid>
         </Grid>
       );
   };
