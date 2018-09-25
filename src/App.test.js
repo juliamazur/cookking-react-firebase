@@ -44,11 +44,11 @@ describe('RecipeList component', () => {
     expect(mount(< Header />).find('h2').text()).toBe('cookking');
   });
 
-  it('renders RecipeList component', () => {
-    expect(wrapper.contains(<RecipeList />)).toBe(true);
-  });
-
-  it('renders RecipeForm component', () => {
-      expect(wrapper.contains(<RecipeForm />)).toBe(true);
-  });
+  // it('renders RecipeList component', () => {
+  //   expect(wrapper.contains(<RecipeList />)).toBe(true);
+  // });
+  //
+  // it('renders RecipeForm component', () => {
+  //     expect(wrapper.contains(<RecipeForm />)).toBe(true);
+  // });
 });
