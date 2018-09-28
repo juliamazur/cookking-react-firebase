@@ -9,11 +9,13 @@
     "firebase": "^5.5.0",
     "md5": "^2.2.1",
     "react": "^16.5.2",
+    "react-beautiful-dnd": "^9.0.2",
     "react-dom": "^16.5.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^3.4.9"
   },
   "scripts": {
     "start": "react-scripts start",

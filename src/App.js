@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Header from './components/Header';
 import RecipeForm from './components/RecipeForm';
 import RecipeList from "./components/RecipeList";
+import Schedule from "./components/Schedule";
 
 class App extends Component {
 
@@ -33,6 +34,7 @@ class App extends Component {
         <Header/>
         <RecipeForm id={this.state.recipeId} edit={this.state.editRecipe}/>
         <RecipeList appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
+        <Schedule/>
       </div>
     );
   }
