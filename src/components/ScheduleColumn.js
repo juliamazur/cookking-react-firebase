@@ -1,19 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Droppable } from 'react-beautiful-dnd';
+import Item from './ScheduleItem'
 
 const Container = styled.div`
-  margin: 8px;
   border: 1px solid lightgrey;
-  border-radius: 2px;
   width: 300px;
   display: flex;
   flex-direction: column;
 `;
-const Title = styled.h3`
-  padding: 8px;
-`;
-const TaskList = styled.div`
+
+const DraggableList = styled.div`
   padding: 8px;
   background-color: ${props =>  (props.isDraggingOver ? 'lightgrey' : 'white')};
   flex-grow: 1;
@@ -21,10 +18,38 @@ const TaskList = styled.div`
 `;
 
 class ScheduleColumn extends React.Component {
+
+  renderItems() {
+    let result = [];
+    let index = 0;
+    for (let key in this.props.items) {
+        let item = this.props.items[key];
+        console.log(this.props.items[key]);
+        result.push(<Item  key={item.id} item={item} index={index} />);
+        index++;
+    }
+
+    return result;
+  }
+
+
   render() {
     return (
       <Container>
-        Hello
+        {this.props.column.title}
+        <Droppable droppableId={this.props.column.id}>
+          {(provided, snapshot) => (
+            <DraggableList
+              {...provided.droppableProps}
+              innerRef={provided.innerRef}
+              isDraggingOver={snapshot.isDraggingOver}
+            >
+              {this.props.items.map((item, index)  => <Item  key={item.id} item={item} index={index} />)}
+              {provided.placeholder}
+            </DraggableList>
+          )}
+
+        </Droppable>
       </Container>
     );
   }
