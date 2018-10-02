@@ -4,8 +4,12 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
 
 const Container = styled.div``;
+const CardContainer = styled.div`
+  margin: 15px 5px;
+`;
 
 class Item extends React.Component {
   render() {
@@ -18,11 +22,19 @@ class Item extends React.Component {
             innerRef={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
+          <CardContainer>
             <Card>
               <CardHeader
+                avatar={
+                  <Avatar
+                    alt=''
+                    src={this.props.item.imageUrl}
+                  />
+                }
                 title={this.props.item.name}
               />
             </Card>
+            </CardContainer>
           </Container>
         )}
       </Draggable>

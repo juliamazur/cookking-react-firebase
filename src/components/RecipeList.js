@@ -78,7 +78,7 @@ class RecipeList extends Component {
     return (
       <div className="recipe-list-placeholder">
         <Grid container>
-          {this.renderRecipiesMini()}
+          {this.renderRecipies()}
         </Grid>
       </div>
     );
