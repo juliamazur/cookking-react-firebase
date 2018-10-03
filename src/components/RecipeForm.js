@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { storageRef } from '../config/firebase'
 import { recipeRef } from "../config/firebase";
 import md5 from 'md5';
+
 // import _ from "lodash";
 // import { withStyles } from '@material-ui/core/styles';
 
@@ -20,6 +21,7 @@ import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 
 import AddIngredient from './AddIngredient';
+import styled from "styled-components";
 
 // const styles = theme => ({
 //   container: {
@@ -51,6 +53,13 @@ import AddIngredient from './AddIngredient';
 //     paddingTop: '56.25%', // 16:9
 //   },
 // });
+
+const ImageContainer = styled.div`
+    max-width: 300px;
+    max-height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+`;
 
 
 class RecipeForm extends Component {
@@ -172,6 +181,7 @@ class RecipeForm extends Component {
       return (
         <Grid container>
         <Grid item xs={12} lg={6}>
+        <ImageContainer>
         <img
           src={this.state.imageUrl}
           alt = ''
@@ -188,6 +198,7 @@ class RecipeForm extends Component {
               <AddIcon />
             </Button>
           </label>
+          </ImageContainer>
           </Grid>
           <Grid item xs={12} lg={6}>
         <FormControl fullWidth={true}>
@@ -217,7 +228,7 @@ class RecipeForm extends Component {
   };
 
   componentWillMount() {
-    this.props.fetchRecipeList();
+    //this.props.fetchRecipeList();
   }
 
   render() {

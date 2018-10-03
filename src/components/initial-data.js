@@ -8,12 +8,12 @@ const initialData = {
     'column-0': {
       id: 'column-0',
       title: 'Przepisy',
-      itemIds: ['-LNBkeHtKgHN9RENeoHV','-LNEwb9sxwk9IwhNDpYr'],
+      itemIds: [],
     },
     'column-1': {
       id: 'column-1',
       title: 'Poniedziałek',
-      itemIds: [],
+      itemIds: ['-LNocldYwxL_iLJeTdLi','-LNqQpyVfAb7n9uVqPQS'],
     },
     'column-2': {
       id: 'column-2',
