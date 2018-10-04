@@ -8,8 +8,10 @@ import initialData from './initial-data';
 import ScheduleColumn from './ScheduleColumn'
 
 const Container = styled.div`
+  background-color: #fff;
   display: flex;
-  margin-top: 30px;
+  max-width: 90%;
+  margin: 30px auto;
 `;
 
 class ScheduleContainer extends React.Component {

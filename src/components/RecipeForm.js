@@ -6,7 +6,7 @@ import { recipeRef } from "../config/firebase";
 import md5 from 'md5';
 
 // import _ from "lodash";
-// import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import * as actions from "../actions";
 
@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
 // import Card from '@material-ui/core/Card';
@@ -23,42 +24,54 @@ import AddIcon from '@material-ui/icons/Add';
 import AddIngredient from './AddIngredient';
 import styled from "styled-components";
 
-// const styles = theme => ({
-//   container: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//     flexGrow: 1,
-//     margin: 'auto',
-//     maxWidth: 900,
-//     padding: theme.spacing.unit * 2,
-//     marginTop: 45,
-//     marginBottom: 45,
-//   },
-//   formControl: {
-//     margin: theme.spacing.unit,
-//   },
-//   button: {
-//     margin: theme.spacing.unit,
-//   },
-//   input: {
-//     display: 'none',
-//   },
-//   card: {
-//     maxWidth: 400,
-//     margin: 'auto',
-//     marginTop: 25,
-//   },
-//   media: {
-//     height: 0,
-//     paddingTop: '56.25%', // 16:9
-//   },
-// });
+const styles = theme => ({
+
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexGrow: 1,
+    margin: 'auto',
+    maxWidth: 900,
+    padding: theme.spacing.unit * 2,
+    marginTop: 45,
+    marginBottom: 45,
+  },
+  button: {
+      margin: '40px auto',
+  },
+  mainImage: {
+    maxWidth: '80%',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  cardTitle: {
+  }
+  // formControl: {
+  //   margin: theme.spacing.unit,
+  // },
+  // button: {
+  //   margin: theme.spacing.unit,
+  // },
+  // input: {
+  //   display: 'none',
+  // },
+  // card: {
+  //   maxWidth: 400,
+  //   margin: 'auto',
+  //   marginTop: 25,
+  // },
+  // media: {
+  //   height: 0,
+  //   paddingTop: '56.25%', // 16:9
+  // },
+});
 
 const ImageContainer = styled.div`
     max-width: 300px;
     max-height: 300px;
     overflow: hidden;
     margin: 0 auto;
+    border-radius: 5px;
 `;
 
 
@@ -176,16 +189,21 @@ class RecipeForm extends Component {
     this.setInitialState();
   }
 
-  renderAddForm = () => {
+  renderAddForm = (classes) => {
+
+      let image;
+
+      if (this.state.imageUrl) {
+        image = <img className={classes.mainImage} src={this.state.imageUrl} alt = ''/>;
+      } else {
+        image = <img className={classes.mainImage} src="/static/images/icons/fried-rice.png" alt = ''/>;
+      }
 
       return (
         <Grid container>
         <Grid item xs={12} lg={6}>
         <ImageContainer>
-        <img
-          src={this.state.imageUrl}
-          alt = ''
-        />
+         {image}
         <input
             accept="image/*"
             id="button-file"
@@ -193,15 +211,11 @@ class RecipeForm extends Component {
             type="file"
             onChange={this.handleImageChange}
           />
-          <label htmlFor="button-file">
-            <Button variant="fab" color="primary" component="span" >
-              <AddIcon />
-            </Button>
-          </label>
           </ImageContainer>
           </Grid>
           <Grid item xs={12} lg={6}>
         <FormControl fullWidth={true}>
+            <h3 className={classes.cardTitle}>Edytuj przepis</h3>
             <TextField
               id="recipe-name"
               value={this.state.name}
@@ -233,18 +247,16 @@ class RecipeForm extends Component {
 
   render() {
 
+    const { classes } = this.props;
+
     return (
       <div className="recipe-form-placeholder">
-          <Grid container>
-          <Grid item xs={12}>&nbsp;</Grid>
-            {this.renderAddForm()}
-            <Grid item xs={12}>&nbsp;</Grid>
-            <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>
+          <Paper className={classes.container}>
+            {this.renderAddForm(classes)}
+            <Button className={classes.button} variant="contained" color="primary" onClick={this.handleFormSubmit}>
               Zapisz
             </Button>
-            </Grid>
-          </Grid>
+          </Paper>
         </div>
     );
   }
@@ -256,4 +268,4 @@ const mapStateToProps = ({ data }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(RecipeForm);
+export default connect(mapStateToProps, actions)(withStyles(styles)(RecipeForm));

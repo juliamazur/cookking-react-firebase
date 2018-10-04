@@ -4,7 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import Item from './ScheduleItem'
 
 const Container = styled.div`
-  border: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
   width: 300px;
   display: flex;
   flex-direction: column;

@@ -12,10 +12,10 @@ import ScheduleContainer from "./components/Schedule";
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#636c74',
+            main: '#000',
         },
         secondary: {
-            main: '#1d83c6',
+            main: '#24c628',
         },
     },
 });
