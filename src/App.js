@@ -1,9 +1,24 @@
 import React, { Component } from "react";
+import './App.css';
+
+import {createMuiTheme} from '@material-ui/core/styles';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeForm from './components/RecipeForm';
 import RecipeList from "./components/RecipeList";
 import ScheduleContainer from "./components/Schedule";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#636c74',
+        },
+        secondary: {
+            main: '#1d83c6',
+        },
+    },
+});
 
 class App extends Component {
 
@@ -31,10 +46,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <MuiThemeProvider theme={theme}>
         <Header/>
         <RecipeForm id={this.state.recipeId} edit={this.state.editRecipe}/>
         <RecipeList appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
         <ScheduleContainer />
+       </MuiThemeProvider>
       </div>
     );
   }

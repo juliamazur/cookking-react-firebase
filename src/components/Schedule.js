@@ -79,11 +79,11 @@ class ScheduleContainer extends React.Component {
       return;
     }
 
-    getAllScheduleItems(scheduleItemData, data) {
-      let allScheduleItems = [];
+    getNewScheduleItems(scheduleItemData, data) {
+      let newScheduleItems = [];
 
       if (!scheduleItemData || !data) {
-        return allScheduleItems;
+        return newScheduleItems;
       }
 
         for (const key in scheduleItemData) {
@@ -93,13 +93,34 @@ class ScheduleContainer extends React.Component {
           newItem.recipeId = recipeId;
           newItem.name = data[recipeId].name;
           newItem.imageUrl = data[recipeId].imageUrl;
-          //allScheduleItems[key] = newItem;
-            allScheduleItems.push(newItem);
+          newScheduleItems.push(newItem);
         }
 
-      console.log('All shedule items:');
-      console.log(allScheduleItems);
-      return allScheduleItems;
+      //console.log('All shedule items:');
+      //console.log(newScheduleItems);
+      return newScheduleItems;
+    }
+
+    getItems(itemIds, newScheduleItems) {
+        let items = [];
+        itemIds.forEach((e) => {
+            let newItem = {};
+            newItem.id = e;
+            newScheduleItems.forEach((el) => {
+              if (el.id === e) {
+                newItem.name = el.name;
+                  newItem.imageUrl = el.imageUrl;
+              }
+            });
+          items.push(newItem);
+        });
+        // for (const key in itemIds) {
+        //     let newItem = {};
+        //     newItem = { ...newScheduleItems[key] };
+        //     items.push(newItem);
+        // }
+
+        return items;
     }
 
     componentWillMount() {
@@ -110,7 +131,7 @@ class ScheduleContainer extends React.Component {
   render() {
     const { data } = this.props;
     const { scheduleItemData } = this.props;
-    const allScheduleItems = this.getAllScheduleItems(scheduleItemData, data);
+    const newScheduleItems = this.getNewScheduleItems(scheduleItemData, data);
 
     return(
       <div>
@@ -119,17 +140,22 @@ class ScheduleContainer extends React.Component {
 
         {this.state.columnOrder.map(columnId => {
           let column = this.state.columns[columnId];
-          //const items = column.items;
-          //const items = column.itemIds.map(itemId => this.state.items[itemId]);
-
           let items = [];
-          if (columnId === 'column-0') {
-            items = allScheduleItems;
-            // szpachla
-              for (const key in allScheduleItems) {
-                column.itemIds.push(allScheduleItems[key].id);
+
+          // szpachla, ładuje dane jeśli w pierwszej kolumnie jest pusto
+          if (columnId === 'column-0' && column.itemIds.length === 0) {
+            items = newScheduleItems;
+              for (const key in newScheduleItems) {
+                column.itemIds.push(newScheduleItems[key].id);
+              }
+          } else {
+              if (newScheduleItems.length > 0) {
+                items = this.getItems(column.itemIds, newScheduleItems)
+                // const items = column.itemIds.map(itemId => this.state.items[itemId]);
+                // items = column.itemIds.map(itemId => newScheduleItems[itemId]);
               }
           }
+          // console.log(column.itemIds);
           return <ScheduleColumn key={column.id} column={column} items={items}/>;
         })}
         </Container>

@@ -10,6 +10,13 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const Title = styled.div`
+  text-align: center;
+  padding: 15px 5px;
+  font-family: 'Sacramento', cursive;
+  font-size: 2em;
+`;
+
 const DraggableList = styled.div`
   padding: 8px;
   background-color: ${props =>  (props.isDraggingOver ? 'lightgrey' : 'white')};
@@ -36,7 +43,8 @@ class ScheduleColumn extends React.Component {
   render() {
     return (
       <Container>
-        {this.props.column.title}
+        <Title>{this.props.column.title}</Title>
+          <span>{this.props.column.itemIds}</span>
         <Droppable droppableId={this.props.column.id}>
           {(provided, snapshot) => (
             <DraggableList

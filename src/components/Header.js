@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +23,11 @@ const styles = {
   },
 };
 
+const TitleFont = styled.div`
+  font-family: 'Sacramento', cursive;
+  font-size: 1.6em;
+`;
+
 function Header(props) {
   const { classes } = props;
   return (
@@ -31,7 +38,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.grow}>
-            cookking
+              <TitleFont>cookking</TitleFont>
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

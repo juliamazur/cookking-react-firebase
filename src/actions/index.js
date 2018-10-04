@@ -3,6 +3,7 @@ import { scheduleItemRef } from "../config/firebase";
 import { todosRef } from "../config/firebase";
 import { FETCH_RECIPE } from "./types";
 import { FETCH_RECIPE_LIST } from "./types";
+import { FETCH_SCHEDULE_ITEM } from "./types";
 import { FETCH_SCHEDULE_ITEM_LIST } from "./types";
 import { FETCH_TODOS } from "./types";
 
@@ -43,10 +44,20 @@ export const addScheduleItem = newScheduleItem => async dispatch => {
   scheduleItemRef.push().set(newScheduleItem);
 };
 
+export const fetchScheduleItem = id => async dispatch => {
+    scheduleItemRef.child(id).on("value", snapshot => {
+        // console.log(snapshot.val());
+        dispatch({
+            type: FETCH_SCHEDULE_ITEM,
+            payload: snapshot.val()
+        });
+    });
+};
+
 export const fetchScheduleItemList = () => async dispatch => {
   scheduleItemRef.on("value", snapshot => {
-    console.log('fetch schedule items:');
-    console.log(snapshot.val());
+    // console.log('fetch schedule items:');
+    // console.log(snapshot.val());
     dispatch({
       type: FETCH_SCHEDULE_ITEM_LIST,
       payload: snapshot.val()
