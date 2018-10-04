@@ -4,7 +4,6 @@ import { Droppable } from 'react-beautiful-dnd';
 import Item from './ScheduleItem'
 
 const Container = styled.div`
-  border-right: 1px solid lightgrey;
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -26,25 +25,10 @@ const DraggableList = styled.div`
 
 class ScheduleColumn extends React.Component {
 
-  renderItems() {
-    let result = [];
-    let index = 0;
-    for (let key in this.props.items) {
-        let item = this.props.items[key];
-        console.log(this.props.items[key]);
-        result.push(<Item  key={item.id} item={item} index={index} />);
-        index++;
-    }
-
-    return result;
-  }
-
-
   render() {
     return (
       <Container>
         <Title>{this.props.column.title}</Title>
-          <span>{this.props.column.itemIds}</span>
         <Droppable droppableId={this.props.column.id}>
           {(provided, snapshot) => (
             <DraggableList
