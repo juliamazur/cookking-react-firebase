@@ -93,8 +93,11 @@ class ScheduleContainer extends React.Component {
           const recipeId = scheduleItemData[key].recipeId;
           newItem.id = key;
           newItem.recipeId = recipeId;
-          newItem.name = data[recipeId].name;
-          newItem.imageUrl = data[recipeId].imageUrl;
+          if (data[recipeId]) {
+              newItem.name = data[recipeId].name;
+              newItem.imageUrl = data[recipeId].imageUrl;
+          }
+          
           newScheduleItems.push(newItem);
         }
 

@@ -202,16 +202,15 @@ class RecipeForm extends Component {
       return (
         <Grid container>
         <Grid item xs={12} lg={6}>
-        <ImageContainer>
-         {image}
-        <input
+        <ImageContainer>{image}</ImageContainer>
+            <h4>Edytuj obrazek</h4>
+            <input
             accept="image/*"
             id="button-file"
             multiple
             type="file"
             onChange={this.handleImageChange}
           />
-          </ImageContainer>
           </Grid>
           <Grid item xs={12} lg={6}>
         <FormControl fullWidth={true}>
@@ -236,6 +235,9 @@ class RecipeForm extends Component {
                   onChange={this.handleDescriptionChange}
                 />
           </FormControl>
+              <Button className={classes.button} variant="contained" color="primary" onClick={this.handleFormSubmit}>
+                  Zapisz
+              </Button>
         </Grid>
         </Grid>
       );
@@ -253,9 +255,7 @@ class RecipeForm extends Component {
       <div className="recipe-form-placeholder">
           <Paper className={classes.container}>
             {this.renderAddForm(classes)}
-            <Button className={classes.button} variant="contained" color="primary" onClick={this.handleFormSubmit}>
-              Zapisz
-            </Button>
+
           </Paper>
         </div>
     );

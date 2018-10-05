@@ -40,12 +40,14 @@ class AddIngredient extends React.Component {
   render() {
     return (
       <div>
-      <ul>
-          {this.state.ingredients.map(ingredient => {
-            return (<li key={ingredient}>{ingredient}</li>)
-          })
-        }
-      </ul>
+          {this.state.ingredients ? (
+              <ul>
+                  {this.state.ingredients.map(ingredient => {
+                      return (<li key={ingredient}>{this.state.allIngredients.filter(v => v.id === ingredient)[0].name}</li>)
+                  })
+                  }
+              </ul>
+          ) : ('')}
       <FormControl fullWidth={true}>
         <InputLabel shrink htmlFor="age-label-placeholder">
           Składniki
