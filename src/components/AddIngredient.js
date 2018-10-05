@@ -5,6 +5,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import ingredientsJson from '../fixtures/ingredients.json';
 
@@ -41,12 +46,18 @@ class AddIngredient extends React.Component {
     return (
       <div>
           {this.state.ingredients ? (
-              <ul>
+              <List component="nav">
                   {this.state.ingredients.map(ingredient => {
-                      return (<li key={ingredient}>{this.state.allIngredients.filter(v => v.id === ingredient)[0].name}</li>)
+                      return (
+                          <ListItem button key={ingredient}>
+                              <ListItemIcon><ClearIcon/></ListItemIcon>
+                          {this.state.allIngredients.filter(v => v.id === ingredient)[0].name}
+                          </ListItem>
+                      )
                   })
                   }
-              </ul>
+              </List>
+
           ) : ('')}
       <FormControl fullWidth={true}>
         <InputLabel shrink htmlFor="age-label-placeholder">
@@ -57,13 +68,10 @@ class AddIngredient extends React.Component {
               onChange={this.handleChange('ingredient')}
               input={<Input id="ingredient" />}
             >
-            <MenuItem value="">
-                    <em>Wybierz</em>
-                  </MenuItem>
-                    {this.state.allIngredients.map(ingredient => {
-                      return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
-                    })
-                  }
+              {this.state.allIngredients.map(ingredient => {
+                return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
+              })
+             }
                 </Select>
         </FormControl>
       </div>
