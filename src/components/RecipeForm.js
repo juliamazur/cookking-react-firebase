@@ -43,6 +43,17 @@ const styles = theme => ({
     maxWidth: '80%',
     marginTop: 20,
     marginBottom: 10,
+    borderRadius: 10,
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+  },
+  mainImageDummy: {
+    maxWidth: '70%',
+      marginTop: 20,
+      marginBottom: 10,
+      borderRadius: 10,
+      boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    padding: '5%',
+    opacity: '0.9',
   },
   cardTitle: {
   }
@@ -71,7 +82,7 @@ const ImageContainer = styled.div`
     max-height: 300px;
     overflow: hidden;
     margin: 0 auto;
-    border-radius: 5px;
+    text-align: center;
 `;
 
 
@@ -196,7 +207,7 @@ class RecipeForm extends Component {
       if (this.state.imageUrl) {
         image = <img className={classes.mainImage} src={this.state.imageUrl} alt = ''/>;
       } else {
-        image = <img className={classes.mainImage} src="/static/images/icons/fried-rice.png" alt = ''/>;
+        image = <img className={classes.mainImageDummy} src="/static/images/icons/fried-rice.png" alt = ''/>;
       }
 
       return (
