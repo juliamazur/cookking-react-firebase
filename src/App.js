@@ -25,7 +25,7 @@ const theme = createMuiTheme({
 class App extends Component {
 
   state = {
-    recipeId: null,
+    editRecipeId: null,
     editRecipe: false,
     recipeList: {},
   };
@@ -46,7 +46,7 @@ class App extends Component {
     console.log('EDIT recipe App: ', id);
     this.setState({
       ...this.state,
-      recipeId: id,
+      editRecipeId: id,
       editRecipe: true,
      });
   };
@@ -55,7 +55,7 @@ class App extends Component {
     console.log('FORK recipe App: ', id);
     this.setState({
       ...this.state,
-      recipeId: id,
+      editRecipeId: id,
       editRecipe: false,
      });
   };
@@ -69,7 +69,7 @@ class App extends Component {
       <div className="App">
       <MuiThemeProvider theme={theme}>
         <Header/>
-        <RecipeForm id={this.state.recipeId} edit={this.state.editRecipe}/>
+        <RecipeForm id={this.state.editRecipeId} edit={this.state.editRecipe}/>
         <RecipeList recipeList={this.state.recipeList} appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
         <ScheduleContainer />
        </MuiThemeProvider>
