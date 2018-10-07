@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import compose from 'recompose/compose';
 
-// import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
@@ -14,17 +11,14 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 
-import { deleteRecipe } from "../actions";
-import { addScheduleItem } from "../actions";
-
 import ingredientsJson from '../fixtures/ingredients.json';
+import {recipeRef, scheduleItemRef} from "../config/firebase";
 
 const styles = theme => ({
   bigAvatar: {
@@ -75,17 +69,16 @@ class RecipeCardCompact extends Component {
   };
 
   deleteRecipe = id => {
-    const { deleteRecipe } = this.props;
-    deleteRecipe(id);
+    // TODO dont let to remove if used in current schedule
+      recipeRef.child(id).remove();
   };
 
   useRecipe = id => {
-    const { addScheduleItem } = this.props;
     const data = {
       recipeId: id,
     };
 
-    addScheduleItem(data);
+    scheduleItemRef.push().set(data);
   }
 
   render() {
@@ -151,9 +144,4 @@ class RecipeCardCompact extends Component {
  }
 }
 
-export default compose(
-  withStyles(styles, {
-    name: 'RecipeCardCompact',
-  }),
-  connect(null, { deleteRecipe, addScheduleItem }),
-)(RecipeCardCompact);
+export default withStyles(styles)(RecipeCardCompact);

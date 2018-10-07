@@ -1,25 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 
 import { storageRef } from '../config/firebase'
 import { recipeRef } from "../config/firebase";
 import md5 from 'md5';
-
-// import _ from "lodash";
 import { withStyles } from '@material-ui/core/styles';
-
-import * as actions from "../actions";
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-// import Input from '@material-ui/core/Input';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import Card from '@material-ui/core/Card';
-// import CardMedia from '@material-ui/core/CardMedia';
-import AddIcon from '@material-ui/icons/Add';
 
 import AddIngredient from './AddIngredient';
 import styled from "styled-components";
@@ -57,24 +47,6 @@ const styles = theme => ({
   },
   cardTitle: {
   }
-  // formControl: {
-  //   margin: theme.spacing.unit,
-  // },
-  // button: {
-  //   margin: theme.spacing.unit,
-  // },
-  // input: {
-  //   display: 'none',
-  // },
-  // card: {
-  //   maxWidth: 400,
-  //   margin: 'auto',
-  //   marginTop: 25,
-  // },
-  // media: {
-  //   height: 0,
-  //   paddingTop: '56.25%', // 16:9
-  // },
 });
 
 const ImageContainer = styled.div`
@@ -183,6 +155,14 @@ class RecipeForm extends Component {
     }
   };
 
+    addRecipe = newRecipe => {
+        recipeRef.push().set(newRecipe);
+    };
+
+    editRecipe = (id, data) => {
+        recipeRef.child(id).update(data);
+    };
+
   saveToDB = newImageUrl => {
     const data = {
       name: this.state.name,
@@ -192,9 +172,9 @@ class RecipeForm extends Component {
     };
 
     if (this.props.edit) {
-      this.props.editRecipe(this.props.id, data);
+      this.editRecipe(this.props.id, data);
     } else {
-      this.props.addRecipe(data);
+      this.addRecipe(data);
     }
 
     this.setInitialState();
@@ -254,10 +234,6 @@ class RecipeForm extends Component {
       );
   };
 
-  componentWillMount() {
-    //this.props.fetchRecipeList();
-  }
-
   render() {
 
     const { classes } = this.props;
@@ -273,10 +249,4 @@ class RecipeForm extends Component {
   }
 }
 
-const mapStateToProps = ({ data }) => {
-  return {
-    data
-  };
-};
-
-export default connect(mapStateToProps, actions)(withStyles(styles)(RecipeForm));
+export default withStyles(styles)(RecipeForm);

@@ -8,6 +8,8 @@ import Header from './components/Header';
 import RecipeForm from './components/RecipeForm';
 import RecipeList from "./components/RecipeList";
 import ScheduleContainer from "./components/Schedule";
+import {recipeRef} from "./config/firebase";
+
 
 const theme = createMuiTheme({
     palette: {
@@ -15,7 +17,7 @@ const theme = createMuiTheme({
             main: '#000',
         },
         secondary: {
-            main: '#24c628',
+            main: '#fce514',
         },
     },
 });
@@ -25,11 +27,25 @@ class App extends Component {
   state = {
     recipeId: null,
     editRecipe: false,
+    recipeList: {},
   };
+
+  fetchRecipeList = () => {
+        recipeRef.on("value", snapshot => {
+          console.log('fetch recipe list:');
+          console.log(snapshot.val());
+          const recipeList = snapshot.val();
+            this.setState({
+                ...this.state,
+                recipeList: recipeList,
+            });
+        });
+    };
 
   editRecipe = id => {
     console.log('EDIT recipe App: ', id);
     this.setState({
+      ...this.state,
       recipeId: id,
       editRecipe: true,
      });
@@ -38,10 +54,15 @@ class App extends Component {
   forkRecipe = id => {
     console.log('FORK recipe App: ', id);
     this.setState({
+      ...this.state,
       recipeId: id,
       editRecipe: false,
      });
   };
+
+  componentDidMount() {
+      this.fetchRecipeList();
+  }
 
   render() {
     return (
@@ -49,7 +70,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Header/>
         <RecipeForm id={this.state.recipeId} edit={this.state.editRecipe}/>
-        <RecipeList appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
+        <RecipeList recipeList={this.state.recipeList} appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
         <ScheduleContainer />
        </MuiThemeProvider>
       </div>
