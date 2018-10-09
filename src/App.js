@@ -24,16 +24,18 @@ const theme = createMuiTheme({
 
 class App extends Component {
 
-  state = {
-    editRecipeId: null,
-    editRecipe: false,
+  defaultState = {
+    pickedRecipe: null,
+    pickedRecipeId: null,
+    edit: false,
+    fork: false,
     recipeList: {},
   };
 
+  state = this.defaultState;
+
   fetchRecipeList = () => {
         recipeRef.on("value", snapshot => {
-          console.log('fetch recipe list:');
-          console.log(snapshot.val());
           const recipeList = snapshot.val();
             this.setState({
                 ...this.state,
@@ -44,20 +46,38 @@ class App extends Component {
 
   editRecipe = id => {
     console.log('EDIT recipe App: ', id);
+    const pickedRecipe = {...this.state.recipeList[id]};
     this.setState({
       ...this.state,
-      editRecipeId: id,
-      editRecipe: true,
+        pickedRecipeId: id,
+        pickedRecipe: pickedRecipe,
+        edit: true,
+        fork: false,
      });
   };
 
   forkRecipe = id => {
     console.log('FORK recipe App: ', id);
+      const pickedRecipe = {...this.state.recipeList[id]};
     this.setState({
       ...this.state,
-      editRecipeId: id,
-      editRecipe: false,
+      pickedRecipeId: id,
+      pickedRecipe: pickedRecipe,
+      edit: false,
+      fork: true,
      });
+  };
+
+
+  clearForm = () => {
+      // TODO blokuje oodswiezenie listy przepisow :(
+      // this.setState({
+      //     ...this.state,
+      //     pickedRecipeId: null,
+      //     pickedRecipe: null,
+      //     edit: false,
+      //     fork: false,
+      // });
   };
 
   componentDidMount() {
@@ -69,8 +89,18 @@ class App extends Component {
       <div className="App">
       <MuiThemeProvider theme={theme}>
         <Header/>
-        <RecipeForm id={this.state.editRecipeId} edit={this.state.editRecipe}/>
-        <RecipeList recipeList={this.state.recipeList} appEditCallback={this.editRecipe} appForkCallback={this.forkRecipe}/>
+        <RecipeForm
+            id={this.state.pickedRecipeId}
+            recipe={this.state.pickedRecipe}
+            fork={this.state.fork}
+            edit={this.state.edit}
+            callbackClearForm={this.clearForm}
+        />
+        <RecipeList
+            recipeList={this.state.recipeList}
+            appEditCallback={this.editRecipe}
+            appForkCallback={this.forkRecipe}
+        />
         <ScheduleContainer />
        </MuiThemeProvider>
       </div>

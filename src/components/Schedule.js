@@ -11,7 +11,7 @@ import {scheduleItemRef, recipeRef} from "../config/firebase";
 const Container = styled.div`
   background-color: #fff;
   display: flex;
-  max-width: 90%;
+  max-width: 98%;
   margin: 30px auto;
 `;
 
