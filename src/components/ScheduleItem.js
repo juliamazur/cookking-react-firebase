@@ -5,6 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const Container = styled.div`
 `;
@@ -25,6 +26,7 @@ class Item extends React.Component {
           >
           <CardContainer>
             <Card>
+              <ClearIcon onClick={this.props.parentHandleDelete(this.props.item.id)}/>
               <CardHeader
                 avatar={
                   <Avatar

@@ -17,34 +17,113 @@ const Container = styled.div`
 
 class ScheduleContainer extends React.Component {
 
-    state = initialData;
+    state = {
+        items: [],
+        columns: initialData.columns,
+        columnOrder: initialData.columnOrder,
+    };
 
-    fetchList = () => {
-        scheduleItemRef.on("child_added", snapshot => {
-            let item = {};
-            item.id = snapshot.key;
-            item.recipeId = snapshot.val().recipeId;
-            recipeRef.child(item.recipeId).once('value', recipe => {
-              // TODO clean up the mess
-              if (recipe.val()) {
-                  item.imageUrl = recipe.val().imageUrl;
+
+    onDragEnd = result => {
+        const { destination, source, draggableId } = result;
+
+        if (!destination) {
+            return;
+        }
+
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return;
+        }
+
+        const start = this.state.columns[source.droppableId];
+        const finish = this.state.columns[destination.droppableId];
+
+        if (start === finish) {
+            const newItemIds = Array.from(start.itemIds);
+            newItemIds.splice(source.index, 1);
+            newItemIds.splice(destination.index, 0, draggableId);
+
+            const newColumn = {
+                ...start,
+                itemIds: newItemIds,
+            };
+
+            const newState = {
+                ...this.state,
+                columns: {
+                    ...this.state.columns,
+                    [newColumn.id]: newColumn,
+                },
+            };
+            this.setState(newState);
+            return;
+        }
+
+        const startitemIds = Array.from(start.itemIds);
+        startitemIds.splice(source.index, 1);
+        const newStart = {
+            ...start,
+            itemIds: startitemIds,
+        };
+
+        const finishitemIds = Array.from(finish.itemIds);
+        finishitemIds.splice(destination.index, 0, draggableId);
+        const newFinish = {
+            ...finish,
+            itemIds: finishitemIds,
+        };
+
+        const newState = {
+            ...this.state,
+            columns: {
+                ...this.state.columns,
+                [newStart.id]: newStart,
+                [newFinish.id]: newFinish,
+            },
+        };
+        this.setState(newState);
+        return;
+    }
+
+
+    fetchItems = () => {
+            scheduleItemRef.on("child_added", snapshot => {
+                let item = snapshot.val();
+                item.id = snapshot.key;
+                recipeRef.child(item.recipeId).once('value', recipe => {
+
+                  let items = this.state.items.slice();
+                  let columns = {...this.state.columns};
+
                   item.name = recipe.val().name;
-              }
-              let columns = this.state.columns;
-              columns['column-0'].itemIds.push(item.id);
-              columns['column-0'].items.push(item);
+                  item.imageUrl = recipe.val().imageUrl;
+                  items.push(item);
+                  columns['column-0'].itemIds.push(item.id);
 
-                this.setState({
-                    ...this.state,
-                    columns: columns,
+                  this.setState({
+                      items: items,
+                      columns: columns,
+                  });
                 });
             });
-        });
+            scheduleItemRef.on("child_removed", snapshot => {
+               console.log('Schedule item removed: ' + snapshot.key);
+                let items = this.state.items.slice();
+                this.setState({ items: items.filter(el => el.id !== snapshot.key) });
+           });
+    };
+
+    handleItemDelete = id => (event) => {
+        console.log('Schedule item will be removed: ' + id);
+        scheduleItemRef.child(id).remove();
     };
 
     componentDidMount() {
-      this.fetchList();
-    }
+      this.fetchItems();
+    };
 
     render() {
         return (
@@ -54,9 +133,11 @@ class ScheduleContainer extends React.Component {
                   {
                     this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
-                        const items = column.items;
-
-                        return <ScheduleColumn key={column.id} column={column} items={items}/>;
+                        return <ScheduleColumn
+                            key={column.id}
+                            column={column}
+                            items={this.state.items}
+                            parentHandleDelete={this.handleItemDelete}/>;
                     })
                   }
               </Container>

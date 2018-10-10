@@ -123,7 +123,7 @@ class RecipeForm extends React.Component {
 
     handleIngredientDelete = id => () => {
         this.setState(prevState => ({
-            ingredients: prevState.ingredients.filter(el => el !== id )
+            ingredients: prevState.ingredients.filter(el => el !== id)
         }));
     };
 

@@ -25,7 +25,23 @@ const DraggableList = styled.div`
 
 class ScheduleColumn extends React.Component {
 
+    // TODO refactor
+    getItems = () => {
+        let items = [];
+        this.props.column.itemIds.forEach((id) => {
+            this.props.items.forEach((item) => {
+                if (item.id === id) {
+                    items.push(item);
+                }
+            });
+        });
+        return items;
+    }
+
   render() {
+
+     const items = this.getItems();
+
     return (
       <Container>
         <Title>{this.props.column.title}</Title>
@@ -36,8 +52,15 @@ class ScheduleColumn extends React.Component {
               innerRef={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-              {this.props.items.map((item, index)  => <Item  key={item.id} item={item} index={index} />)}
-              {provided.placeholder}
+                {items.map((item, index)  =>
+                    <Item
+                        key={item.id}
+                        item={item}
+                        index={index}
+                        parentHandleDelete={this.props.parentHandleDelete}
+                    />
+                )}
+                {provided.placeholder}
             </DraggableList>
           )}
 

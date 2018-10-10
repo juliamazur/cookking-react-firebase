@@ -73,6 +73,7 @@ class RecipeCardCompact extends Component {
       recipeRef.child(id).remove();
   };
 
+  // TODO should be passed as callback to App
   useRecipe = id => {
     const data = {
       recipeId: id,
