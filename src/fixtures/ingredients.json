@@ -1,78 +1,296 @@
 [
 	{
-		"id" : 9,
-		"name" : "batat"
-	},
-	{
-		"id" : 5,
-		"name" : "buraki"
-	},
-	{
-		"id" : 3,
-		"name" : "cebula"
-	},
-	{
-		"id" : 4,
-		"name" : "czosnek"
-	},
-	{
-		"id" : 6,
-		"name" : "dynia"
-	},
-	{
-		"id" : 18,
-		"name" : "grzyby mun suszone"
-	},
-	{
-		"id" : 19,
-		"name" : "grzyby shitake suszone"
-	},
-	{
-		"id" : 15,
-		"name" : "kotlety sojowe"
-	},
-	{
 		"id" : 1,
-		"name" : "makaron kokardki"
+		"name" : "makaron kokardki",
+		"category_code" : "PASTA",
+		"alt_name" : "farfalle"
 	},
 	{
 		"id" : 2,
-		"name" : "makaron razowy spaghetti"
+		"name" : "makaron razowy spaghetti",
+		"category_code" : "PASTA",
+		"alt_name" : ""
 	},
 	{
-		"id" : 10,
-		"name" : "mascarpone"
+		"id" : 3,
+		"name" : "cebula",
+		"category_code" : "VEG",
+		"alt_name" : ""
 	},
 	{
-		"id" : 14,
-		"name" : "oliwki czarne"
+		"id" : 4,
+		"name" : "czosnek",
+		"category_code" : "VEG",
+		"alt_name" : ""
 	},
 	{
-		"id" : 13,
-		"name" : "oliwki zielone"
+		"id" : 5,
+		"name" : "buraki",
+		"category_code" : "VEG",
+		"alt_name" : ""
 	},
 	{
-		"id" : 12,
-		"name" : "parmezan"
-	},
-	{
-		"id" : 17,
-		"name" : "podgrzybki suszone"
-	},
-	{
-		"id" : 16,
-		"name" : "prawdziwki suszone"
-	},
-	{
-		"id" : 11,
-		"name" : "śmietanka 30%"
-	},
-	{
-		"id" : 8,
-		"name" : "szpinak"
+		"id" : 6,
+		"name" : "dynia",
+		"category_code" : "VEG",
+		"alt_name" : ""
 	},
 	{
 		"id" : 7,
-		"name" : "ziemniaki"
+		"name" : "ziemniaki",
+		"category_code" : "VEG",
+		"alt_name" : "kartofle"
+	},
+	{
+		"id" : 8,
+		"name" : "szpinak",
+		"category_code" : "VEG",
+		"alt_name" : ""
+	},
+	{
+		"id" : 9,
+		"name" : "batat",
+		"category_code" : "VEG",
+		"alt_name" : "słodki ziemniak"
+	},
+	{
+		"id" : 10,
+		"name" : "mascarpone",
+		"category_code" : "DAIRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 11,
+		"name" : "śmietanka 30%",
+		"category_code" : "DAIRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 12,
+		"name" : "parmezan",
+		"category_code" : "DAIRY",
+		"alt_name" : "parmigiano reggiano"
+	},
+	{
+		"id" : 13,
+		"name" : "oliwki zielone",
+		"category_code" : "JAR",
+		"alt_name" : ""
+	},
+	{
+		"id" : 14,
+		"name" : "oliwki czarne",
+		"category_code" : "JAR",
+		"alt_name" : ""
+	},
+	{
+		"id" : 15,
+		"name" : "kotlety sojowe",
+		"category_code" : "DRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 16,
+		"name" : "prawdziwki suszone",
+		"category_code" : "DRY",
+		"alt_name" : "borowiki suszone"
+	},
+	{
+		"id" : 17,
+		"name" : "podgrzybki suszone",
+		"category_code" : "DRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 18,
+		"name" : "grzyby mun suszone",
+		"category_code" : "DRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 19,
+		"name" : "grzyby shitake suszone",
+		"category_code" : "DRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 20,
+		"name" : "ryż biały",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 21,
+		"name" : "ryż brązowy",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 22,
+		"name" : "ryż jaśminowy",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 23,
+		"name" : "ryż do rizotto",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 24,
+		"name" : "ryż do sushi",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 25,
+		"name" : "ryż długoziarnisty",
+		"category_code" : "RICE",
+		"alt_name" : ""
+	},
+	{
+		"id" : 26,
+		"name" : "kolendra świeża",
+		"category_code" : "HERBS",
+		"alt_name" : ""
+	},
+	{
+		"id" : 27,
+		"name" : "bazylia świeża",
+		"category_code" : "HERBS",
+		"alt_name" : ""
+	},
+	{
+		"id" : 28,
+		"name" : "mięta świeża",
+		"category_code" : "HERBS",
+		"alt_name" : ""
+	},
+	{
+		"id" : 29,
+		"name" : "szczypiorek",
+		"category_code" : "VEG",
+		"alt_name" : ""
+	},
+	{
+		"id" : 30,
+		"name" : "koperek",
+		"category_code" : "VEG",
+		"alt_name" : ""
+	},
+	{
+		"id" : 31,
+		"name" : "natka pietruszki",
+		"category_code" : "VEG",
+		"alt_name" : ""
+	},
+	{
+		"id" : 32,
+		"name" : "orzechy nerkowca",
+		"category_code" : "NUTS",
+		"alt_name" : "nerkowce"
+	},
+	{
+		"id" : 33,
+		"name" : "orzechy włoskie",
+		"category_code" : "NUTS",
+		"alt_name" : ""
+	},
+	{
+		"id" : 34,
+		"name" : "orzechy laskowe",
+		"category_code" : "NUTS",
+		"alt_name" : ""
+	},
+	{
+		"id" : 35,
+		"name" : "orzeszki ziemne",
+		"category_code" : "NUTS",
+		"alt_name" : "fistaszki"
+	},
+	{
+		"id" : 36,
+		"name" : "jajka",
+		"category_code" : "DAIRY",
+		"alt_name" : "jaja kurze"
+	},
+	{
+		"id" : 37,
+		"name" : "jajka przepiórcze",
+		"category_code" : "DAIRY",
+		"alt_name" : ""
+	},
+	{
+		"id" : 38,
+		"name" : "olej rzepakowy",
+		"category_code" : "OIL",
+		"alt_name" : ""
+	},
+	{
+		"id" : 39,
+		"name" : "oliwa z oliwek",
+		"category_code" : "OIL",
+		"alt_name" : ""
+	},
+	{
+		"id" : 40,
+		"name" : "kukurydza w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 41,
+		"name" : "groszek w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 42,
+		"name" : "ciecierzyca w puszce",
+		"category_code" : "CAN",
+		"alt_name" : "cieciorka w puszce"
+	},
+	{
+		"id" : 43,
+		"name" : "pomidory w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 44,
+		"name" : "fasola biała w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 45,
+		"name" : "fasola czerwona w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 46,
+		"name" : "ananas w puszce",
+		"category_code" : "CAN",
+		"alt_name" : ""
+	},
+	{
+		"id" : 47,
+		"name" : "kapusta kiszona",
+		"category_code" : "PICKLE",
+		"alt_name" : "kapusta kwaszona"
+	},
+	{
+		"id" : 48,
+		"name" : "ogórki kiszone",
+		"category_code" : "PICKLE",
+		"alt_name" : "ogórki kwaszone"
+	},
+	{
+		"id" : 49,
+		"name" : "ogórki konserwowe",
+		"category_code" : "PICKLE",
+		"alt_name" : ""
 	}
 ]

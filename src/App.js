@@ -180,6 +180,7 @@ class App extends Component {
             console.log('Schedule item removed: ' + snapshot.key);
             let items = this.state.scheduleItems.slice();
             this.setState({ scheduleItems: items.filter(el => el.id !== snapshot.key) });
+            // TODO shopping list update
         });
     };
 
