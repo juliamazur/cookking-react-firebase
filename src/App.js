@@ -7,7 +7,8 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import Header from './components/Header';
 import RecipeForm from './components/RecipeForm';
 import RecipeList from "./components/RecipeList";
-import ScheduleContainer from "./components/Schedule";
+import Schedule from "./components/Schedule";
+import ShoppingList from "./components/ShoppingList";
 import {recipeRef} from "./config/firebase";
 
 
@@ -30,6 +31,7 @@ class App extends Component {
     edit: false,
     fork: false,
     recipeList: {},
+    shoppingList: {},
   };
 
   state = this.defaultState;
@@ -70,7 +72,7 @@ class App extends Component {
 
 
   clearForm = () => {
-      // TODO blokuje oodswiezenie listy przepisow :(
+      // TODO blokuje odswiezenie listy przepisow :(
       // this.setState({
       //     ...this.state,
       //     pickedRecipeId: null,
@@ -101,7 +103,10 @@ class App extends Component {
             appEditCallback={this.editRecipe}
             appForkCallback={this.forkRecipe}
         />
-        <ScheduleContainer />
+        <Schedule />
+        <ShoppingList
+            shoppingList={this.state.shoppingList}
+        />
        </MuiThemeProvider>
       </div>
     );

@@ -15,7 +15,7 @@ const Container = styled.div`
   margin: 30px auto;
 `;
 
-class ScheduleContainer extends React.Component {
+class Schedule extends React.Component {
 
     state = {
         items: [],
@@ -149,4 +149,4 @@ class ScheduleContainer extends React.Component {
 
 }
 
-export default ScheduleContainer;
+export default Schedule;
