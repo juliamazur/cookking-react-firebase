@@ -29,6 +29,7 @@ class Schedule extends React.Component {
                             key={column.id}
                             column={column}
                             items={this.props.items}
+                            recipeList={this.props.recipeList}
                             parentHandleDelete={this.props.handleItemDelete}/>;
                     })
                   }

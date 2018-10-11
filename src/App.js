@@ -44,7 +44,6 @@ class App extends Component {
         recipeRef.on("value", snapshot => {
           const recipeList = snapshot.val();
             this.setState({
-                ...this.state,
                 recipeList: recipeList,
             });
         });
@@ -54,7 +53,6 @@ class App extends Component {
     console.log('EDIT recipe App: ', id);
     const pickedRecipe = {...this.state.recipeList[id]};
     this.setState({
-      ...this.state,
         pickedRecipeId: id,
         pickedRecipe: pickedRecipe,
         edit: true,
@@ -66,7 +64,6 @@ class App extends Component {
     console.log('FORK recipe App: ', id);
       const pickedRecipe = {...this.state.recipeList[id]};
     this.setState({
-      ...this.state,
       pickedRecipeId: id,
       pickedRecipe: pickedRecipe,
       edit: false,
@@ -76,14 +73,12 @@ class App extends Component {
 
 
   clearForm = () => {
-      // TODO blokuje odswiezenie listy przepisow :(
-      // this.setState({
-      //     ...this.state,
-      //     pickedRecipeId: null,
-      //     pickedRecipe: null,
-      //     edit: false,
-      //     fork: false,
-      // });
+      this.setState({
+          pickedRecipeId: null,
+          pickedRecipe: null,
+          edit: false,
+          fork: false,
+      });
   };
 
     onScheduleDragEnd = result => {
@@ -157,30 +152,27 @@ class App extends Component {
             recipeRef.child(item.recipeId).once('value', recipe => {
 
                 let items = this.state.scheduleItems.slice();
-                let shoppingList = this.state.shoppingList.slice();
                 let columns = {...this.state.scheduleColumns};
 
-                item.name = recipe.val().name;
-                item.imageUrl = recipe.val().imageUrl;
+                item.recipe = recipe.val();
                 items.push(item);
                 columns['column-0'].itemIds.push(item.id);
-
-                const unique = (value, index, self) => {
-                    return self.indexOf(value) === index;
-                }
 
                 this.setState({
                     scheduleItems: items,
                     scheduleColumns: columns,
-                    shoppingList: shoppingList.concat(recipe.val().ingredients).filter(unique),
+                    shoppingList: this.getShoppingList(items),
                 });
             });
         });
+
         scheduleItemRef.on("child_removed", snapshot => {
             console.log('Schedule item removed: ' + snapshot.key);
             let items = this.state.scheduleItems.slice();
-            this.setState({ scheduleItems: items.filter(el => el.id !== snapshot.key) });
-            // TODO shopping list update
+            this.setState({
+                scheduleItems: items.filter(el => el.id !== snapshot.key),
+                shoppingList: this.getShoppingList(items),
+            });
         });
     };
 
@@ -188,6 +180,22 @@ class App extends Component {
         console.log('Schedule item will be removed: ' + id);
         scheduleItemRef.child(id).remove();
     };
+
+    getShoppingList = (scheduleItems) => {
+
+        const unique = (value, index, self) => {
+            return self.indexOf(value) === index;
+        };
+
+        let shoppingList = [];
+
+
+        scheduleItems.map((item) => {
+            shoppingList = shoppingList.concat(item.recipe.ingredients);
+        });
+
+        return shoppingList.filter(unique);
+    }
 
     componentDidMount() {
       this.fetchRecipeList();
@@ -213,6 +221,7 @@ class App extends Component {
         />
         <Schedule
             items={this.state.scheduleItems}
+            recipeList={this.state.recipeList}
             columns={this.state.scheduleColumns}
             columnOrder={this.state.scheduleColumnOrder}
             onDragEnd={this.onScheduleDragEnd}

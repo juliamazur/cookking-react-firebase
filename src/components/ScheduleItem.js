@@ -16,7 +16,7 @@ const CardContainer = styled.div`
 class Item extends React.Component {
   render() {
     return (
-      <Draggable draggableId={this.props.item.id} index={this.props.index}>
+      <Draggable draggableId={this.props.item.recipe.id} index={this.props.index}>
         {(provided, snapshot) => (
           <Container
             {...provided.draggableProps}
@@ -26,15 +26,15 @@ class Item extends React.Component {
           >
           <CardContainer>
             <Card>
-              <ClearIcon onClick={this.props.parentHandleDelete(this.props.item.id)}/>
+              <ClearIcon onClick={this.props.parentHandleDelete(this.props.item.recipe.id)}/>
               <CardHeader
                 avatar={
                   <Avatar
                     alt=''
-                    src={this.props.item.imageUrl}
+                    src={this.props.item.recipe.imageUrl}
                   />
                 }
-                title={this.props.item.name}
+                title={this.props.item.recipe.name}
               />
             </Card>
             </CardContainer>
