@@ -35,7 +35,7 @@ class App extends Component {
     scheduleItems: [],
     scheduleColumns: initialScheduleData.columns,
     scheduleColumnOrder: initialScheduleData.columnOrder,
-    shoppingList: {},
+    shoppingList: [],
   };
 
   state = this.defaultState;
@@ -157,6 +157,7 @@ class App extends Component {
             recipeRef.child(item.recipeId).once('value', recipe => {
 
                 let items = this.state.scheduleItems.slice();
+                let shoppingList = this.state.shoppingList.slice();
                 let columns = {...this.state.scheduleColumns};
 
                 item.name = recipe.val().name;
@@ -164,9 +165,14 @@ class App extends Component {
                 items.push(item);
                 columns['column-0'].itemIds.push(item.id);
 
+                const unique = (value, index, self) => {
+                    return self.indexOf(value) === index;
+                }
+
                 this.setState({
                     scheduleItems: items,
                     scheduleColumns: columns,
+                    shoppingList: shoppingList.concat(recipe.val().ingredients).filter(unique),
                 });
             });
         });

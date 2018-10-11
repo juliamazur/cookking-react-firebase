@@ -87,7 +87,7 @@ class RecipeCardCompact extends Component {
     const { classes } = this.props;
 
     return (
-      <Grid item xs={12} lg={4}>
+      <Grid item xs={12} lg={3}>
       <Card className={classes.card}>
         <CardHeader
           avatar={
