@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 import ingredientsJson from '../fixtures/ingredients.json';
+import mealsJson from '../fixtures/meals.json';
 
 const styles = theme => ({
 
@@ -73,6 +74,8 @@ class RecipeForm extends React.Component {
         imageUrl: '',
         ingredient: '',
         ingredients: [],
+        meal: '',
+        meals: [],
         alert: null,
    };
 
@@ -94,7 +97,8 @@ class RecipeForm extends React.Component {
           name: this.props.recipe.name,
           description: this.props.recipe.description,
           imageUrl: this.props.recipe.imageUrl,
-          ingredients: this.props.recipe.ingredients,
+          ingredients: this.props.recipe.ingredients ? this.props.recipe.ingredients : [],
+          meals: this.props.recipe.meals ? this.props.recipe.meals : [],
       });
   }
 
@@ -121,9 +125,24 @@ class RecipeForm extends React.Component {
         this.setState({ ingredients: [...ingredients, event.target.value] });
     };
 
+    // TODO wtf
+    handleMealChange = name => event => {
+        if(this.state.meals.includes(event.target.value)) {
+            return;
+        }
+
+        this.setState({ meals: [...this.state.meals, event.target.value] });
+    };
+
     handleIngredientDelete = id => () => {
         this.setState(prevState => ({
             ingredients: prevState.ingredients.filter(el => el !== id)
+        }));
+    };
+
+    handleMealDelete = id => () => {
+        this.setState(prevState => ({
+            meals: prevState.meals.filter(el => el !== id)
         }));
     };
 
@@ -177,6 +196,7 @@ class RecipeForm extends React.Component {
             name: this.state.name,
             description: this.state.description,
             ingredients: this.state.ingredients,
+            meals: this.state.meals,
             imageUrl: newImageUrl ? newImageUrl : this.state.imageUrl,
         };
 
@@ -267,6 +287,39 @@ class RecipeForm extends React.Component {
                         >
                             {ingredientsJson.map(ingredient => {
                                 return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
+                            })
+                            }
+                        </Select>
+                    </FormControl>
+
+                    {
+                        this.state.meals ? (
+                            <List>
+                                {this.state.meals.map(meal => {
+                                    return (
+                                        <ListItem button key={meal}>
+                                            <ListItemIcon onClick={this.handleMealDelete(meal)}><ClearIcon/></ListItemIcon>
+                                            {mealsJson.filter(v => v.id === meal)[0].name}
+                                        </ListItem>
+                                    )
+                                })
+                                }
+                            </List>
+
+                        ) : ('')
+                    }
+
+                    <FormControl fullWidth={true}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                            Posiłki
+                        </InputLabel>
+                        <Select
+                            value={this.state.meal}
+                            onChange={this.handleMealChange()}
+                            input={<Input id="meal" />}
+                        >
+                            {mealsJson.map(meal => {
+                                return(<MenuItem key={meal.id} value={meal.id}>{meal.name}</MenuItem>)
                             })
                             }
                         </Select>
