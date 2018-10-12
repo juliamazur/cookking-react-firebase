@@ -6,7 +6,8 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeForm from './components/RecipeForm';
-import RecipeList from "./components/RecipeList";
+import RecipeListTabs from "./components/RecipeListTabs";
+import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./components/Schedule";
 import ShoppingList from "./components/ShoppingList";
 import {recipeRef, scheduleItemRef} from "./config/firebase";
@@ -195,7 +196,12 @@ class App extends Component {
             edit={this.state.edit}
             callbackClearForm={this.clearForm}
         />
-        <RecipeList
+          <RecipeLibrary
+              recipeList={this.state.recipeList}
+              appEditCallback={this.editRecipe}
+              appForkCallback={this.forkRecipe}
+          />
+        <RecipeListTabs
             recipeList={this.state.recipeList}
             appEditCallback={this.editRecipe}
             appForkCallback={this.forkRecipe}

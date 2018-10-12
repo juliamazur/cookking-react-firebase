@@ -15,10 +15,9 @@ import DeleteIcon from '@material-ui/icons/Delete';import EditIcon from '@materi
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import AddIcon from '@material-ui/icons/Add';
 
-import ingredientsJson from '../fixtures/ingredients.json';
-import {recipeRef, scheduleItemRef} from "../config/firebase";
+import ingredientsFixture from '../fixtures/ingredients.json';
+import {recipeRef} from "../config/firebase";
 
 const styles = theme => ({
   bigAvatar: {
@@ -73,15 +72,6 @@ class RecipeCardCompact extends Component {
       recipeRef.child(id).remove();
   };
 
-  // TODO should be passed as callback to App
-  useRecipe = id => {
-    const data = {
-      recipeId: id,
-    };
-
-    scheduleItemRef.push().set(data);
-  }
-
   render() {
     const { id, item } = this.props;
     const { classes } = this.props;
@@ -105,7 +95,7 @@ class RecipeCardCompact extends Component {
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {
-                  return (<li key={ingredient}>{ingredientsJson.filter(v => v.id === ingredient)[0].name}</li>)
+                  return (<li key={ingredient}>{ingredientsFixture.filter(v => v.id === ingredient)[0].name}</li>)
                 })
               }
             </ul>
@@ -124,9 +114,6 @@ class RecipeCardCompact extends Component {
             </IconButton>
             <IconButton aria-label="Fork" onClick={() => this.forkRecipe(id)}>
               <ShareIcon />
-            </IconButton>
-            <IconButton aria-label="Use" onClick={() => this.useRecipe(id)}>
-              <AddIcon />
             </IconButton>
             <IconButton
               className={classnames(classes.expand, {

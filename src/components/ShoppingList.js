@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-import ingredientsJson from '../fixtures/ingredients.json';
+import ingredientsFixture from '../fixtures/ingredients.json';
 
 const Container = styled.div`
   background-color: #fff;
@@ -47,7 +47,7 @@ render() {
                       {ingredients.map(ingredient => {
                           return (
                               <ListItem button key={ingredient}>
-                                  {ingredientsJson.filter(v => v.id === ingredient)[0].name}
+                                  {ingredientsFixture.filter(v => v.id === ingredient)[0].name}
                               </ListItem>
                           )
                       })

@@ -19,8 +19,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-import ingredientsJson from '../fixtures/ingredients.json';
-import mealsJson from '../fixtures/meals.json';
+import ingredientsFixture from '../fixtures/ingredients.json';
+import mealsFixture from '../fixtures/meals.json';
 
 const styles = theme => ({
 
@@ -264,7 +264,7 @@ class RecipeForm extends React.Component {
                                 return (
                                     <ListItem button key={ingredient}>
                                         <ListItemIcon onClick={this.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
-                                        {ingredientsJson.filter(v => v.id === ingredient)[0].name}
+                                        {ingredientsFixture.filter(v => v.id === ingredient)[0].name}
                                     </ListItem>
                                 )
                             })
@@ -285,7 +285,7 @@ class RecipeForm extends React.Component {
                             onChange={this.handleIngredientChange()}
                             input={<Input id="ingredient" />}
                         >
-                            {ingredientsJson.map(ingredient => {
+                            {ingredientsFixture.map(ingredient => {
                                 return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
                             })
                             }
@@ -299,7 +299,7 @@ class RecipeForm extends React.Component {
                                     return (
                                         <ListItem button key={meal}>
                                             <ListItemIcon onClick={this.handleMealDelete(meal)}><ClearIcon/></ListItemIcon>
-                                            {mealsJson.filter(v => v.id === meal)[0].name}
+                                            {mealsFixture.filter(v => v.id === meal)[0].name}
                                         </ListItem>
                                     )
                                 })
@@ -318,7 +318,7 @@ class RecipeForm extends React.Component {
                             onChange={this.handleMealChange()}
                             input={<Input id="meal" />}
                         >
-                            {mealsJson.map(meal => {
+                            {mealsFixture.map(meal => {
                                 return(<MenuItem key={meal.id} value={meal.id}>{meal.name}</MenuItem>)
                             })
                             }

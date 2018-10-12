@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import _ from "lodash";
-
-import RecipeCardCompact from "./RecipeCardCompact";
-
+import RecipeCardMini from "./RecipeCardMini";
 import Grid from '@material-ui/core/Grid';
 
 class RecipeList extends Component {
@@ -17,26 +14,41 @@ class RecipeList extends Component {
     this.props.appForkCallback(id);
   };
 
-  renderRecipiesCompact() {
-    const { recipeList } = this.props;
-    const recipies = _.map(recipeList, (value, key) => {
-      return <RecipeCardCompact key={key} id={key} item={value} callbackEditRecipe={this.editRecipe} callbackForkRecipe={this.forkRecipe}/>;
-    });
-    if (!_.isEmpty(recipies)) {
-      return recipies;
+  // TODO refactor
+  getRecipes = () => {
+    let recipeArray = [];
+    const recipeList = this.props.recipeList;
+
+    if(!recipeList) {
+      return recipeArray;
     }
-    return (
-      <div>
-        <h4>Nie masz jeszcze żadnych przepisów.</h4>
-      </div>
-    );
-  }
+
+      for (var key in recipeList) {
+          let item = recipeList[key];
+        if (item.meals.includes(this.props.mealId)) {
+           item.id = key;
+           recipeArray.push(item);
+        }
+      }
+
+      return recipeArray;
+  };
 
   render() {
     return (
       <div className="recipe-list-placeholder">
         <Grid container>
-          {this.renderRecipiesCompact()}
+          {
+              this.getRecipes().map((value, key) =>
+                  <RecipeCardMini
+                    key={key}
+                    id={value.id}
+                    item={value}
+                    callbackEditRecipe={this.editRecipe}
+                    callbackForkRecipe={this.forkRecipe}
+                  />
+              )
+          }
         </Grid>
       </div>
     );
