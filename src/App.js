@@ -35,7 +35,6 @@ class App extends Component {
     scheduleItems: [],
     scheduleColumns: initialScheduleData.columns,
     scheduleColumnOrder: initialScheduleData.columnOrder,
-    shoppingList: [],
   };
 
   state = this.defaultState;
@@ -161,7 +160,6 @@ class App extends Component {
                 this.setState({
                     scheduleItems: items,
                     scheduleColumns: columns,
-                    shoppingList: this.getShoppingList(items),
                 });
             });
         });
@@ -171,7 +169,6 @@ class App extends Component {
             let items = this.state.scheduleItems.slice();
             this.setState({
                 scheduleItems: items.filter(el => el.id !== snapshot.key),
-                shoppingList: this.getShoppingList(items),
             });
         });
     };
@@ -180,22 +177,6 @@ class App extends Component {
         console.log('Schedule item will be removed: ' + id);
         scheduleItemRef.child(id).remove();
     };
-
-    getShoppingList = (scheduleItems) => {
-
-        const unique = (value, index, self) => {
-            return self.indexOf(value) === index;
-        };
-
-        let shoppingList = [];
-
-
-        scheduleItems.map((item) => {
-            shoppingList = shoppingList.concat(item.recipe.ingredients);
-        });
-
-        return shoppingList.filter(unique);
-    }
 
     componentDidMount() {
       this.fetchRecipeList();
@@ -228,7 +209,8 @@ class App extends Component {
             handleItemDelete={this.handleScheduleItemDelete}
         />
         <ShoppingList
-            shoppingList={this.state.shoppingList}
+            scheduleItems={this.state.scheduleItems}
+            recipeList={this.state.recipeList}
         />
        </MuiThemeProvider>
       </div>

@@ -15,16 +15,36 @@ const Container = styled.div`
 
 class AddIngredient extends React.Component {
 
+    getIngredients = () => {
+
+    let ingredients = [];
+    if(this.props.scheduleItems.length < 1) {
+        return ingredients;
+    }
+
+    const unique = (value, index, self) => {
+        return self.indexOf(value) === index;
+    };
+
+    this.props.scheduleItems.map(item => {
+        const recipe = this.props.recipeList[item.recipeId];
+        ingredients = ingredients.concat(recipe.ingredients);
+        return ingredients;
+    });
+
+    return ingredients.filter(unique);
+}
+
 render() {
-    const { classes } = this.props;
+    const ingredients = this.getIngredients();
 
     return (
       <Container>
           <h3>Lista zakupów</h3>
           {
-              this.props.shoppingList ? (
+              ingredients ? (
                   <List>
-                      {this.props.shoppingList.map(ingredient => {
+                      {ingredients.map(ingredient => {
                           return (
                               <ListItem button key={ingredient}>
                                   {ingredientsJson.filter(v => v.id === ingredient)[0].name}

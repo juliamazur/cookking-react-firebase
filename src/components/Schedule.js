@@ -5,9 +5,6 @@ import styled from 'styled-components';
 
 import ScheduleColumn from './ScheduleColumn'
 
-import {scheduleItemRef, recipeRef} from "../config/firebase";
-
-
 const Container = styled.div`
   background-color: #fff;
   display: flex;
