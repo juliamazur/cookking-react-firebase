@@ -47,7 +47,7 @@ render() {
                       {ingredients.map(ingredient => {
                           return (
                               <ListItem button key={ingredient}>
-                                  {ingredientsFixture.filter(v => v.id === ingredient)[0].name}
+                                  {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
                               </ListItem>
                           )
                       })
