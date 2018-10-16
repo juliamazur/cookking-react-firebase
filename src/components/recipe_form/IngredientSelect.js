@@ -22,7 +22,7 @@ class IngredientSelect extends React.Component {
                 input={<Input id="ingredient" />}
             >
                 {ingredientsFixture.map(ingredient => {
-                    return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
+                    return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.label}</MenuItem>)
                 })
                 }
             </Select>

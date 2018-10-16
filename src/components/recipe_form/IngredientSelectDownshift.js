@@ -91,9 +91,6 @@ const styles = theme => ({
         left: 0,
         right: 0,
     },
-    chip: {
-        margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-    },
     inputRoot: {
         flexWrap: 'wrap',
     },
@@ -101,16 +98,14 @@ const styles = theme => ({
         width: 'auto',
         flexGrow: 1,
     },
-    divider: {
-        height: theme.spacing.unit * 2,
-    },
 });
 
 function IntegrationDownshift(props) {
     const { classes } = props;
+    const { handleDownshiftIngredientChange } = props;
 
     return (
-            <Downshift id="downshift-simple">
+            <Downshift onChange={handleDownshiftIngredientChange} id="downshift-simple">
                 {({
                       getInputProps,
                       getItemProps,

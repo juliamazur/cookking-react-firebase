@@ -112,6 +112,11 @@ class RecipeForm extends React.Component {
         this.setState({ description: event.target.value });
     };
 
+    handleDownshiftIngredientChange = label => {
+        alert(label);
+    };
+
+
     // TODO wtf
     handleIngredientChange = event => {
         const ingredients = this.state.ingredients;
@@ -266,7 +271,7 @@ class RecipeForm extends React.Component {
                                 return (
                                     <ListItem button key={ingredient}>
                                         <ListItemIcon onClick={this.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
-                                        {ingredientsFixture.filter(v => v.id === ingredient)[0].name}
+                                        {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
                                     </ListItem>
                                 )
                             })
@@ -282,7 +287,9 @@ class RecipeForm extends React.Component {
                         ingredient={this.state.ingredient}
                         handleIngredientChange={this.handleIngredientChange}
                     />
-                    <IntegrationDownshift/>
+                    <IntegrationDownshift
+                        handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
+                    />
 
                     {
                         this.state.meals ? (
