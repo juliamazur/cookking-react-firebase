@@ -1,578 +1,578 @@
 [
 	{
 		"id" : 46,
-		"name" : "ananas w puszce",
+		"label" : "ananas w puszce",
 		"id" : 46,
-		"name" : "ananas w puszce",
+		"label" : "ananas w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 66,
-		"name" : "avocado",
+		"label" : "avocado",
 		"id" : 66,
-		"name" : "avocado",
+		"label" : "avocado",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 9,
-		"name" : "batat",
+		"label" : "batat",
 		"id" : 9,
-		"name" : "batat",
+		"label" : "batat",
 		"category_code" : "VEG",
-		"alt_name" : "słodki ziemniak"
+		"alt_label" : "słodki ziemniak"
 	},
 	{
 		"id" : 27,
-		"name" : "bazylia świeża",
+		"label" : "bazylia świeża",
 		"id" : 27,
-		"name" : "bazylia świeża",
+		"label" : "bazylia świeża",
 		"category_code" : "HERBS",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 55,
-		"name" : "boczniaki",
+		"label" : "boczniaki",
 		"id" : 55,
-		"name" : "boczniaki",
+		"label" : "boczniaki",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 5,
-		"name" : "buraki",
+		"label" : "buraki",
 		"id" : 5,
-		"name" : "buraki",
+		"label" : "buraki",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 3,
-		"name" : "cebula",
+		"label" : "cebula",
 		"id" : 3,
-		"name" : "cebula",
+		"label" : "cebula",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 42,
-		"name" : "ciecierzyca w puszce",
+		"label" : "ciecierzyca w puszce",
 		"id" : 42,
-		"name" : "ciecierzyca w puszce",
+		"label" : "ciecierzyca w puszce",
 		"category_code" : "CAN",
-		"alt_name" : "cieciorka w puszce"
+		"alt_label" : "cieciorka w puszce"
 	},
 	{
 		"id" : 74,
-		"name" : "cytryna",
+		"label" : "cytryna",
 		"id" : 74,
-		"name" : "cytryna",
+		"label" : "cytryna",
 		"category_code" : "FRUIT",
-		"alt_name" : "cytryny"
+		"alt_label" : "cytryny"
 	},
 	{
 		"id" : 4,
-		"name" : "czosnek",
+		"label" : "czosnek",
 		"id" : 4,
-		"name" : "czosnek",
+		"label" : "czosnek",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 60,
-		"name" : "daktyle",
+		"label" : "daktyle",
 		"id" : 60,
-		"name" : "daktyle",
+		"label" : "daktyle",
 		"category_code" : "DEL",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 6,
-		"name" : "dynia",
+		"label" : "dynia",
 		"id" : 6,
-		"name" : "dynia",
+		"label" : "dynia",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 44,
-		"name" : "fasola biała w puszce",
+		"label" : "fasola biała w puszce",
 		"id" : 44,
-		"name" : "fasola biała w puszce",
+		"label" : "fasola biała w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 45,
-		"name" : "fasola czerwona w puszce",
+		"label" : "fasola czerwona w puszce",
 		"id" : 45,
-		"name" : "fasola czerwona w puszce",
+		"label" : "fasola czerwona w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 52,
-		"name" : "garam masala",
+		"label" : "garam masala",
 		"id" : 52,
-		"name" : "garam masala",
+		"label" : "garam masala",
 		"category_code" : "SEASONING",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 41,
-		"name" : "groszek w puszce",
+		"label" : "groszek w puszce",
 		"id" : 41,
-		"name" : "groszek w puszce",
+		"label" : "groszek w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 18,
-		"name" : "grzyby mun suszone",
+		"label" : "grzyby mun suszone",
 		"id" : 18,
-		"name" : "grzyby mun suszone",
+		"label" : "grzyby mun suszone",
 		"category_code" : "DRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 19,
-		"name" : "grzyby shitake suszone",
+		"label" : "grzyby shitake suszone",
 		"id" : 19,
-		"name" : "grzyby shitake suszone",
+		"label" : "grzyby shitake suszone",
 		"category_code" : "DRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 36,
-		"name" : "jajka",
+		"label" : "jajka",
 		"id" : 36,
-		"name" : "jajka",
+		"label" : "jajka",
 		"category_code" : "DAIRY",
-		"alt_name" : "jaja kurze"
+		"alt_label" : "jaja kurze"
 	},
 	{
 		"id" : 37,
-		"name" : "jajka przepiórcze",
+		"label" : "jajka przepiórcze",
 		"id" : 37,
-		"name" : "jajka przepiórcze",
+		"label" : "jajka przepiórcze",
 		"category_code" : "DAIRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 51,
-		"name" : "jałowiec",
+		"label" : "jałowiec",
 		"id" : 51,
-		"name" : "jałowiec",
+		"label" : "jałowiec",
 		"category_code" : "SEASONING",
-		"alt_name" : "owoc jałowca"
+		"alt_label" : "owoc jałowca"
 	},
 	{
 		"id" : 47,
-		"name" : "kapusta kiszona",
+		"label" : "kapusta kiszona",
 		"id" : 47,
-		"name" : "kapusta kiszona",
+		"label" : "kapusta kiszona",
 		"category_code" : "PICKLE",
-		"alt_name" : "kapusta kwaszona"
+		"alt_label" : "kapusta kwaszona"
 	},
 	{
 		"id" : 26,
-		"name" : "kolendra świeża",
+		"label" : "kolendra świeża",
 		"id" : 26,
-		"name" : "kolendra świeża",
+		"label" : "kolendra świeża",
 		"category_code" : "HERBS",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 57,
-		"name" : "koncentrat pomidorowy",
+		"label" : "koncentrat pomidorowy",
 		"id" : 57,
-		"name" : "koncentrat pomidorowy",
+		"label" : "koncentrat pomidorowy",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 30,
-		"name" : "koperek",
+		"label" : "koperek",
 		"id" : 30,
-		"name" : "koperek",
+		"label" : "koperek",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 15,
-		"name" : "kotlety sojowe",
+		"label" : "kotlety sojowe",
 		"id" : 15,
-		"name" : "kotlety sojowe",
+		"label" : "kotlety sojowe",
 		"category_code" : "DRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 40,
-		"name" : "kukurydza w puszce",
+		"label" : "kukurydza w puszce",
 		"id" : 40,
-		"name" : "kukurydza w puszce",
+		"label" : "kukurydza w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 53,
-		"name" : "liść laurowy",
+		"label" : "liść laurowy",
 		"id" : 53,
-		"name" : "liść laurowy",
+		"label" : "liść laurowy",
 		"category_code" : "SEASONING",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 69,
-		"name" : "majonez",
+		"label" : "majonez",
 		"id" : 69,
-		"name" : "majonez",
+		"label" : "majonez",
 		"category_code" : "SAUCE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 1,
-		"name" : "makaron kokardki",
+		"label" : "makaron kokardki",
 		"id" : 1,
-		"name" : "makaron kokardki",
+		"label" : "makaron kokardki",
 		"category_code" : "PASTA",
-		"alt_name" : "farfalle"
+		"alt_label" : "farfalle"
 	},
 	{
 		"id" : 2,
-		"name" : "makaron razowy spaghetti",
+		"label" : "makaron razowy spaghetti",
 		"id" : 2,
-		"name" : "makaron razowy spaghetti",
+		"label" : "makaron razowy spaghetti",
 		"category_code" : "PASTA",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 70,
-		"name" : "marchewka",
+		"label" : "marchewka",
 		"id" : 70,
-		"name" : "marchewka",
+		"label" : "marchewka",
 		"category_code" : "VEG",
-		"alt_name" : "marchew"
+		"alt_label" : "marchew"
 	},
 	{
 		"id" : 10,
-		"name" : "mascarpone",
+		"label" : "mascarpone",
 		"id" : 10,
-		"name" : "mascarpone",
+		"label" : "mascarpone",
 		"category_code" : "DAIRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 28,
-		"name" : "mięta świeża",
+		"label" : "mięta świeża",
 		"id" : 28,
-		"name" : "mięta świeża",
+		"label" : "mięta świeża",
 		"category_code" : "HERBS",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 31,
-		"name" : "natka pietruszki",
+		"label" : "natka pietruszki",
 		"id" : 31,
-		"name" : "natka pietruszki",
+		"label" : "natka pietruszki",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 48,
-		"name" : "ogórki kiszone",
+		"label" : "ogórki kiszone",
 		"id" : 48,
-		"name" : "ogórki kiszone",
+		"label" : "ogórki kiszone",
 		"category_code" : "PICKLE",
-		"alt_name" : "ogórki kwaszone"
+		"alt_label" : "ogórki kwaszone"
 	},
 	{
 		"id" : 49,
-		"name" : "ogórki konserwowe",
+		"label" : "ogórki konserwowe",
 		"id" : 49,
-		"name" : "ogórki konserwowe",
+		"label" : "ogórki konserwowe",
 		"category_code" : "PICKLE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 38,
-		"name" : "olej rzepakowy",
+		"label" : "olej rzepakowy",
 		"id" : 38,
-		"name" : "olej rzepakowy",
+		"label" : "olej rzepakowy",
 		"category_code" : "OIL",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 39,
-		"name" : "oliwa z oliwek",
+		"label" : "oliwa z oliwek",
 		"id" : 39,
-		"name" : "oliwa z oliwek",
+		"label" : "oliwa z oliwek",
 		"category_code" : "OIL",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 14,
-		"name" : "oliwki czarne",
+		"label" : "oliwki czarne",
 		"id" : 14,
-		"name" : "oliwki czarne",
+		"label" : "oliwki czarne",
 		"category_code" : "JAR",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 13,
-		"name" : "oliwki zielone",
+		"label" : "oliwki zielone",
 		"id" : 13,
-		"name" : "oliwki zielone",
+		"label" : "oliwki zielone",
 		"category_code" : "JAR",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 34,
-		"name" : "orzechy laskowe",
+		"label" : "orzechy laskowe",
 		"id" : 34,
-		"name" : "orzechy laskowe",
+		"label" : "orzechy laskowe",
 		"category_code" : "NUTS",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 32,
-		"name" : "orzechy nerkowca",
+		"label" : "orzechy nerkowca",
 		"id" : 32,
-		"name" : "orzechy nerkowca",
+		"label" : "orzechy nerkowca",
 		"category_code" : "NUTS",
-		"alt_name" : "nerkowce"
+		"alt_label" : "nerkowce"
 	},
 	{
 		"id" : 33,
-		"name" : "orzechy włoskie",
+		"label" : "orzechy włoskie",
 		"id" : 33,
-		"name" : "orzechy włoskie",
+		"label" : "orzechy włoskie",
 		"category_code" : "NUTS",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 35,
-		"name" : "orzeszki ziemne",
+		"label" : "orzeszki ziemne",
 		"id" : 35,
-		"name" : "orzeszki ziemne",
+		"label" : "orzeszki ziemne",
 		"category_code" : "NUTS",
-		"alt_name" : "fistaszki"
+		"alt_label" : "fistaszki"
 	},
 	{
 		"id" : 12,
-		"name" : "parmezan",
+		"label" : "parmezan",
 		"id" : 12,
-		"name" : "parmezan",
+		"label" : "parmezan",
 		"category_code" : "DAIRY",
-		"alt_name" : "parmigiano reggiano"
+		"alt_label" : "parmigiano reggiano"
 	},
 	{
 		"id" : 56,
-		"name" : "pieczarki",
+		"label" : "pieczarki",
 		"id" : 56,
-		"name" : "pieczarki",
+		"label" : "pieczarki",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 71,
-		"name" : "pietruszka",
+		"label" : "pietruszka",
 		"id" : 71,
-		"name" : "pietruszka",
+		"label" : "pietruszka",
 		"category_code" : "VEG",
-		"alt_name" : "korzeń pietruszki"
+		"alt_label" : "korzeń pietruszki"
 	},
 	{
 		"id" : 17,
-		"name" : "podgrzybki suszone",
+		"label" : "podgrzybki suszone",
 		"id" : 17,
-		"name" : "podgrzybki suszone",
+		"label" : "podgrzybki suszone",
 		"category_code" : "DRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 67,
-		"name" : "pomidory",
+		"label" : "pomidory",
 		"id" : 67,
-		"name" : "pomidory",
+		"label" : "pomidory",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 43,
-		"name" : "pomidory w puszce",
+		"label" : "pomidory w puszce",
 		"id" : 43,
-		"name" : "pomidory w puszce",
+		"label" : "pomidory w puszce",
 		"category_code" : "CAN",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 73,
-		"name" : "por",
+		"label" : "por",
 		"id" : 73,
-		"name" : "por",
+		"label" : "por",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 16,
-		"name" : "prawdziwki suszone",
+		"label" : "prawdziwki suszone",
 		"id" : 16,
-		"name" : "prawdziwki suszone",
+		"label" : "prawdziwki suszone",
 		"category_code" : "DRY",
-		"alt_name" : "borowiki suszone"
+		"alt_label" : "borowiki suszone"
 	},
 	{
 		"id" : 59,
-		"name" : "rodzynki",
+		"label" : "rodzynki",
 		"id" : 59,
-		"name" : "rodzynki",
+		"label" : "rodzynki",
 		"category_code" : "DEL",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 20,
-		"name" : "ryż biały",
+		"label" : "ryż biały",
 		"id" : 20,
-		"name" : "ryż biały",
+		"label" : "ryż biały",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 21,
-		"name" : "ryż brązowy",
+		"label" : "ryż brązowy",
 		"id" : 21,
-		"name" : "ryż brązowy",
+		"label" : "ryż brązowy",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 25,
-		"name" : "ryż długoziarnisty",
+		"label" : "ryż długoziarnisty",
 		"id" : 25,
-		"name" : "ryż długoziarnisty",
+		"label" : "ryż długoziarnisty",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 23,
-		"name" : "ryż do rizotto",
+		"label" : "ryż do rizotto",
 		"id" : 23,
-		"name" : "ryż do rizotto",
+		"label" : "ryż do rizotto",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 24,
-		"name" : "ryż do sushi",
+		"label" : "ryż do sushi",
 		"id" : 24,
-		"name" : "ryż do sushi",
+		"label" : "ryż do sushi",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 22,
-		"name" : "ryż jaśminowy",
+		"label" : "ryż jaśminowy",
 		"id" : 22,
-		"name" : "ryż jaśminowy",
+		"label" : "ryż jaśminowy",
 		"category_code" : "RICE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 72,
-		"name" : "seler",
+		"label" : "seler",
 		"id" : 72,
-		"name" : "seler",
+		"label" : "seler",
 		"category_code" : "VEG",
-		"alt_name" : "korzeń selera"
+		"alt_label" : "korzeń selera"
 	},
 	{
 		"id" : 64,
-		"name" : "ser żółty w kawałku",
+		"label" : "ser żółty w kawałku",
 		"id" : 64,
-		"name" : "ser żółty w kawałku",
+		"label" : "ser żółty w kawałku",
 		"category_code" : "DAIRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 65,
-		"name" : "ser żółty w plastrach",
+		"label" : "ser żółty w plastrach",
 		"id" : 65,
-		"name" : "ser żółty w plastrach",
+		"label" : "ser żółty w plastrach",
 		"category_code" : "DAIRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 58,
-		"name" : "śliwki suszone",
+		"label" : "śliwki suszone",
 		"id" : 58,
-		"name" : "śliwki suszone",
+		"label" : "śliwki suszone",
 		"category_code" : "DEL",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 11,
-		"name" : "śmietanka 30%",
+		"label" : "śmietanka 30%",
 		"id" : 11,
-		"name" : "śmietanka 30%",
+		"label" : "śmietanka 30%",
 		"category_code" : "DAIRY",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 68,
-		"name" : "sos sojowy",
+		"label" : "sos sojowy",
 		"id" : 68,
-		"name" : "sos sojowy",
+		"label" : "sos sojowy",
 		"category_code" : "SAUCE",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 29,
-		"name" : "szczypiorek",
+		"label" : "szczypiorek",
 		"id" : 29,
-		"name" : "szczypiorek",
+		"label" : "szczypiorek",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 8,
-		"name" : "szpinak",
+		"label" : "szpinak",
 		"id" : 8,
-		"name" : "szpinak",
+		"label" : "szpinak",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 62,
-		"name" : "szpinak baby",
+		"label" : "szpinak baby",
 		"id" : 62,
-		"name" : "szpinak baby",
+		"label" : "szpinak baby",
 		"category_code" : "VEG",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 63,
-		"name" : "tortille",
+		"label" : "tortille",
 		"id" : 63,
-		"name" : "tortille",
+		"label" : "tortille",
 		"category_code" : "MISC",
-		"alt_name" : "tortilla wraps"
+		"alt_label" : "tortilla wraps"
 	},
 	{
 		"id" : 54,
-		"name" : "ziele angielskie",
+		"label" : "ziele angielskie",
 		"id" : 54,
-		"name" : "ziele angielskie",
+		"label" : "ziele angielskie",
 		"category_code" : "SEASONING",
-		"alt_name" : ""
+		"alt_label" : ""
 	},
 	{
 		"id" : 7,
-		"name" : "ziemniaki",
+		"label" : "ziemniaki",
 		"id" : 7,
-		"name" : "ziemniaki",
+		"label" : "ziemniaki",
 		"category_code" : "VEG",
-		"alt_name" : "kartofle"
+		"alt_label" : "kartofle"
 	}
 ]

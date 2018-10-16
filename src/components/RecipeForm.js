@@ -5,6 +5,7 @@ import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
 import IngredientSelect from './recipe_form/IngredientSelect'
+import IntegrationDownshift from './recipe_form/IngredientSelectDownshift'
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -281,6 +282,7 @@ class RecipeForm extends React.Component {
                         ingredient={this.state.ingredient}
                         handleIngredientChange={this.handleIngredientChange}
                     />
+                    <IntegrationDownshift/>
 
                     {
                         this.state.meals ? (
