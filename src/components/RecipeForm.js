@@ -113,11 +113,22 @@ class RecipeForm extends React.Component {
     };
 
     handleDownshiftIngredientChange = label => {
-        alert(label);
+        const ingredients = this.state.ingredients;
+        const newIngredient = ingredientsFixture.filter(el => el.label === label);
+        const newIngredientId = newIngredient[0].id;
+
+        if(ingredients.includes(newIngredientId)) {
+            this.setState({ alert: 'Składnik nie został dodany, ponieważ jest już na liście.' });
+            window.setTimeout(() => {
+                this.setState({alert: null});
+            }, 3000);
+            return;
+        }
+
+        this.setState({ ingredients: [...ingredients, newIngredientId] });
+
     };
 
-
-    // TODO wtf
     handleIngredientChange = event => {
         const ingredients = this.state.ingredients;
 
@@ -283,10 +294,6 @@ class RecipeForm extends React.Component {
 
                     <p>{this.state.alert}</p>
 
-                    <IngredientSelect
-                        ingredient={this.state.ingredient}
-                        handleIngredientChange={this.handleIngredientChange}
-                    />
                     <IntegrationDownshift
                         handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
                     />
