@@ -4,6 +4,7 @@ import styled from "styled-components";
 import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
+import IngredientSelect from './recipe_form/IngredientSelect'
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -111,7 +112,7 @@ class RecipeForm extends React.Component {
     };
 
     // TODO wtf
-    handleIngredientChange = name => event => {
+    handleIngredientChange = event => {
         const ingredients = this.state.ingredients;
 
         if(ingredients.includes(event.target.value)) {
@@ -276,21 +277,10 @@ class RecipeForm extends React.Component {
 
                     <p>{this.state.alert}</p>
 
-                    <FormControl fullWidth={true}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                            Składniki
-                        </InputLabel>
-                        <Select
-                            value={this.state.ingredient}
-                            onChange={this.handleIngredientChange()}
-                            input={<Input id="ingredient" />}
-                        >
-                            {ingredientsFixture.map(ingredient => {
-                                return(<MenuItem key={ingredient.id} value={ingredient.id}>{ingredient.name}</MenuItem>)
-                            })
-                            }
-                        </Select>
-                    </FormControl>
+                    <IngredientSelect
+                        ingredient={this.state.ingredient}
+                        handleIngredientChange={this.handleIngredientChange}
+                    />
 
                     {
                         this.state.meals ? (

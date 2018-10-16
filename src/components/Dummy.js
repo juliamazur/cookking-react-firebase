@@ -1,16 +1,12 @@
 import React from 'react';
 
-class AddIngredient extends React.Component {
+class Dummy extends React.Component {
 
-render() {
-    const { classes } = this.props;
-
-    return (
-      <div>Hello</div>
-);
-
+    render() {
+        return (
+            <div>Hello</div>
+        );
+    }
 }
 
-}
-
-export default AddIngredient;
+export default Dummy;
