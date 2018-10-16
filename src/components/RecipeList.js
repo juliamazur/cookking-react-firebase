@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import RecipeCardMini from "./RecipeCardMini";
 import Grid from '@material-ui/core/Grid';
+import styled from 'styled-components';
+
+
+const Container = styled.div`
+`;
 
 class RecipeList extends Component {
 

@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import styled from 'styled-components';
 
 import RecipeCardCompact from "./RecipeCardCompact";
 
 import Grid from '@material-ui/core/Grid';
+
+const Container = styled.div`
+  margin: 30px auto;
+`;
 
 class RecipeLibrary extends Component {
 
@@ -34,11 +39,11 @@ class RecipeLibrary extends Component {
 
     render() {
         return (
-            <div className="recipe-list-placeholder">
+            <Container className="recipe-list-placeholder">
                 <Grid container>
                     {this.renderRecipiesCompact()}
                 </Grid>
-            </div>
+            </Container>
         );
     }
 }
