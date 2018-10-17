@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import RecipeList from "./RecipeList";
 
-import mealsFixture from '../fixtures/meals.json';
+import mealsFixture from '../../fixtures/meals.json';
 
 
 function TabContainer(props) {

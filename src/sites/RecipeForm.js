@@ -339,7 +339,12 @@ class RecipeForm extends React.Component {
                             onChange={this.handleDescriptionChange}
                         />
                     </FormControl>
-                    <Button className={classes.button} variant="contained" color="primary" onClick={this.handleFormSubmit}>
+                    <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        onClick={this.handleFormSubmit}
+                    >
                         Zapisz
                     </Button>
                 </Grid>

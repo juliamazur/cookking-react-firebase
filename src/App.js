@@ -6,12 +6,14 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeForm from './sites/RecipeForm';
-import RecipeListTabs from "./components/RecipeListTabs";
+
 import RecipeLibrary from "./components/RecipeLibrary";
-import Schedule from "./components/Schedule";
+import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
 import {recipeRef, scheduleItemRef} from "./config/firebase";
 import initialScheduleData from './components/initial-data';
+
+import * as backend from './backend/';
 
 
 const theme = createMuiTheme({
@@ -41,12 +43,12 @@ class App extends Component {
   state = this.defaultState;
 
   fetchRecipeList = () => {
-        recipeRef.on("value", snapshot => {
-          const recipeList = snapshot.val();
-            this.setState({
-                recipeList: recipeList,
-            });
-        });
+      backend.fetchList().then((data) => {
+          const recipeList = data;
+          this.setState({
+              recipeList: recipeList,
+          });
+      });
     };
 
   editRecipe = id => {
@@ -211,11 +213,7 @@ class App extends Component {
               appEditCallback={this.editRecipe}
               appForkCallback={this.forkRecipe}
           />
-        <RecipeListTabs
-            recipeList={this.state.recipeList}
-            appEditCallback={this.editRecipe}
-            appForkCallback={this.forkRecipe}
-        />
+
         <Schedule
             items={this.state.scheduleItems}
             recipeList={this.state.recipeList}
@@ -224,6 +222,8 @@ class App extends Component {
             onDragEnd={this.onScheduleDragEnd}
             handleItemDelete={this.handleScheduleItemDelete}
             handleSheduleSave={this.handleScheduleSave}
+            appEditCallback={this.props.editRecipe}
+            appForkCallback={this.props.forkRecipe}
         />
         <ShoppingList
             scheduleItems={this.state.scheduleItems}
