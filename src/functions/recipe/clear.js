@@ -1,10 +1,10 @@
 
-// TODO error handling
-export default (recipeList, id) => {
+
+export default () => {
     return {
-        pickedRecipeId: id,
-        pickedRecipe: recipeList[id],
-        edit: true,
+        pickedRecipeId: null,
+        pickedRecipe: null,
+        edit: false,
         fork: false,
     };
 };

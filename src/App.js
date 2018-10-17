@@ -54,18 +54,13 @@ class App extends Component {
     this.setState( functions.editRecipe({...this.state.recipeList}, id) );
   };
 
-    forkRecipe = id => {
-        console.log('FORK recipe App: ', id);
-        this.setState( functions.forkRecipe({...this.state.recipeList}, id) );
-    };
+  forkRecipe = id => {
+    console.log('FORK recipe App: ', id);
+    this.setState( functions.forkRecipe({...this.state.recipeList}, id) );
+  };
 
-  clearForm = () => {
-      this.setState({
-          pickedRecipeId: null,
-          pickedRecipe: null,
-          edit: false,
-          fork: false,
-      });
+  clearRecipeForm = () => {
+      this.setState( functions.clearRecipeForm() );
   };
 
     onScheduleDragEnd = result => {
@@ -191,7 +186,7 @@ class App extends Component {
             recipe={this.state.pickedRecipe}
             fork={this.state.fork}
             edit={this.state.edit}
-            callbackClearForm={this.clearForm}
+            clearForm={this.clearRecipeForm}
         />
           <RecipeLibrary
               recipeList={this.state.recipeList}

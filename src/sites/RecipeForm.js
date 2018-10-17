@@ -221,7 +221,7 @@ class RecipeForm extends React.Component {
             this.addRecipe(data);
         }
 
-        this.props.callbackClearForm();
+        this.props.clearForm();
     }
 
     componentDidUpdate(prevProps) {
