@@ -4,8 +4,7 @@ import styled from "styled-components";
 import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
-import IngredientSelect from './recipe_form/IngredientSelect'
-import IntegrationDownshift from './recipe_form/IngredientSelectDownshift'
+import IntegrationDownshift from '../components/recipe_form/IngredientSelectDownshift'
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -61,11 +60,9 @@ const styles = theme => ({
 
 
 const ImageContainer = styled.div`
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 400px;
+    max-height: 400px;
     overflow: hidden;
-    margin: 0 auto;
-    text-align: center;
 `;
 
 class RecipeForm extends React.Component {
@@ -262,6 +259,23 @@ class RecipeForm extends React.Component {
                         type="file"
                         onChange={this.handleImageChange}
                     />
+                    <h4>Składniki</h4>
+                    {
+                        this.state.ingredients ? (
+                            <List>
+                                {this.state.ingredients.map(ingredient => {
+                                    return (
+                                        <ListItem button key={ingredient}>
+                                            <ListItemIcon onClick={this.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
+                                            {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
+                                        </ListItem>
+                                    )
+                                })
+                                }
+                            </List>
+
+                        ) : ('')
+                    }
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <FormControl fullWidth={true}>
@@ -275,22 +289,6 @@ class RecipeForm extends React.Component {
                             onChange={this.handleNameChange}
                         />
                     </FormControl>
-                    {
-                      this.state.ingredients ? (
-                        <List>
-                            {this.state.ingredients.map(ingredient => {
-                                return (
-                                    <ListItem button key={ingredient}>
-                                        <ListItemIcon onClick={this.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
-                                        {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
-                                    </ListItem>
-                                )
-                            })
-                            }
-                        </List>
-
-                    ) : ('')
-                    }
 
                     <p>{this.state.alert}</p>
 

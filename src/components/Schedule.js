@@ -17,6 +17,7 @@ class Schedule extends React.Component {
     render() {
         return (
           <div>
+
             <DragDropContext onDragEnd={this.props.onDragEnd}>
               <Container>
                   {

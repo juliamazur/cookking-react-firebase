@@ -5,7 +5,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
-import RecipeForm from './components/RecipeForm';
+import RecipeForm from './sites/RecipeForm';
 import RecipeListTabs from "./components/RecipeListTabs";
 import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./components/Schedule";
@@ -179,6 +179,16 @@ class App extends Component {
         scheduleItemRef.child(id).remove();
     };
 
+    handleScheduleSave = name => (event) => {
+        console.log('Schedule will be saved: ' + name);
+        //scheduleRef.push().set(data);
+    };
+
+    handleScheduleDelete = id => (event) => {
+        console.log('Schedule will be deleted: ' + id);
+        //scheduleRef.child(id).remove();
+    };
+
     componentDidMount() {
       this.fetchRecipeList();
       this.fetchScheduleItems();
@@ -213,6 +223,7 @@ class App extends Component {
             columnOrder={this.state.scheduleColumnOrder}
             onDragEnd={this.onScheduleDragEnd}
             handleItemDelete={this.handleScheduleItemDelete}
+            handleSheduleSave={this.handleScheduleSave}
         />
         <ShoppingList
             scheduleItems={this.state.scheduleItems}
