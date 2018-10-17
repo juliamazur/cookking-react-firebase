@@ -1,1 +1,1 @@
-export { default as fetchList } from './recipe/fetchList';
+export { default as fetchRecipeList } from './recipe/fetchList';

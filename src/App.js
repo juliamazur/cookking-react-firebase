@@ -14,6 +14,7 @@ import {recipeRef, scheduleItemRef} from "./config/firebase";
 import initialScheduleData from './components/initial-data';
 
 import * as backend from './backend/';
+import * as functions from './functions/';
 
 
 const theme = createMuiTheme({
@@ -43,36 +44,20 @@ class App extends Component {
   state = this.defaultState;
 
   fetchRecipeList = () => {
-      backend.fetchList().then((data) => {
-          const recipeList = data;
-          this.setState({
-              recipeList: recipeList,
-          });
+      backend.fetchRecipeList().then((data) => {
+        this.setState({ recipeList: data });
       });
     };
 
   editRecipe = id => {
     console.log('EDIT recipe App: ', id);
-    const pickedRecipe = {...this.state.recipeList[id]};
-    this.setState({
-        pickedRecipeId: id,
-        pickedRecipe: pickedRecipe,
-        edit: true,
-        fork: false,
-     });
+    this.setState( functions.editRecipe({...this.state.recipeList}, id) );
   };
 
-  forkRecipe = id => {
-    console.log('FORK recipe App: ', id);
-      const pickedRecipe = {...this.state.recipeList[id]};
-    this.setState({
-      pickedRecipeId: id,
-      pickedRecipe: pickedRecipe,
-      edit: false,
-      fork: true,
-     });
-  };
-
+    forkRecipe = id => {
+        console.log('FORK recipe App: ', id);
+        this.setState( functions.forkRecipe({...this.state.recipeList}, id) );
+    };
 
   clearForm = () => {
       this.setState({
