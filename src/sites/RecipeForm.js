@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import styled from "styled-components";
 import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
@@ -31,13 +30,6 @@ const styles = theme => ({
         marginBottom: 45,
     }
 });
-
-
-const ImageContainer = styled.div`
-    max-width: 400px;
-    max-height: 400px;
-    overflow: hidden;
-`;
 
 class RecipeForm extends React.Component {
 
@@ -196,7 +188,7 @@ class RecipeForm extends React.Component {
         }
 
         this.resetState();
-        this.props.clearForm();
+        this.props.callbackAfterSubmit();
     }
 
     componentDidUpdate(prevProps) {

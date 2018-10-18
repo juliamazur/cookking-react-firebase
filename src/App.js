@@ -44,6 +44,7 @@ class App extends Component {
   state = this.defaultState;
 
   fetchRecipeList = () => {
+      console.log('FETCH recipe list');
       backend.fetchRecipeList().then((data) => {
         this.setState({ recipeList: data });
       });
@@ -59,8 +60,10 @@ class App extends Component {
     this.setState( functions.forkRecipe({...this.state.recipeList}, id) );
   };
 
-  clearRecipeForm = () => {
+  recipeFormAfterSubmit = () => {
+      console.log('AFTER SUBMIT');
       this.setState( functions.clearRecipeForm() );
+      this.fetchRecipeList();
   };
 
     onScheduleDragEnd = result => {
@@ -186,7 +189,7 @@ class App extends Component {
             recipe={this.state.pickedRecipe}
             fork={this.state.fork}
             edit={this.state.edit}
-            clearForm={this.clearRecipeForm}
+            callbackAfterSubmit={this.recipeFormAfterSubmit}
         />
           <RecipeLibrary
               recipeList={this.state.recipeList}
