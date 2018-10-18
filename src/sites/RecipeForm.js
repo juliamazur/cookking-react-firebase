@@ -195,6 +195,7 @@ class RecipeForm extends React.Component {
             this.addRecipe(data);
         }
 
+        this.resetState();
         this.props.clearForm();
     }
 
