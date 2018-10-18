@@ -1,4 +1,5 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
 import List from '@material-ui/core/List';
@@ -13,9 +14,19 @@ const Container = styled.div`
   padding: 4%;
 `;
 
-class AddIngredient extends React.Component {
+const styles = theme => ({
+    listItem: {
+        float: 'left',
+        width: 300
+    },
+    subtitle: {
+        clear: 'both'
+    }
+});
 
-    getIngredients = () => {
+class ShoppingList extends React.Component {
+
+    getIngredientIds = () => {
 
     let ingredients = [];
     if(this.props.scheduleItems.length < 1) {
@@ -35,19 +46,71 @@ class AddIngredient extends React.Component {
     return ingredients.filter(unique);
 }
 
+// TODO refactor
+getIngredients = (ingredientIds) => {
+    let result = [];
+    ingredientIds.forEach((id) => {
+       let item = {};
+       item.id = id;
+       const ingredient = ingredientsFixture.filter(v => v.id === id)[0];
+       item.label = ingredient.label;
+       item.category = ingredient.category;
+       result.push(item);
+    });
+    return result.sort(function(a, b){
+        if(a.label < b.label) return -1;
+        if(a.label > b.label) return 1;
+        return 0;
+    });
+}
+
 render() {
-    const ingredients = this.getIngredients();
+
+    const { classes } = this.props;
+    const ingredients = this.getIngredients(this.getIngredientIds());
 
     return (
       <Container>
           <h3>Lista zakupów</h3>
           {
-              ingredients ? (
+              ingredients.filter(v => v.category === '') ? (
                   <List>
-                      {ingredients.map(ingredient => {
+                      {ingredients.filter(v => v.category === '').map(ingredient => {
                           return (
-                              <ListItem button key={ingredient}>
-                                  {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
+                              <ListItem button className={classes.listItem} key={ingredient.id}>
+                                  {ingredient.label}
+                              </ListItem>
+                          )
+                      })
+                      }
+                  </List>
+
+              ) : ('')
+          }
+          <h4 className={classes.subtitle}>Spiżarnia</h4>
+          {
+              ingredients.filter(v => v.category === 'spiżarnia') ? (
+                  <List>
+                      {ingredients.filter(v => v.category === 'spiżarnia').map(ingredient => {
+                          return (
+                              <ListItem button className={classes.listItem} key={ingredient.id}>
+                                  {ingredient.label}
+                              </ListItem>
+                          )
+                      })
+                      }
+                  </List>
+
+              ) : ('')
+          }
+          <h4 className={classes.subtitle}>Przyprawy</h4>
+          {
+              ingredients.filter(v => v.category === 'przyprawy') ? (
+                  <List>
+                      {ingredients.filter(v => v.category === 'przyprawy').map(ingredient => {
+                          return (
+                              <ListItem button className={classes.listItem} key={ingredient.id}>
+                                  {ingredient.label}
                               </ListItem>
                           )
                       })
@@ -63,4 +126,4 @@ render() {
 
 }
 
-export default AddIngredient;
+export default withStyles(styles)(ShoppingList);
