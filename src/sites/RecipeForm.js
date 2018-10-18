@@ -5,23 +5,20 @@ import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
 import IntegrationDownshift from '../components/recipe_form/IngredientSelectDownshift'
+import NameInput from '../components/recipe_form/NameInput'
+import SubmitButton from '../components/recipe_form/SubmitButton'
+import DescriptionInput from "../components/recipe_form/DescriptionInput";
+import MealSelect from "../components/recipe_form/MealSelect";
+import MealList from "../components/recipe_form/MealList";
 
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ClearIcon from '@material-ui/icons/Clear';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
-import mealsFixture from '../fixtures/meals.json';
 
 const styles = theme => ({
 
@@ -34,9 +31,6 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         marginTop: 45,
         marginBottom: 45,
-    },
-    button: {
-        margin: '40px auto',
     },
     mainImage: {
         maxWidth: '80%',
@@ -53,8 +47,6 @@ const styles = theme => ({
         boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
         padding: '5%',
         opacity: '0.9',
-    },
-    cardTitle: {
     }
 });
 
@@ -278,75 +270,32 @@ class RecipeForm extends React.Component {
                     }
                 </Grid>
                 <Grid item xs={12} lg={6}>
-                    <FormControl fullWidth={true}>
-                        <h3 className={classes.cardTitle}>Edytuj przepis</h3>
-                        <TextField
-                            id="recipe-name"
-                            value={this.state.name}
-                            label="Nazwa przepisu"
-                            placeholder="Wpisz nazwę przepisu"
-                            margin="normal"
-                            onChange={this.handleNameChange}
-                        />
-                    </FormControl>
+                    <NameInput
+                        name={this.state.name}
+                        handleNameChange={this.handleNameChange}
+                    />
 
                     <p>{this.state.alert}</p>
 
                     <IntegrationDownshift
                         handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
                     />
+                    <MealList
+                        meals={this.state.meals}
+                        handleMealDelete={this.handleMealDelete}
 
-                    {
-                        this.state.meals ? (
-                            <List>
-                                {this.state.meals.map(meal => {
-                                    return (
-                                        <ListItem button key={meal}>
-                                            <ListItemIcon onClick={this.handleMealDelete(meal)}><ClearIcon/></ListItemIcon>
-                                            {mealsFixture.filter(v => v.id === meal)[0].name}
-                                        </ListItem>
-                                    )
-                                })
-                                }
-                            </List>
-
-                        ) : ('')
-                    }
-
-                    <FormControl fullWidth={true}>
-                        <InputLabel shrink htmlFor="age-label-placeholder">
-                            Posiłki
-                        </InputLabel>
-                        <Select
-                            value={this.state.meal}
-                            onChange={this.handleMealChange()}
-                            input={<Input id="meal" />}
-                        >
-                            {mealsFixture.map(meal => {
-                                return(<MenuItem key={meal.id} value={meal.id}>{meal.name}</MenuItem>)
-                            })
-                            }
-                        </Select>
-                    </FormControl>
-
-                    <FormControl fullWidth={true}>
-                        <TextField
-                            id="recipe-description"
-                            value={this.state.description}
-                            label="Opis przepisu"
-                            multiline
-                            rows={3}
-                            onChange={this.handleDescriptionChange}
-                        />
-                    </FormControl>
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        onClick={this.handleFormSubmit}
-                    >
-                        Zapisz
-                    </Button>
+                    />
+                    <MealSelect
+                        meal={this.state.meal}
+                        handleMealChange={this.handleMealChange}
+                    />
+                    <DescriptionInput
+                        description={this.state.description}
+                        handleDescriptionChange={this.handleDescriptionChange}
+                    />
+                    <SubmitButton
+                        handleFormSubmit={this.handleFormSubmit}
+                    />
                 </Grid>
             </Grid>
                 </Paper>

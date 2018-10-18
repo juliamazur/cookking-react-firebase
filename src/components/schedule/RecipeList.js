@@ -30,7 +30,7 @@ class RecipeList extends Component {
 
       for (var key in recipeList) {
           let item = recipeList[key];
-        if (item.meals.includes(this.props.mealId)) {
+        if (item.meals && item.meals.includes(this.props.mealId)) {
            item.id = key;
            recipeArray.push(item);
         }
