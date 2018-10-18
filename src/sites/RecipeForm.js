@@ -214,11 +214,6 @@ class RecipeForm extends React.Component {
                         imageUrl={this.state.imageUrl}
                         handleImageChange={this.handleImageChange}
                     />
-                    <h4>Składniki</h4>
-                    <IngredientList
-                        ingredients={this.state.ingredients}
-                        handleIngredientDelete={this.handleIngredientDelete}
-                    />
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <NameInput
@@ -248,6 +243,11 @@ class RecipeForm extends React.Component {
                         handleFormSubmit={this.handleFormSubmit}
                     />
                 </Grid>
+                <h4>Składniki</h4>
+                <IngredientList
+                    ingredients={this.state.ingredients}
+                    handleIngredientDelete={this.handleIngredientDelete}
+                />
             </Grid>
                 </Paper>
             </div>
