@@ -56,15 +56,13 @@ renderSuggestion.propTypes = {
 };
 
 function getSuggestions(value) {
-    const inputValue = deburr(value.trim()).toLowerCase();
-    const inputLength = inputValue.length;
     let count = 0;
 
-    return inputLength === 0
+    return value.length < 2
         ? []
         : suggestions.filter(suggestion => {
             const keep =
-                count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+                count < 5 && labelMatch(suggestion.label, value);
 
             if (keep) {
                 count += 1;
@@ -74,6 +72,25 @@ function getSuggestions(value) {
         });
 }
 
+const labelMatch = (label, value) => {
+
+  const cleanLabel = deburr(label.trim()).toLowerCase();
+  const cleanValue = deburr(value.trim()).toLowerCase();
+  const inputLength = cleanValue.length;
+
+  console.log(cleanLabel);
+    console.log(cleanValue);
+
+  if(cleanLabel.slice(0, inputLength) === cleanValue) {
+      return true;
+  }
+
+    if(cleanLabel.search(cleanValue) > 0) {
+        return true;
+    }
+
+  return false;
+}
 
 const styles = theme => ({
     root: {
