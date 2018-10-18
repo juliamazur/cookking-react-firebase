@@ -10,15 +10,13 @@ import SubmitButton from '../components/recipe_form/SubmitButton'
 import DescriptionInput from "../components/recipe_form/DescriptionInput";
 import MealSelect from "../components/recipe_form/MealSelect";
 import MealList from "../components/recipe_form/MealList";
+import IngredientList from "../components/recipe_form/IngredientList";
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ClearIcon from '@material-ui/icons/Clear';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
+import ImageEdit from "../components/recipe_form/ImageEdit";
 
 const styles = theme => ({
 
@@ -31,22 +29,6 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2,
         marginTop: 45,
         marginBottom: 45,
-    },
-    mainImage: {
-        maxWidth: '80%',
-        marginTop: 20,
-        marginBottom: 10,
-        borderRadius: 10,
-        boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
-    },
-    mainImageDummy: {
-        maxWidth: '70%',
-        marginTop: 20,
-        marginBottom: 10,
-        borderRadius: 10,
-        boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
-        padding: '5%',
-        opacity: '0.9',
     }
 });
 
@@ -230,44 +212,20 @@ class RecipeForm extends React.Component {
 
         const { classes } = this.props;
 
-        let image;
-        if (this.state.imageUrl) {
-            image = <img className={classes.mainImage} src={this.state.imageUrl} alt = ''/>;
-        } else {
-            image = <img className={classes.mainImageDummy} src="/static/images/icons/fried-rice.png" alt = ''/>;
-        }
-
         return (
             <div className="recipe-form-placeholder">
                 <Paper className={classes.container}>
             <Grid container>
                 <Grid item xs={12} lg={6}>
-                    <ImageContainer>{image}</ImageContainer>
-                    <h4>Edytuj obrazek</h4>
-                    <input
-                        accept="image/*"
-                        id="button-file"
-                        multiple
-                        type="file"
-                        onChange={this.handleImageChange}
+                    <ImageEdit
+                        imageUrl={this.state.imageUrl}
+                        handleImageChange={this.handleImageChange}
                     />
                     <h4>Składniki</h4>
-                    {
-                        this.state.ingredients ? (
-                            <List>
-                                {this.state.ingredients.map(ingredient => {
-                                    return (
-                                        <ListItem button key={ingredient}>
-                                            <ListItemIcon onClick={this.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
-                                            {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
-                                        </ListItem>
-                                    )
-                                })
-                                }
-                            </List>
-
-                        ) : ('')
-                    }
+                    <IngredientList
+                        ingredients={this.state.ingredients}
+                        handleIngredientDelete={this.handleIngredientDelete}
+                    />
                 </Grid>
                 <Grid item xs={12} lg={6}>
                     <NameInput
