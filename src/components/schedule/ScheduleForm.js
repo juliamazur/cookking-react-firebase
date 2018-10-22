@@ -24,7 +24,7 @@ class ScheduleForm extends React.Component {
                         label="Nazwa grafiku"
                         placeholder="Wpisz nazwę grafiku"
                         margin="normal"
-                        onChange={this.handleNameChange}
+                        onChange={this.props.handleNameChange}
                     />
                 </FormControl>
                 <Button

@@ -2,6 +2,8 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
+import { scheduleRef } from '../config/firebase'
+
 import RecipeListTabs from "../components/schedule/RecipeListTabs";
 
 import ScheduleColumn from '../components/schedule/ScheduleColumn'
@@ -9,6 +11,7 @@ import ScheduleForm from "../components/schedule/ScheduleForm";
 
 import initialScheduleData from '../components/initial-data';
 import md5 from "md5";
+import * as backend from "../backend";
 
 const Container = styled.div`
   background-color: #fff;
@@ -115,7 +118,7 @@ class Schedule extends React.Component {
             scheduleColumns: scheduleColumns,
             items: items
         });
-        this.props.usedRecipeListAdd(id);
+        this.props.usedRecipeListUpdate(this.getUsedRecipeList());
     };
 
     handleRemoveItem = id => {
@@ -145,18 +148,48 @@ class Schedule extends React.Component {
             scheduleColumns: scheduleColumns,
             items: items
         });
-        this.props.usedRecipeListDelete(recipeId);
+        this.props.usedRecipeListUpdate(this.getUsedRecipeList());
     };
 
-    handleScheduleSave = name => (event) => {
-        console.log('Schedule will be saved: ' + name);
-        //scheduleRef.push().set(data);
+    // TODO refactor
+    getUsedRecipeList = () => {
+        let recipeIds = [];
+        this.state.items.forEach((item) => {
+            console.log(item.recipeId);
+            recipeIds.push(item.recipeId);
+        });
+        return recipeIds;
+    };
+
+    handleFormSubmit = () => {
+        console.log('Schedule will be saved: ' + this.state.name);
+        scheduleRef.push().set(this.state);
     };
 
     handleScheduleDelete = id => (event) => {
         console.log('Schedule will be deleted: ' + id);
         //scheduleRef.child(id).remove();
     };
+
+    fetchSchedule = id => {
+        console.log('FETCH schedule: ' + id);
+        backend.fetchSchedule(id).then((data) => {
+            console.log(data);
+           // this.setState(data);
+            this.setState({
+                name: data.name,
+                 id: id,
+                 items: data.items,
+                 scheduleColumns: data.scheduleColumns,
+                 scheduleColumnOrder: data.scheduleColumnOrder
+            });
+            this.props.usedRecipeListUpdate(this.getUsedRecipeList());
+        });
+    };
+
+    componentDidMount() {
+        this.fetchSchedule('-LPRLgcJuLS8QBeLimPR');
+    }
 
     render() {
         return (
@@ -184,6 +217,7 @@ class Schedule extends React.Component {
             </DragDropContext>
               <ScheduleForm
                   name={this.state.name}
+                  handleNameChange={this.handleNameChange}
                   handleFormSubmit={this.handleFormSubmit}
               />
           </div>

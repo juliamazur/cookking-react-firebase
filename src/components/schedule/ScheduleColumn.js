@@ -28,11 +28,21 @@ class ScheduleColumn extends React.Component {
     // TODO refactor
     getItems = () => {
         let items = [];
+
+        if(!this.props.column.itemIds
+            || this.props.column.itemIds.length < 1) {
+            return items;
+        }
         this.props.column.itemIds.forEach((id) => {
             this.props.items.forEach((item) => {
                 if (item.id === id) {
-                    item.recipe = this.props.recipeList[item.recipeId];
-                    items.push(item);
+                    if(this.props.recipeList[item.recipeId]) {
+                        item.recipe = this.props.recipeList[item.recipeId];
+                        if(item.recipe.imageUrl) {
+                            items.push(item);
+                        }
+
+                    }
                 }
             });
         });

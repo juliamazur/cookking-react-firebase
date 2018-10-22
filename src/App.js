@@ -34,7 +34,7 @@ class App extends Component {
     edit: false,
     fork: false,
     recipeList: {},
-    usedRecipies: [],
+    usedRecipes: [],
   };
 
   state = this.defaultState;
@@ -46,19 +46,10 @@ class App extends Component {
       });
     };
 
-    usedRecipeListAdd = id => {
-        let usedRecipies = this.state.usedRecipies.slice();
-        usedRecipies.push(id);
-        this.setState({ usedRecipies: usedRecipies });
-    };
-
-    usedRecipeListDelete = id => {
-        console.log('REMOVE used recipe: ' + id);
-        let usedRecipies = this.state.usedRecipies.slice();
-        const index = usedRecipies.indexOf(id);
-        usedRecipies.splice(index, 1);
-
-        this.setState({ usedRecipies: usedRecipies });
+    usedRecipeListUpdate = usedRecipes => {
+        console.log('USED RECIPES UPDATE');
+        console.log(usedRecipes);
+        this.setState({ usedRecipes: usedRecipes });
     };
 
   editRecipe = id => {
@@ -101,11 +92,10 @@ class App extends Component {
 
         <Schedule
             recipeList={this.state.recipeList}
-            usedRecipeListAdd={this.usedRecipeListAdd}
-            usedRecipeListDelete={this.usedRecipeListDelete}
+            usedRecipeListUpdate={this.usedRecipeListUpdate}
         />
         <ShoppingList
-            usedRecipies={this.state.usedRecipies}
+            usedRecipes={this.state.usedRecipes}
             recipeList={this.state.recipeList}
         />
        </MuiThemeProvider>

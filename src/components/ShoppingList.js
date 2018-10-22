@@ -29,7 +29,7 @@ class ShoppingList extends React.Component {
     getIngredientIds = () => {
 
     let ingredients = [];
-    if(this.props.usedRecipies.length < 1) {
+    if(this.props.usedRecipes.length < 1) {
         return ingredients;
     }
 
@@ -37,9 +37,13 @@ class ShoppingList extends React.Component {
         return self.indexOf(value) === index;
     };
 
-    this.props.usedRecipies.map(id => {
+    this.props.usedRecipes.map(id => {
         const recipe = this.props.recipeList[id];
-        ingredients = ingredients.concat(recipe.ingredients);
+        // TODO refactor
+        if(recipe) {
+            ingredients = ingredients.concat(recipe.ingredients);
+        }
+
         return ingredients;
     });
 
