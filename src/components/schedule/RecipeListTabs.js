@@ -45,8 +45,7 @@ class RecipeListTabs extends React.Component {
                             key={key}
                             mealId={meal.id}
                             recipeList={this.props.recipeList}
-                            appEditCallback={this.props.appEditCallback}
-                            appForkCallback={this.props.appForkCallback}
+                            handleUseRecipe={this.props.handleUseRecipe}
                         />
                     </TabContainer>
                 )}

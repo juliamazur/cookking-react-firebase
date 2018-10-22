@@ -1,18 +1,9 @@
 import React, { Component } from "react";
-import RecipeCardMini from "../RecipeCardMini";
+import RecipeCardMini from "./RecipeCardMini";
 import Grid from '@material-ui/core/Grid';
 
 class RecipeList extends Component {
 
-  editRecipe = id => {
-    console.log('EDIT recipe RecipeList: ', id);
-    this.props.appEditCallback(id);
-  };
-
-  forkRecipe = id => {
-    console.log('FORK recipe RecipeList: ', id);
-    this.props.appForkCallback(id);
-  };
 
   // TODO refactor
   getRecipes = () => {
@@ -44,8 +35,7 @@ class RecipeList extends Component {
                     key={key}
                     id={value.id}
                     item={value}
-                    callbackEditRecipe={this.editRecipe}
-                    callbackForkRecipe={this.forkRecipe}
+                    handleUseRecipe={this.props.handleUseRecipe}
                   />
               )
           }

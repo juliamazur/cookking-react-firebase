@@ -31,6 +31,7 @@ class ScheduleColumn extends React.Component {
         this.props.column.itemIds.forEach((id) => {
             this.props.items.forEach((item) => {
                 if (item.id === id) {
+                    item.recipe = this.props.recipeList[item.recipeId];
                     items.push(item);
                 }
             });
@@ -57,7 +58,6 @@ class ScheduleColumn extends React.Component {
                         key={item.id}
                         item={item}
                         index={index}
-                        parentHandleDelete={this.props.parentHandleDelete}
                     />
                 )}
                 {provided.placeholder}

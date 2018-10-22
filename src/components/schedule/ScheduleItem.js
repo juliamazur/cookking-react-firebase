@@ -26,7 +26,7 @@ class Item extends React.Component {
           >
           <CardContainer>
             <Card>
-              <ClearIcon onClick={this.props.parentHandleDelete(this.props.item.id)}/>
+              <ClearIcon/>
               <CardHeader
                 avatar={
                   <Avatar
