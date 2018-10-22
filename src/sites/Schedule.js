@@ -104,7 +104,7 @@ class Schedule extends React.Component {
         const d = new Date();
         item.id = md5(d.getTime());
         item.recipeId = id;
-        console.log(this.state.scheduleColumns);
+
         let scheduleColumns = {...this.state.scheduleColumns};
         scheduleColumns['column-0'].itemIds.push(item.id);
 
@@ -115,7 +115,37 @@ class Schedule extends React.Component {
             scheduleColumns: scheduleColumns,
             items: items
         });
-        this.props.usedRecipeListUpdate(id);
+        this.props.usedRecipeListAdd(id);
+    };
+
+    handleRemoveItem = id => {
+        console.log('REMOVE item: ' + id);
+
+        let scheduleColumns = {...this.state.scheduleColumns};
+
+        //TODO refactor
+        for(const key in scheduleColumns) {
+            scheduleColumns[key].itemIds.forEach((itemId, index) => {
+                        if(id === itemId) {
+                          scheduleColumns[key].itemIds.splice(index, 1);
+                        }
+                    });
+        }
+
+        let items = this.state.items.slice();
+        let recipeId = '';
+        items.forEach((item, index) => {
+            if(id === item.id) {
+                recipeId = item.recipeId;
+                items.splice(index, 1);
+            }
+        });
+
+        this.setState({
+            scheduleColumns: scheduleColumns,
+            items: items
+        });
+        this.props.usedRecipeListDelete(recipeId);
     };
 
     handleScheduleSave = name => (event) => {
@@ -146,6 +176,7 @@ class Schedule extends React.Component {
                             column={column}
                             items={this.state.items}
                             recipeList={this.props.recipeList}
+                            handleRemoveItem={this.handleRemoveItem}
                         />;
                     })
                   }

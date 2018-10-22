@@ -46,9 +46,18 @@ class App extends Component {
       });
     };
 
-    usedRecipeListUpdate = id => {
+    usedRecipeListAdd = id => {
         let usedRecipies = this.state.usedRecipies.slice();
         usedRecipies.push(id);
+        this.setState({ usedRecipies: usedRecipies });
+    };
+
+    usedRecipeListDelete = id => {
+        console.log('REMOVE used recipe: ' + id);
+        let usedRecipies = this.state.usedRecipies.slice();
+        const index = usedRecipies.indexOf(id);
+        usedRecipies.splice(index, 1);
+
         this.setState({ usedRecipies: usedRecipies });
     };
 
@@ -92,7 +101,8 @@ class App extends Component {
 
         <Schedule
             recipeList={this.state.recipeList}
-            usedRecipeListUpdate={this.usedRecipeListUpdate}
+            usedRecipeListAdd={this.usedRecipeListAdd}
+            usedRecipeListDelete={this.usedRecipeListDelete}
         />
         <ShoppingList
             usedRecipies={this.state.usedRecipies}
