@@ -47,6 +47,14 @@ class Schedule extends React.Component {
         const start = this.state.scheduleColumns[source.droppableId];
         const finish = this.state.scheduleColumns[destination.droppableId];
 
+        //TODO refactor
+        if(!start.itemIds) {
+            start.itemIds = [];
+        }
+        if(!finish.itemIds) {
+            finish.itemIds = [];
+        }
+
         if (start === finish) {
             const newItemIds = Array.from(start.itemIds);
             newItemIds.splice(source.index, 1);
@@ -128,11 +136,14 @@ class Schedule extends React.Component {
 
         //TODO refactor
         for(const key in scheduleColumns) {
-            scheduleColumns[key].itemIds.forEach((itemId, index) => {
-                        if(id === itemId) {
-                          scheduleColumns[key].itemIds.splice(index, 1);
-                        }
-                    });
+
+            if(scheduleColumns[key].itemIds) {
+                scheduleColumns[key].itemIds.forEach((itemId, index) => {
+                    if(id === itemId) {
+                        scheduleColumns[key].itemIds.splice(index, 1);
+                    }
+                });
+            }
         }
 
         let items = this.state.items.slice();
