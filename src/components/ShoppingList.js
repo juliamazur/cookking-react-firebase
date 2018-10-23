@@ -53,13 +53,22 @@ class ShoppingList extends React.Component {
 // TODO refactor
 getIngredients = (ingredientIds) => {
     let result = [];
+    if(!ingredientIds) {
+        return result;
+    }
     ingredientIds.forEach((id) => {
        let item = {};
        item.id = id;
        const ingredient = ingredientsFixture.filter(v => v.id === id)[0];
-       item.label = ingredient.label;
-       item.category = ingredient.category;
-       result.push(item);
+       if(ingredient) {
+           item.label = ingredient.label;
+           item.category = ingredient.category;
+           result.push(item);
+       } else {
+           console.log('WARNING! ingredient not found for ID!');
+           console.log(id);
+       }
+
     });
     return result.sort(function(a, b){
         if(a.label < b.label) return -1;

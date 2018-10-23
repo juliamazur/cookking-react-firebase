@@ -156,10 +156,8 @@ class Schedule extends React.Component {
         }
 
         let items = this.state.items.slice();
-        let recipeId = '';
         items.forEach((item, index) => {
             if(id === item.id) {
-                recipeId = item.recipeId;
                 items.splice(index, 1);
             }
         });
@@ -175,7 +173,6 @@ class Schedule extends React.Component {
     getUsedRecipeList = () => {
         let recipeIds = [];
         this.state.items.forEach((item) => {
-            console.log(item.recipeId);
             recipeIds.push(item.recipeId);
         });
         return recipeIds;
@@ -193,7 +190,7 @@ class Schedule extends React.Component {
 
         if(schedule.id) {
             console.log('Schedule will be updated: ' + schedule.name);
-            scheduleRef.child(schedule).update(schedule);
+            scheduleRef.child(schedule.id).update(schedule);
             this.fetchAllSchedules();
             return;
         }
@@ -212,7 +209,6 @@ class Schedule extends React.Component {
     fetchSchedule = id => {
         console.log('FETCH schedule: ' + id);
         backend.fetchSchedule(id).then((data) => {
-            console.log(data);
            // this.setState(data);
             this.setState({
                 name: data.name,
@@ -228,8 +224,6 @@ class Schedule extends React.Component {
     fetchAllSchedules = () => {
         console.log('FETCH schedules');
         backend.fetchAllSchedules().then((data) => {
-            console.log(data);
-
             let allSchedules = [];
             for(const key in data) {
                 let item = data[key];

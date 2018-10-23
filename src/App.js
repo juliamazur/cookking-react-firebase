@@ -48,7 +48,6 @@ class App extends Component {
 
     usedRecipeListUpdate = usedRecipes => {
         console.log('USED RECIPES UPDATE');
-        console.log(usedRecipes);
         this.setState({ usedRecipes: usedRecipes });
     };
 
