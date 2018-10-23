@@ -18,6 +18,7 @@ class ScheduleForm extends React.Component {
             <Container>
                 <FormControl fullWidth={true}>
                     <h3>Zapisz grafik</h3>
+                    {this.props.id}
                     <TextField
                         id="schedule-name"
                         value={this.props.name}

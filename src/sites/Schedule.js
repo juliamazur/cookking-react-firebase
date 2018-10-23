@@ -162,8 +162,16 @@ class Schedule extends React.Component {
     };
 
     handleFormSubmit = () => {
+
+        if(this.state.id) {
+            console.log('Schedule will be updated: ' + this.state.name);
+            scheduleRef.child(this.state.id).update(this.state);
+            return;
+        }
+
         console.log('Schedule will be saved: ' + this.state.name);
         scheduleRef.push().set(this.state);
+        return;
     };
 
     handleScheduleDelete = id => (event) => {
@@ -217,6 +225,7 @@ class Schedule extends React.Component {
             </DragDropContext>
               <ScheduleForm
                   name={this.state.name}
+                  id={this.state.id}
                   handleNameChange={this.handleNameChange}
                   handleFormSubmit={this.handleFormSubmit}
               />
