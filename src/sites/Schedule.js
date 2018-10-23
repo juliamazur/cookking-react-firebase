@@ -28,6 +28,7 @@ class Schedule extends React.Component {
         items: [],
         scheduleColumns: initialScheduleData.columns,
         scheduleColumnOrder: initialScheduleData.columnOrder,
+        allSchedules: [],
     };
 
     onDragEnd = result => {
@@ -106,6 +107,10 @@ class Schedule extends React.Component {
         this.setState({ name: event.target.value });
     };
 
+    handleScheduleChange = event => {
+        this.fetchSchedule(event.target.value);
+    };
+
     handleFormSubmit = () => {};
 
 
@@ -174,14 +179,24 @@ class Schedule extends React.Component {
 
     handleFormSubmit = () => {
 
-        if(this.state.id) {
-            console.log('Schedule will be updated: ' + this.state.name);
-            scheduleRef.child(this.state.id).update(this.state);
+        // TODO make schedule a single object in state
+        let schedule = {};
+        schedule.id = this.state.id;
+        schedule.name = this.state.name;
+        schedule.items = this.state.items;
+        schedule.scheduleColumns = this.state.scheduleColumns;
+        schedule.scheduleColumnOrder = this.state.scheduleColumnOrder;
+
+        if(schedule.id) {
+            console.log('Schedule will be updated: ' + schedule.name);
+            scheduleRef.child(schedule).update(schedule);
+            this.fetchAllSchedules();
             return;
         }
 
-        console.log('Schedule will be saved: ' + this.state.name);
-        scheduleRef.push().set(this.state);
+        console.log('Schedule will be saved: ' + schedule.name);
+        scheduleRef.push().set(schedule);
+        this.fetchAllSchedules();
         return;
     };
 
@@ -206,8 +221,27 @@ class Schedule extends React.Component {
         });
     };
 
+    fetchAllSchedules = () => {
+        console.log('FETCH schedules');
+        backend.fetchAllSchedules().then((data) => {
+            console.log(data);
+
+            let allSchedules = [];
+            for(const key in data) {
+                let item = data[key];
+                item.id = key;
+                allSchedules.push(item);
+            }
+
+            this.setState({
+                allSchedules: allSchedules,
+            });
+        });
+    };
+
     componentDidMount() {
-        this.fetchSchedule('-LPRLgcJuLS8QBeLimPR');
+        //this.fetchSchedule('-LPRLgcJuLS8QBeLimPR');
+        this.fetchAllSchedules();
     }
 
     render() {
@@ -237,6 +271,8 @@ class Schedule extends React.Component {
               <ScheduleForm
                   name={this.state.name}
                   id={this.state.id}
+                  allSchedules={this.state.allSchedules}
+                  handleScheduleChange={this.handleScheduleChange}
                   handleNameChange={this.handleNameChange}
                   handleFormSubmit={this.handleFormSubmit}
               />

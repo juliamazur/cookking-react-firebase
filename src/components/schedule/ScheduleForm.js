@@ -4,6 +4,10 @@ import styled from "styled-components";
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 const Container = styled.div`
   background-color: #fff;
@@ -17,6 +21,21 @@ class ScheduleForm extends React.Component {
         return (
             <Container>
                 <FormControl fullWidth={true}>
+                    <FormControl fullWidth={true}>
+                        <InputLabel shrink htmlFor="age-label-placeholder">
+                            wybierz grafik
+                        </InputLabel>
+                        <Select
+                            value={this.props.id}
+                            onChange={this.props.handleScheduleChange}
+                            input={<Input id="schedule" />}
+                        >
+                            {this.props.allSchedules.map(item => {
+                                return(<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)
+                            })
+                            }
+                        </Select>
+                    </FormControl>
                     <h3>Zapisz grafik</h3>
                     {this.props.id}
                     <TextField
