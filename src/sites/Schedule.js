@@ -122,6 +122,10 @@ class Schedule extends React.Component {
         item.recipeId = id;
 
         let scheduleColumns = {...this.state.scheduleColumns};
+        // TODO refactor
+        if(!scheduleColumns['column-0'].itemIds) {
+            scheduleColumns['column-0'].itemIds = [];
+        }
         scheduleColumns['column-0'].itemIds.push(item.id);
 
         let items = this.state.items.slice();
