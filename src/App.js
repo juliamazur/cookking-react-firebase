@@ -24,6 +24,16 @@ const theme = createMuiTheme({
             main: '#fce514',
         },
     },
+    typography: {
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [
+            'Montserrat',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+        ].join(','),
+    },
 });
 
 class App extends Component {
