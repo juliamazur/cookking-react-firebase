@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 const Container = styled.div`
   margin: 10px;
+  float: left;
 `;
 
 class RecipeCardMini extends Component {

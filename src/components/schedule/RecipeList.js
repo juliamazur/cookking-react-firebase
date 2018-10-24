@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+// import { TransitionGroup } from "react-transition-group";
+
 import RecipeCardMini from "./RecipeCardMini";
 import Grid from '@material-ui/core/Grid';
 
@@ -26,19 +28,19 @@ class RecipeList extends Component {
   };
 
   render() {
+    const items = this.getRecipes().map((value, key) =>
+        <RecipeCardMini
+            key={key}
+            id={value.id}
+            item={value}
+            handleUseRecipe={this.props.handleUseRecipe}
+        />
+    );
+
     return (
       <div className="recipe-list-placeholder">
         <Grid container>
-          {
-              this.getRecipes().map((value, key) =>
-                  <RecipeCardMini
-                    key={key}
-                    id={value.id}
-                    item={value}
-                    handleUseRecipe={this.props.handleUseRecipe}
-                  />
-              )
-          }
+          {items}
         </Grid>
       </div>
     );
