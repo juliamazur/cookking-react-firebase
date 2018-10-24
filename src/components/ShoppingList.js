@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Grid from '@material-ui/core/Grid';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
 
@@ -63,6 +64,7 @@ getIngredients = (ingredientIds) => {
        if(ingredient) {
            item.label = ingredient.label;
            item.category = ingredient.category;
+           item.type = ingredient.type;
            result.push(item);
        } else {
            console.log('WARNING! ingredient not found for ID!');
@@ -85,10 +87,15 @@ render() {
     return (
       <Container>
           <h3>Lista zakupów</h3>
+          <Grid container>
+              <Grid item xs={12} md={6} lg={4}>
+          <h4 className={classes.subtitle}>Warzywa i owoce</h4>
           {
-              ingredients.filter(v => v.category === '') ? (
+              ingredients.filter(v => v.category === ''
+                  && (v.type === 'VEG' || v.type === 'FRUIT')) ? (
                   <List>
-                      {ingredients.filter(v => v.category === '').map(ingredient => {
+                      {ingredients.filter(v => v.category === ''
+                          && (v.type === 'VEG' || v.type === 'FRUIT')).map(ingredient => {
                           return (
                               <ListItem button className={classes.listItem} key={ingredient.id}>
                                   {ingredient.label}
@@ -100,6 +107,54 @@ render() {
 
               ) : ('')
           }
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+          <h4 className={classes.subtitle}>Nabiał</h4>
+          {
+              ingredients.filter(v => v.category === ''
+                  && v.type === 'DAIRY') ? (
+                  <List>
+                      {ingredients.filter(v => v.category === ''
+                          && v.type === 'DAIRY').map(ingredient => {
+                          return (
+                              <ListItem button className={classes.listItem} key={ingredient.id}>
+                                  {ingredient.label}
+                              </ListItem>
+                          )
+                      })
+                      }
+                  </List>
+
+              ) : ('')
+          }
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+          <h4 className={classes.subtitle}>Pozostałe</h4>
+          {
+              ingredients.filter(v => v.category === ''
+                  && v.type !== 'VEG'
+                  && v.type !== 'FRUIT'
+                  && v.type !== 'DAIRY'
+              ) ? (
+                  <List>
+                      {ingredients.filter(v => v.category === ''
+                          && v.type !== 'VEG'
+                          && v.type !== 'FRUIT'
+                          && v.type !== 'DAIRY'
+                      ).map(ingredient => {
+                          return (
+                              <ListItem button className={classes.listItem} key={ingredient.id}>
+                                  {ingredient.label}
+                              </ListItem>
+                          )
+                      })
+                      }
+                  </List>
+
+              ) : ('')
+          }
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
           <h4 className={classes.subtitle}>Spiżarnia</h4>
           {
               ingredients.filter(v => v.category === 'spiżarnia') ? (
@@ -116,6 +171,8 @@ render() {
 
               ) : ('')
           }
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
           <h4 className={classes.subtitle}>Przyprawy</h4>
           {
               ingredients.filter(v => v.category === 'przyprawy') ? (
@@ -132,6 +189,8 @@ render() {
 
               ) : ('')
           }
+              </Grid>
+          </Grid>
       </Container>
 );
 
