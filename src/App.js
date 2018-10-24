@@ -86,18 +86,19 @@ class App extends Component {
       <div className="App">
       <MuiThemeProvider theme={theme}>
         <Header/>
-        <RecipeForm
+          <RecipeLibrary
+              recipeList={this.state.recipeList}
+              appEditCallback={this.editRecipe}
+              appForkCallback={this.forkRecipe}
+          />
+
+          <RecipeForm
             id={this.state.pickedRecipeId}
             recipe={this.state.pickedRecipe}
             fork={this.state.fork}
             edit={this.state.edit}
             callbackAfterSubmit={this.recipeFormAfterSubmit}
         />
-          <RecipeLibrary
-              recipeList={this.state.recipeList}
-              appEditCallback={this.editRecipe}
-              appForkCallback={this.forkRecipe}
-          />
 
         <Schedule
             recipeList={this.state.recipeList}

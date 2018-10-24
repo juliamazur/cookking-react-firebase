@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import styled from "styled-components";
 
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 const styles = theme => ({
     mainImage: {
@@ -19,15 +19,14 @@ const styles = theme => ({
         boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
         padding: '5%',
         opacity: '0.9',
+    },
+    cameraIcon: {
+       opacity: '0.5',
+       fontSize: '6em',
+       margin: '60px auto',
+       display: 'flex',
     }
 });
-
-
-const ImageContainer = styled.div`
-    max-width: 400px;
-    max-height: 400px;
-    overflow: hidden;
-`;
 
 class ImageEdit extends React.Component {
 
@@ -39,13 +38,14 @@ class ImageEdit extends React.Component {
       if (this.props.imageUrl) {
           image = <img className={classes.mainImage} src={this.props.imageUrl} alt = ''/>;
       } else {
-          image = <img className={classes.mainImageDummy} src="/static/images/icons/fried-rice.png" alt = ''/>;
+          image = <div className={classes.mainImageDummy}>
+              <PhotoCameraIcon className={classes.cameraIcon}/>
+          </div>;
       }
 
       return (
         <div>
-        <ImageContainer>{image}</ImageContainer>
-        <h4>Edytuj obrazek</h4>
+        {image}
       <input
           accept="image/*"
           id="button-file"

@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
   margin: 30px auto;
+  max-height: 620px;
+  overflow-y: scroll;
 `;
 
 class RecipeLibrary extends Component {
