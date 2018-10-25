@@ -63,6 +63,7 @@ class RecipeForm extends React.Component {
             name: this.props.recipe.name,
             description: this.props.recipe.description,
             imageUrl: this.props.recipe.imageUrl,
+            ingredient: '',
             ingredients: this.props.recipe.ingredients ? this.props.recipe.ingredients : [],
             meals: this.props.recipe.meals ? this.props.recipe.meals : [],
         });
@@ -91,20 +92,6 @@ class RecipeForm extends React.Component {
 
         this.setState({ ingredients: [...ingredients, newIngredientId] });
 
-    };
-
-    handleIngredientChange = event => {
-        const ingredients = this.state.ingredients;
-
-        if(ingredients.includes(event.target.value)) {
-            this.setState({ alert: 'Składnik nie został dodany, ponieważ jest już na liście.' });
-            window.setTimeout(() => {
-                this.setState({alert: null});
-            }, 3000);
-            return;
-        }
-
-        this.setState({ ingredients: [...ingredients, event.target.value] });
     };
 
     // TODO wtf

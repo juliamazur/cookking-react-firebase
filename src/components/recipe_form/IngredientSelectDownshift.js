@@ -78,9 +78,6 @@ const labelMatch = (label, value) => {
   const cleanValue = deburr(value.trim()).toLowerCase();
   const inputLength = cleanValue.length;
 
-  console.log(cleanLabel);
-    console.log(cleanValue);
-
   if(cleanLabel.slice(0, inputLength) === cleanValue) {
       return true;
   }
@@ -119,10 +116,14 @@ const styles = theme => ({
 
 function IntegrationDownshift(props) {
     const { classes } = props;
-    const { handleDownshiftIngredientChange } = props;
+
+
+    const onDownshiftIngredientChange = (value) => {
+        props.handleDownshiftIngredientChange(value);
+    }
 
     return (
-            <Downshift onChange={handleDownshiftIngredientChange} id="downshift-simple">
+            <Downshift onChange={onDownshiftIngredientChange} id="downshift-simple">
                 {({
                       getInputProps,
                       getItemProps,
