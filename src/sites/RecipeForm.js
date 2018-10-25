@@ -48,6 +48,7 @@ class RecipeForm extends React.Component {
     super(props);
 
       this.state = this.defaultState;
+      //this.resetState();
   }
 
   resetState = () => {
@@ -207,12 +208,17 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
-                <Paper className={classes.container}>
+
             <Grid container>
                 <Grid item xs={12} lg={6}>
                     <ImageEdit
                         imageUrl={this.state.imageUrl}
                         handleImageChange={this.handleImageChange}
+                    />
+                    <h4>Składniki</h4>
+                    <IngredientList
+                        ingredients={this.state.ingredients}
+                        handleIngredientDelete={this.handleIngredientDelete}
                     />
                 </Grid>
                 <Grid item xs={12} lg={6}>
@@ -243,13 +249,9 @@ class RecipeForm extends React.Component {
                         handleFormSubmit={this.handleFormSubmit}
                     />
                 </Grid>
-                <h4>Składniki</h4>
-                <IngredientList
-                    ingredients={this.state.ingredients}
-                    handleIngredientDelete={this.handleIngredientDelete}
-                />
+
             </Grid>
-                </Paper>
+
             </div>
         );
 
