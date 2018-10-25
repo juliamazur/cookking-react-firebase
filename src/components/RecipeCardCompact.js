@@ -95,7 +95,7 @@ class RecipeCardCompact extends Component {
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {
-                  return (<li key={ingredient}>{ingredientsFixture.filter(v => v.id === ingredient)[0].name}</li>)
+                  return (<li key={ingredient}>{ingredientsFixture.filter(v => v.id === ingredient)[0].label}</li>)
                 })
               }
             </ul>
