@@ -72,6 +72,18 @@
 		"type" : "VEG"
 	},
 	{
+		"id" : 107,
+		"label" : "ogórki długie",
+		"category" : "",
+		"type" : "VEG"
+	},
+	{
+		"id" : 108,
+		"label" : "ogórki gruntowe",
+		"category" : "",
+		"type" : "VEG"
+	},
+	{
 		"id" : 85,
 		"label" : "papryka biała",
 		"category" : "",
@@ -160,6 +172,18 @@
 		"label" : "krakersy",
 		"category" : "spiżarnia",
 		"type" : "SNACK"
+	},
+	{
+		"id" : 104,
+		"label" : "cukier waniliowy",
+		"category" : "przyprawy",
+		"type" : "SEASONING"
+	},
+	{
+		"id" : 103,
+		"label" : "cynamon",
+		"category" : "przyprawy",
+		"type" : "SEASONING"
 	},
 	{
 		"id" : 52,
@@ -312,6 +336,18 @@
 		"type" : "NUTS"
 	},
 	{
+		"id" : 102,
+		"label" : "pestki dyni",
+		"category" : "",
+		"type" : "NUTS"
+	},
+	{
+		"id" : 101,
+		"label" : "pestki słonecznika",
+		"category" : "",
+		"type" : "NUTS"
+	},
+	{
 		"id" : 63,
 		"label" : "tortille (tortilla wraps)",
 		"category" : "",
@@ -372,6 +408,12 @@
 		"type" : "FRUIT"
 	},
 	{
+		"id" : 106,
+		"label" : "jabłka",
+		"category" : "",
+		"type" : "FRUIT"
+	},
+	{
 		"id" : 98,
 		"label" : "jagody",
 		"category" : "",
@@ -390,6 +432,12 @@
 		"type" : "DRY"
 	},
 	{
+		"id" : 100,
+		"label" : "herbata matcha",
+		"category" : "",
+		"type" : "DRY"
+	},
+	{
 		"id" : 15,
 		"label" : "kotlety sojowe",
 		"category" : "",
@@ -404,7 +452,7 @@
 	{
 		"id" : 79,
 		"label" : "płatki owsiane",
-		"category" : "",
+		"category" : "spiżarnia",
 		"type" : "DRY"
 	},
 	{
@@ -488,6 +536,12 @@
 	{
 		"id" : 12,
 		"label" : "parmezan (parmigiano reggiano)",
+		"category" : "",
+		"type" : "DAIRY"
+	},
+	{
+		"id" : 105,
+		"label" : "ser biały (twaróg)",
 		"category" : "",
 		"type" : "DAIRY"
 	},

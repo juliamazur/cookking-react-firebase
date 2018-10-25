@@ -10,36 +10,44 @@ import DescriptionInput from "../components/recipe_form/DescriptionInput";
 import MealSelect from "../components/recipe_form/MealSelect";
 import MealList from "../components/recipe_form/MealList";
 import IngredientList from "../components/recipe_form/IngredientList";
+
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
 import ImageEdit from "../components/recipe_form/ImageEdit";
 
-const styles = theme => ({});
+const styles = theme => ({
+
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexGrow: 1,
+        margin: 'auto',
+        maxWidth: 900,
+        padding: theme.spacing.unit * 2,
+        marginTop: 45,
+        marginBottom: 45,
+    }
+});
 
 class RecipeForm extends React.Component {
 
     defaultState = {
-        recipe: {
-            name: '',
-            description: '',
-            imageUrl: '',
-            ingredient: '',
-            ingredients: [],
-            meal: '',
-            meals: [],
-            alert: null,
-        }
+        name: '',
+        description: '',
+        imageUrl: '',
+        ingredient: '',
+        ingredients: [],
+        meal: '',
+        meals: [],
+        alert: null,
     };
 
     constructor(props) {
         super(props);
 
         this.state = this.defaultState;
-
-        // this.setState({
-        //     recipe: this.props.recipe,
-        // });
     }
 
     resetState = () => {
@@ -51,25 +59,24 @@ class RecipeForm extends React.Component {
 
         // set state from props
         this.setState({
-            recipe: this.props.recipe,
+            name: this.props.recipe.name,
+            description: this.props.recipe.description,
+            imageUrl: this.props.recipe.imageUrl,
+            ingredients: this.props.recipe.ingredients ? this.props.recipe.ingredients : [],
+            meals: this.props.recipe.meals ? this.props.recipe.meals : [],
         });
     }
 
     handleNameChange = event => {
-        let recipe = {...this.state.recipe};
-        recipe.name = event.target.value;
-        this.setState({ recipe: recipe });
+        this.setState({ name: event.target.value });
     };
 
     handleDescriptionChange = event => {
-        let recipe = {...this.state.recipe};
-        recipe.description = event.target.value;
-        this.setState({ recipe: recipe });
+        this.setState({ description: event.target.value });
     };
 
     handleDownshiftIngredientChange = label => {
-        let recipe = {...this.state.recipe};
-        const ingredients = recipe.ingredients ? recipe.ingredients : [];
+        const ingredients = this.state.ingredients;
         const newIngredient = ingredientsFixture.filter(el => el.label === label);
         const newIngredientId = newIngredient[0].id;
 
@@ -81,36 +88,43 @@ class RecipeForm extends React.Component {
             return;
         }
 
-        recipe.ingredients = [...ingredients, newIngredientId];
+        this.setState({ ingredients: [...ingredients, newIngredientId] });
 
-        this.setState({ recipe: recipe });
+    };
 
+    handleIngredientChange = event => {
+        const ingredients = this.state.ingredients;
+
+        if(ingredients.includes(event.target.value)) {
+            this.setState({ alert: 'Składnik nie został dodany, ponieważ jest już na liście.' });
+            window.setTimeout(() => {
+                this.setState({alert: null});
+            }, 3000);
+            return;
+        }
+
+        this.setState({ ingredients: [...ingredients, event.target.value] });
     };
 
     // TODO wtf
     handleMealChange = name => event => {
-        let recipe = {...this.state.recipe};
-        const meals = recipe.meals ? recipe.meals : [];
-        if(meals.includes(event.target.value)) {
+        if(this.state.meals.includes(event.target.value)) {
             return;
         }
 
-        recipe.meals = [...meals, event.target.value];
-        this.setState({ recipe: recipe });
+        this.setState({ meals: [...this.state.meals, event.target.value] });
     };
 
     handleIngredientDelete = id => () => {
-        let recipe = {...this.state.recipe};
-        const ingredients = recipe.ingredients.filter(el => el !== id);
-        recipe.ingredients = ingredients;
-        this.setState({ recipe: recipe });
+        this.setState(prevState => ({
+            ingredients: prevState.ingredients.filter(el => el !== id)
+        }));
     };
 
     handleMealDelete = id => () => {
-        let recipe = {...this.state.recipe};
-        const meals = recipe.meals.filter(el => el !== id);
-        recipe.meals = meals;
-        this.setState({ recipe: recipe });
+        this.setState(prevState => ({
+            meals: prevState.meals.filter(el => el !== id)
+        }));
     };
 
     handleImageChange = event => {
@@ -120,13 +134,11 @@ class RecipeForm extends React.Component {
             const d = new Date();
             const imageName = md5(d.getTime()) + '.' + imageExt;
 
-            let recipe = {...this.state.recipe};
-
-            recipe.image = image;
-            recipe.imageUrl = URL.createObjectURL(image);
-            recipe.imageName = imageName;
-
-            this.setState({ recipe: recipe });
+            this.setState({
+                image: image,
+                imageUrl: URL.createObjectURL(image),
+                imageName: imageName,
+            })
         }
     };
 
@@ -161,11 +173,13 @@ class RecipeForm extends React.Component {
     };
 
     saveToDB = newImageUrl => {
-        console.log(newImageUrl);
-        let data = {...this.state.recipe};
-        if(newImageUrl) {
-            data.imageUrl = newImageUrl;
-        }
+        const data = {
+            name: this.state.name,
+            description: this.state.description,
+            ingredients: this.state.ingredients,
+            meals: this.state.meals,
+            imageUrl: newImageUrl ? newImageUrl : this.state.imageUrl,
+        };
 
         if (this.props.edit) {
             this.editRecipe(this.props.id, data);
@@ -176,7 +190,6 @@ class RecipeForm extends React.Component {
         this.resetState();
         this.props.callbackAfterSubmit();
     }
-
 
     componentDidUpdate(prevProps) {
         if (this.props.recipe === prevProps.recipe
@@ -194,50 +207,49 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
+                <Paper className={classes.container}>
+                    <Grid container>
+                        <Grid item xs={12} lg={6}>
+                            <ImageEdit
+                                imageUrl={this.state.imageUrl}
+                                handleImageChange={this.handleImageChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <NameInput
+                                name={this.state.name}
+                                handleNameChange={this.handleNameChange}
+                            />
 
-                <Grid container>
-                    <Grid item xs={12} lg={6}>
-                        <ImageEdit
-                            imageUrl={this.state.recipe.imageUrl}
-                            handleImageChange={this.handleImageChange}
-                        />
+                            <p>{this.state.alert}</p>
+
+                            <IntegrationDownshift
+                                handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
+                            />
+                            <MealList
+                                meals={this.state.meals}
+                                handleMealDelete={this.handleMealDelete}
+
+                            />
+                            <MealSelect
+                                meal={this.state.meal}
+                                handleMealChange={this.handleMealChange}
+                            />
+                            <DescriptionInput
+                                description={this.state.description}
+                                handleDescriptionChange={this.handleDescriptionChange}
+                            />
+                            <SubmitButton
+                                handleFormSubmit={this.handleFormSubmit}
+                            />
+                        </Grid>
                         <h4>Składniki</h4>
                         <IngredientList
-                            ingredients={this.state.recipe.ingredients}
+                            ingredients={this.state.ingredients}
                             handleIngredientDelete={this.handleIngredientDelete}
                         />
                     </Grid>
-                    <Grid item xs={12} lg={6}>
-                        <NameInput
-                            name={this.state.recipe.name}
-                            handleNameChange={this.handleNameChange}
-                        />
-
-                        <p>{this.state.alert}</p>
-
-                        <IntegrationDownshift
-                            handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
-                        />
-                        <MealList
-                            meals={this.state.recipe.meals}
-                            handleMealDelete={this.handleMealDelete}
-
-                        />
-                        <MealSelect
-                            meal={this.state.recipe.meal}
-                            handleMealChange={this.handleMealChange}
-                        />
-                        <DescriptionInput
-                            description={this.state.recipe.description}
-                            handleDescriptionChange={this.handleDescriptionChange}
-                        />
-                        <SubmitButton
-                            handleFormSubmit={this.handleFormSubmit}
-                        />
-                    </Grid>
-
-                </Grid>
-
+                </Paper>
             </div>
         );
 
@@ -246,4 +258,3 @@ class RecipeForm extends React.Component {
 }
 
 export default withStyles(styles)(RecipeForm);
-
