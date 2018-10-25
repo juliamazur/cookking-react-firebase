@@ -48,6 +48,7 @@ class RecipeForm extends React.Component {
         super(props);
 
         this.state = this.defaultState;
+        //this.resetState();
     }
 
     resetState = () => {
@@ -68,20 +69,15 @@ class RecipeForm extends React.Component {
     }
 
     handleNameChange = event => {
-        let recipe = {...this.state.recipe};
-        recipe.name = event.target.value;
-        this.setState({ recipe: recipe });
+        this.setState({ name: event.target.value });
     };
 
     handleDescriptionChange = event => {
-        let recipe = {...this.state.recipe};
-        recipe.description = event.target.value;
-        this.setState({ recipe: recipe });
+        this.setState({ description: event.target.value });
     };
 
     handleDownshiftIngredientChange = label => {
-        let recipe = {...this.state.recipe};
-        const ingredients = recipe.ingredients ? recipe.ingredients : [];
+        const ingredients = this.state.ingredients;
         const newIngredient = ingredientsFixture.filter(el => el.label === label);
         const newIngredientId = newIngredient[0].id;
 
@@ -93,36 +89,43 @@ class RecipeForm extends React.Component {
             return;
         }
 
-        recipe.ingredients = [...ingredients, newIngredientId];
+        this.setState({ ingredients: [...ingredients, newIngredientId] });
 
-        this.setState({ recipe: recipe });
+    };
 
+    handleIngredientChange = event => {
+        const ingredients = this.state.ingredients;
+
+        if(ingredients.includes(event.target.value)) {
+            this.setState({ alert: 'Składnik nie został dodany, ponieważ jest już na liście.' });
+            window.setTimeout(() => {
+                this.setState({alert: null});
+            }, 3000);
+            return;
+        }
+
+        this.setState({ ingredients: [...ingredients, event.target.value] });
     };
 
     // TODO wtf
     handleMealChange = name => event => {
-        let recipe = {...this.state.recipe};
-        const meals = recipe.meals ? recipe.meals : [];
-        if(meals.includes(event.target.value)) {
+        if(this.state.meals.includes(event.target.value)) {
             return;
         }
 
-        recipe.meals = [...meals, event.target.value];
-        this.setState({ recipe: recipe });
+        this.setState({ meals: [...this.state.meals, event.target.value] });
     };
 
     handleIngredientDelete = id => () => {
-        let recipe = {...this.state.recipe};
-        const ingredients = recipe.ingredients.filter(el => el !== id);
-        recipe.ingredients = ingredients;
-        this.setState({ recipe: recipe });
+        this.setState(prevState => ({
+            ingredients: prevState.ingredients.filter(el => el !== id)
+        }));
     };
 
     handleMealDelete = id => () => {
-        let recipe = {...this.state.recipe};
-        const meals = recipe.meals.filter(el => el !== id);
-        recipe.meals = meals;
-        this.setState({ recipe: recipe });
+        this.setState(prevState => ({
+            meals: prevState.meals.filter(el => el !== id)
+        }));
     };
 
     handleImageChange = event => {
@@ -132,13 +135,11 @@ class RecipeForm extends React.Component {
             const d = new Date();
             const imageName = md5(d.getTime()) + '.' + imageExt;
 
-            let recipe = {...this.state.recipe};
-
-            recipe.image = image;
-            recipe.imageUrl = URL.createObjectURL(image);
-            recipe.imageName = imageName;
-
-            this.setState({ recipe: recipe });
+            this.setState({
+                image: image,
+                imageUrl: URL.createObjectURL(image),
+                imageName: imageName,
+            })
         }
     };
 
@@ -173,10 +174,18 @@ class RecipeForm extends React.Component {
     };
 
     saveToDB = newImageUrl => {
+        const data = {
+            name: this.state.name,
+            description: this.state.description,
+            ingredients: this.state.ingredients,
+            meals: this.state.meals,
+            imageUrl: newImageUrl ? newImageUrl : this.state.imageUrl,
+        };
+
         if (this.props.edit) {
-            this.editRecipe(this.props.id, this.state.recipe);
+            this.editRecipe(this.props.id, data);
         } else {
-            this.addRecipe(this.state.recipe);
+            this.addRecipe(data);
         }
 
         this.resetState();
@@ -199,49 +208,50 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
-                <Paper className={classes.container}>
-                    <Grid container>
-                        <Grid item xs={12} lg={6}>
-                            <ImageEdit
-                                imageUrl={this.state.imageUrl}
-                                handleImageChange={this.handleImageChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <NameInput
-                                name={this.state.name}
-                                handleNameChange={this.handleNameChange}
-                            />
 
-                            <p>{this.state.alert}</p>
-
-                            <IntegrationDownshift
-                                handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
-                            />
-                            <MealList
-                                meals={this.state.meals}
-                                handleMealDelete={this.handleMealDelete}
-
-                            />
-                            <MealSelect
-                                meal={this.state.meal}
-                                handleMealChange={this.handleMealChange}
-                            />
-                            <DescriptionInput
-                                description={this.state.description}
-                                handleDescriptionChange={this.handleDescriptionChange}
-                            />
-                            <SubmitButton
-                                handleFormSubmit={this.handleFormSubmit}
-                            />
-                        </Grid>
+                <Grid container>
+                    <Grid item xs={12} lg={6}>
+                        <ImageEdit
+                            imageUrl={this.state.imageUrl}
+                            handleImageChange={this.handleImageChange}
+                        />
                         <h4>Składniki</h4>
                         <IngredientList
                             ingredients={this.state.ingredients}
                             handleIngredientDelete={this.handleIngredientDelete}
                         />
                     </Grid>
-                </Paper>
+                    <Grid item xs={12} lg={6}>
+                        <NameInput
+                            name={this.state.name}
+                            handleNameChange={this.handleNameChange}
+                        />
+
+                        <p>{this.state.alert}</p>
+
+                        <IntegrationDownshift
+                            handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
+                        />
+                        <MealList
+                            meals={this.state.meals}
+                            handleMealDelete={this.handleMealDelete}
+
+                        />
+                        <MealSelect
+                            meal={this.state.meal}
+                            handleMealChange={this.handleMealChange}
+                        />
+                        <DescriptionInput
+                            description={this.state.description}
+                            handleDescriptionChange={this.handleDescriptionChange}
+                        />
+                        <SubmitButton
+                            handleFormSubmit={this.handleFormSubmit}
+                        />
+                    </Grid>
+
+                </Grid>
+
             </div>
         );
 
