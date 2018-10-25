@@ -68,15 +68,20 @@ class RecipeForm extends React.Component {
     }
 
     handleNameChange = event => {
-        this.setState({ name: event.target.value });
+        let recipe = {...this.state.recipe};
+        recipe.name = event.target.value;
+        this.setState({ recipe: recipe });
     };
 
     handleDescriptionChange = event => {
-        this.setState({ description: event.target.value });
+        let recipe = {...this.state.recipe};
+        recipe.description = event.target.value;
+        this.setState({ recipe: recipe });
     };
 
     handleDownshiftIngredientChange = label => {
-        const ingredients = this.state.ingredients;
+        let recipe = {...this.state.recipe};
+        const ingredients = recipe.ingredients ? recipe.ingredients : [];
         const newIngredient = ingredientsFixture.filter(el => el.label === label);
         const newIngredientId = newIngredient[0].id;
 
@@ -88,43 +93,36 @@ class RecipeForm extends React.Component {
             return;
         }
 
-        this.setState({ ingredients: [...ingredients, newIngredientId] });
+        recipe.ingredients = [...ingredients, newIngredientId];
 
-    };
+        this.setState({ recipe: recipe });
 
-    handleIngredientChange = event => {
-        const ingredients = this.state.ingredients;
-
-        if(ingredients.includes(event.target.value)) {
-            this.setState({ alert: 'Składnik nie został dodany, ponieważ jest już na liście.' });
-            window.setTimeout(() => {
-                this.setState({alert: null});
-            }, 3000);
-            return;
-        }
-
-        this.setState({ ingredients: [...ingredients, event.target.value] });
     };
 
     // TODO wtf
     handleMealChange = name => event => {
-        if(this.state.meals.includes(event.target.value)) {
+        let recipe = {...this.state.recipe};
+        const meals = recipe.meals ? recipe.meals : [];
+        if(meals.includes(event.target.value)) {
             return;
         }
 
-        this.setState({ meals: [...this.state.meals, event.target.value] });
+        recipe.meals = [...meals, event.target.value];
+        this.setState({ recipe: recipe });
     };
 
     handleIngredientDelete = id => () => {
-        this.setState(prevState => ({
-            ingredients: prevState.ingredients.filter(el => el !== id)
-        }));
+        let recipe = {...this.state.recipe};
+        const ingredients = recipe.ingredients.filter(el => el !== id);
+        recipe.ingredients = ingredients;
+        this.setState({ recipe: recipe });
     };
 
     handleMealDelete = id => () => {
-        this.setState(prevState => ({
-            meals: prevState.meals.filter(el => el !== id)
-        }));
+        let recipe = {...this.state.recipe};
+        const meals = recipe.meals.filter(el => el !== id);
+        recipe.meals = meals;
+        this.setState({ recipe: recipe });
     };
 
     handleImageChange = event => {
@@ -134,11 +132,13 @@ class RecipeForm extends React.Component {
             const d = new Date();
             const imageName = md5(d.getTime()) + '.' + imageExt;
 
-            this.setState({
-                image: image,
-                imageUrl: URL.createObjectURL(image),
-                imageName: imageName,
-            })
+            let recipe = {...this.state.recipe};
+
+            recipe.image = image;
+            recipe.imageUrl = URL.createObjectURL(image);
+            recipe.imageName = imageName;
+
+            this.setState({ recipe: recipe });
         }
     };
 
@@ -173,18 +173,10 @@ class RecipeForm extends React.Component {
     };
 
     saveToDB = newImageUrl => {
-        const data = {
-            name: this.state.name,
-            description: this.state.description,
-            ingredients: this.state.ingredients,
-            meals: this.state.meals,
-            imageUrl: newImageUrl ? newImageUrl : this.state.imageUrl,
-        };
-
         if (this.props.edit) {
-            this.editRecipe(this.props.id, data);
+            this.editRecipe(this.props.id, this.state.recipe);
         } else {
-            this.addRecipe(data);
+            this.addRecipe(this.state.recipe);
         }
 
         this.resetState();
