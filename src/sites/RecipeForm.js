@@ -208,7 +208,7 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
-
+                <Paper className={classes.container}>
                 <Grid container>
                     <Grid item xs={12} lg={6}>
                         <ImageEdit
@@ -251,7 +251,7 @@ class RecipeForm extends React.Component {
                     </Grid>
 
                 </Grid>
-
+                </Paper>
             </div>
         );
 
