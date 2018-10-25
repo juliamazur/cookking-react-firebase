@@ -40,7 +40,16 @@ const theme = createMuiTheme({
 class App extends Component {
 
   defaultState = {
-    pickedRecipe: null,
+    pickedRecipe: {
+        name: '',
+        description: '',
+        imageUrl: '',
+        ingredient: '',
+        ingredients: [],
+        meal: '',
+        meals: [],
+        alert: null,
+    },
     pickedRecipeId: null,
     edit: false,
     fork: false,
