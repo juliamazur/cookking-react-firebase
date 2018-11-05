@@ -14,6 +14,7 @@ describe('Header component', () => {
 
 
   it('renders Header component', () => {
+    const wrapper = shallow(<App />);
     expect(wrapper.contains(<Header />)).toBe(true);
   });
 
