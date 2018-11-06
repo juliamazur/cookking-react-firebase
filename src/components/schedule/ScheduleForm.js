@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
   background-color: #bbb;
+  padding-top: 10px;
 `;
 
 class ScheduleForm extends React.Component {
@@ -43,7 +44,6 @@ class ScheduleForm extends React.Component {
                     <TextField
                         id="schedule-name"
                         value={this.props.name}
-                        label="Nazwa grafiku"
                         placeholder="Wpisz nazwę grafiku"
                         margin="normal"
                         onChange={this.props.handleNameChange}

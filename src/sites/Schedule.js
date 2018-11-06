@@ -111,9 +111,6 @@ class Schedule extends React.Component {
         this.fetchSchedule(event.target.value);
     };
 
-    handleFormSubmit = () => {};
-
-
     handleUseRecipe = id => {
         console.log('USE recipe: ' + id);
         let item = {};
@@ -183,6 +180,7 @@ class Schedule extends React.Component {
         // TODO make schedule a single object in state
         let schedule = {};
         schedule.id = this.state.id;
+        schedule.timestamp = Date.now();
         schedule.name = this.state.name;
         schedule.items = this.state.items;
         schedule.scheduleColumns = this.state.scheduleColumns;
@@ -232,7 +230,7 @@ class Schedule extends React.Component {
             }
 
             this.setState({
-                allSchedules: allSchedules,
+                allSchedules: allSchedules.sort((a,b) => {if(a.timestamp < b.timestamp) return 1; return -1;}),
             });
         });
     };
