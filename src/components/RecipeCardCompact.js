@@ -11,9 +11,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
@@ -113,7 +114,7 @@ class RecipeCardCompact extends Component {
               <FavoriteIcon />
             </IconButton>
             <IconButton aria-label="Fork" onClick={() => this.forkRecipe(id)}>
-              <ShareIcon />
+              <FileCopyIcon />
             </IconButton>
             <IconButton
               className={classnames(classes.expand, {

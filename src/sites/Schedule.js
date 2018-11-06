@@ -199,10 +199,31 @@ class Schedule extends React.Component {
         return;
     };
 
-    handleScheduleDelete = id => (event) => {
-        console.log('Schedule will be deleted: ' + id);
-        //scheduleRef.child(id).remove();
+    handleScheduleDelete = id => {
+      console.log('Schedule will be deleted: ' + id);
+      scheduleRef.child(id).remove();
+      this.fetchAllSchedules();
     };
+
+  handleScheduleCopy = id => {
+    console.log('Schedule will be copied: ' + id);
+    this.setState({
+      name: '',
+      id: '',
+    });
+  };
+
+  handleScheduleNew = () => {
+    console.log('New Schedule');
+    this.setState({
+      name: '',
+      id: '',
+      items: [],
+      scheduleColumns: initialScheduleData.columns,
+      scheduleColumnOrder: initialScheduleData.columnOrder,
+    });
+    this.props.usedRecipeListUpdate([]);
+  };
 
     fetchSchedule = id => {
         console.log('FETCH schedule: ' + id);
@@ -228,10 +249,14 @@ class Schedule extends React.Component {
                 item.id = key;
                 allSchedules.push(item);
             }
+        allSchedules.sort((a,b) => {if(a.timestamp < b.timestamp) return 1; return -1;});
 
-            this.setState({
-                allSchedules: allSchedules.sort((a,b) => {if(a.timestamp < b.timestamp) return 1; return -1;}),
-            });
+        this.setState({
+            allSchedules: allSchedules,
+        });
+        if(allSchedules.length > 0) {
+          this.fetchSchedule(allSchedules.slice().shift().id)
+        }
         });
     };
 
@@ -255,6 +280,9 @@ class Schedule extends React.Component {
               handleScheduleChange={this.handleScheduleChange}
               handleNameChange={this.handleNameChange}
               handleFormSubmit={this.handleFormSubmit}
+              copySchedule={this.handleScheduleCopy}
+              deleteSchedule={this.handleScheduleDelete}
+              newSchedule={this.handleScheduleNew}
             />
             <DragDropContext onDragEnd={this.onDragEnd}>
               <Container>
