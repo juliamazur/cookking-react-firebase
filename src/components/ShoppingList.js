@@ -15,15 +15,7 @@ const Container = styled.div`
   padding: 4%;
 `;
 
-const styles = theme => ({
-    listItem: {
-        float: 'left',
-        width: 300
-    },
-    subtitle: {
-        clear: 'both'
-    }
-});
+const styles = theme => ({});
 
 class ShoppingList extends React.Component {
 
@@ -88,7 +80,7 @@ render() {
       <Container>
           <h3>Lista zakupów</h3>
           <Grid container>
-              <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4} lg={2}>
           <h4 className={classes.subtitle}>Warzywa i owoce</h4>
           {
               ingredients.filter(v => v.category === ''
@@ -108,7 +100,7 @@ render() {
               ) : ('')
           }
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4} lg={2}>
           <h4 className={classes.subtitle}>Nabiał</h4>
           {
               ingredients.filter(v => v.category === ''
@@ -128,7 +120,7 @@ render() {
               ) : ('')
           }
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4} lg={2}>
           <h4 className={classes.subtitle}>Pozostałe</h4>
           {
               ingredients.filter(v => v.category === ''
@@ -154,7 +146,7 @@ render() {
               ) : ('')
           }
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={4} lg={2}>
           <h4 className={classes.subtitle}>Spiżarnia</h4>
           {
               ingredients.filter(v => v.category === 'spiżarnia') ? (
@@ -172,7 +164,7 @@ render() {
               ) : ('')
           }
               </Grid>
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={4} lg={2}>
           <h4 className={classes.subtitle}>Przyprawy</h4>
           {
               ingredients.filter(v => v.category === 'przyprawy') ? (

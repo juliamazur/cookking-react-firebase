@@ -201,7 +201,6 @@ class RecipeForm extends React.Component {
                             imageUrl={this.state.imageUrl}
                             handleImageChange={this.handleImageChange}
                         />
-                        <h4>Składniki</h4>
                         <IngredientList
                             ingredients={this.state.ingredients}
                             handleIngredientDelete={this.handleIngredientDelete}
