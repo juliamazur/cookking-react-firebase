@@ -13,7 +13,7 @@ class RecipeFormModal extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.props.handleOpen}>Open alert dialog</Button>
+                {/*<Button onClick={this.props.handleOpen}>Open alert dialog</Button>*/}
                 <Dialog
                     open={this.props.open}
                     onClose={this.props.handleClose}
