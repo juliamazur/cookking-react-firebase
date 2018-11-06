@@ -8,19 +8,20 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
-  background-color: #fff;
-  max-width: 400px;
-  margin: 30px auto;
+  background-color: #bbb;
 `;
 
 class ScheduleForm extends React.Component {
 
     render() {
         return (
-            <Container>
-                <FormControl fullWidth={true}>
+              <Container>
+                <Grid container>
+                  <Grid item xs={12} md={6}></Grid>
+                <Grid item xs={12} md={2}>
                     <FormControl fullWidth={true}>
                         <InputLabel shrink htmlFor="age-label-placeholder">
                             wybierz grafik
@@ -36,8 +37,9 @@ class ScheduleForm extends React.Component {
                             }
                         </Select>
                     </FormControl>
-                    <h3>Zapisz grafik</h3>
-                    {this.props.id}
+                </Grid>
+                <Grid item xs={12} md={2}>
+                  <FormControl fullWidth={true}>
                     <TextField
                         id="schedule-name"
                         value={this.props.name}
@@ -46,15 +48,19 @@ class ScheduleForm extends React.Component {
                         margin="normal"
                         onChange={this.props.handleNameChange}
                     />
-                </FormControl>
-                <Button
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} md={1}>
+                  <Button
                     variant="contained"
                     color="primary"
                     onClick={this.props.handleFormSubmit}
                 >
                     Zapisz
                 </Button>
-            </Container>
+                </Grid>
+                </Grid>
+              </Container>
         );
     }
 }

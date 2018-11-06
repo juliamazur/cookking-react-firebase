@@ -250,6 +250,14 @@ class Schedule extends React.Component {
                   recipeList={this.props.recipeList}
                   handleUseRecipe={this.handleUseRecipe}
               />
+            <ScheduleForm
+              name={this.state.name}
+              id={this.state.id}
+              allSchedules={this.state.allSchedules}
+              handleScheduleChange={this.handleScheduleChange}
+              handleNameChange={this.handleNameChange}
+              handleFormSubmit={this.handleFormSubmit}
+            />
             <DragDropContext onDragEnd={this.onDragEnd}>
               <Container>
                   {
@@ -266,14 +274,6 @@ class Schedule extends React.Component {
                   }
               </Container>
             </DragDropContext>
-              <ScheduleForm
-                  name={this.state.name}
-                  id={this.state.id}
-                  allSchedules={this.state.allSchedules}
-                  handleScheduleChange={this.handleScheduleChange}
-                  handleNameChange={this.handleNameChange}
-                  handleFormSubmit={this.handleFormSubmit}
-              />
           </div>
         );
 
