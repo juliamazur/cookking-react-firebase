@@ -164,7 +164,7 @@ render() {
               ) : ('')
           }
               </Grid>
-              <Grid item xs={12} md={4} lg={2}>
+              <Grid item xs={12} sm={6} md={4} lg={2}>
           <h4 className={classes.subtitle}>Przyprawy</h4>
           {
               ingredients.filter(v => v.category === 'przyprawy') ? (

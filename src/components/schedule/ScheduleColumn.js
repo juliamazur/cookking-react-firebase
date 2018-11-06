@@ -1,13 +1,16 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 import Item from './ScheduleItem'
 
-const Container = styled.div`
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-`;
+// const Container = styled.div`
+//   width: 300px;
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+const Container = styled.div``;
 
 const Title = styled.div`
   text-align: center;
@@ -22,6 +25,13 @@ const DraggableList = styled.div`
   flex-grow: 1;
   min-height: 100px;
 `;
+
+const styles = theme => ({
+  scheduleItem: {
+    maxWidth: '95%',
+  },
+});
+
 
 class ScheduleColumn extends React.Component {
 
@@ -64,7 +74,7 @@ class ScheduleColumn extends React.Component {
               isDraggingOver={snapshot.isDraggingOver}
             >
                 {items.map((item, index)  =>
-                    <Item
+                    <Item className={this.props.scheduleItem}
                         key={item.id}
                         item={item}
                         index={index}
@@ -81,4 +91,4 @@ class ScheduleColumn extends React.Component {
   }
 }
 
-export default ScheduleColumn;
+export default withStyles(styles)(ScheduleColumn);

@@ -1,6 +1,9 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import { DragDropContext } from 'react-beautiful-dnd';
-import styled from 'styled-components';
+
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 import { scheduleRef } from '../config/firebase'
 
@@ -13,12 +16,11 @@ import initialScheduleData from '../components/initial-data';
 import md5 from "md5";
 import * as backend from "../backend";
 
-const Container = styled.div`
-  background-color: #fff;
-  display: flex;
-  max-width: 98%;
-  margin: 30px auto;
-`;
+const styles = theme => ({
+  columnGrid: {
+    minWidth: '12%',
+  },
+});
 
 class Schedule extends React.Component {
 
@@ -266,9 +268,10 @@ class Schedule extends React.Component {
     }
 
     render() {
-        return (
-          <div>
+      const { classes } = this.props;
 
+        return (
+          <Paper>
               <RecipeListTabs
                   recipeList={this.props.recipeList}
                   handleUseRecipe={this.handleUseRecipe}
@@ -285,25 +288,25 @@ class Schedule extends React.Component {
               newSchedule={this.handleScheduleNew}
             />
             <DragDropContext onDragEnd={this.onDragEnd}>
-              <Container>
+              <Grid container>
                   {
                     this.state.scheduleColumnOrder.map(columnId => {
                         const column = this.state.scheduleColumns[columnId];
-                        return <ScheduleColumn
+                        return <Grid className={classes.columnGrid} item xs={12} md={3} lg={1}><ScheduleColumn
                             key={column.id}
                             column={column}
                             items={this.state.items}
                             recipeList={this.props.recipeList}
                             handleRemoveItem={this.handleRemoveItem}
-                        />;
+                        /></Grid>;
                     })
                   }
-              </Container>
+              </Grid>
             </DragDropContext>
-          </div>
+          </Paper>
         );
 
     }
 }
 
-export default Schedule;
+export default withStyles(styles)(Schedule);

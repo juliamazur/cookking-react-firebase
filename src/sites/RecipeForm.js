@@ -196,7 +196,7 @@ class RecipeForm extends React.Component {
             <div className="recipe-form-placeholder">
                 <Paper className={classes.container}>
                 <Grid container>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} md={6}>
                         <ImageEdit
                             imageUrl={this.state.imageUrl}
                             handleImageChange={this.handleImageChange}
@@ -206,7 +206,7 @@ class RecipeForm extends React.Component {
                             handleIngredientDelete={this.handleIngredientDelete}
                         />
                     </Grid>
-                    <Grid item xs={12} lg={6}>
+                    <Grid item xs={12} md={6}>
                         <Input
                           data-test='nameInput'
                           name='name'
