@@ -57,8 +57,6 @@ class Item extends React.Component {
     }
 
   render() {
-    const { classes } = this.props;
-
     return (
       <Draggable draggableId={this.props.item.id} index={this.props.index}>
         {(provided, snapshot) => (

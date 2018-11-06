@@ -4,10 +4,8 @@ import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
 import IntegrationDownshift from '../components/recipe_form/IngredientSelectDownshift'
-import NameInput from '../components/recipe_form/NameInput'
 import Input from '../components/form/Input'
 import SubmitButton from '../components/recipe_form/SubmitButton'
-import DescriptionInput from "../components/recipe_form/DescriptionInput";
 import MealSelect from "../components/recipe_form/MealSelect";
 import MealList from "../components/recipe_form/MealList";
 import IngredientList from "../components/recipe_form/IngredientList";
@@ -70,13 +68,13 @@ class RecipeForm extends React.Component {
         });
     }
 
-    handleNameChange = event => {
-        this.setState({ name: event.target.value });
-    };
-
-    handleDescriptionChange = event => {
-        this.setState({ description: event.target.value });
-    };
+  handleInputChange = event => {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [name]: value,
+    });
+  };
 
     handleDownshiftIngredientChange = label => {
         const ingredients = this.state.ingredients;
@@ -211,9 +209,11 @@ class RecipeForm extends React.Component {
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         <Input
+                          data-test='nameInput'
+                          name='name'
                           value={this.state.name}
                           label='Nazwa'
-                          handleChange={this.handleNameChange}
+                          handleChange={this.handleInputChange}
                         />
 
                         <p>{this.state.alert}</p>
@@ -230,10 +230,13 @@ class RecipeForm extends React.Component {
                             meal={this.state.meal}
                             handleMealChange={this.handleMealChange}
                         />
-                        <DescriptionInput
-                            description={this.state.description}
-                            handleDescriptionChange={this.handleDescriptionChange}
-                        />
+                      <Input
+                        data-test='descInput'
+                        name='description'
+                        value={this.state.description}
+                        label='Opis'
+                        handleChange={this.handleInputChange}
+                      />
                         <SubmitButton
                             handleFormSubmit={this.handleFormSubmit}
                         />

@@ -10,6 +10,7 @@ class Input extends React.Component {
         <FormControl fullWidth={true}>
             <TextField
               id={this.props.id}
+              name={this.props.name}
               data-test="input"
               value={this.props.value}
               label={this.props.label}

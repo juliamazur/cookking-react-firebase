@@ -22,6 +22,7 @@ ShallowWrapper {
         id={undefined}
         label={undefined}
         margin="normal"
+        name={undefined}
         onChange={undefined}
         placeholder={undefined}
         required={false}
@@ -41,6 +42,7 @@ ShallowWrapper {
         "id": undefined,
         "label": undefined,
         "margin": "normal",
+        "name": undefined,
         "onChange": undefined,
         "placeholder": undefined,
         "required": false,
@@ -65,6 +67,7 @@ ShallowWrapper {
           id={undefined}
           label={undefined}
           margin="normal"
+          name={undefined}
           onChange={undefined}
           placeholder={undefined}
           required={false}
@@ -84,6 +87,7 @@ ShallowWrapper {
           "id": undefined,
           "label": undefined,
           "margin": "normal",
+          "name": undefined,
           "onChange": undefined,
           "placeholder": undefined,
           "required": false,
@@ -146,6 +150,7 @@ ShallowWrapper {
         id="test-input"
         label={undefined}
         margin="normal"
+        name="Test"
         onChange={undefined}
         placeholder={undefined}
         required={false}
@@ -165,6 +170,7 @@ ShallowWrapper {
         "id": "test-input",
         "label": undefined,
         "margin": "normal",
+        "name": "Test",
         "onChange": undefined,
         "placeholder": undefined,
         "required": false,
@@ -189,6 +195,7 @@ ShallowWrapper {
           id="test-input"
           label={undefined}
           margin="normal"
+          name="Test"
           onChange={undefined}
           placeholder={undefined}
           required={false}
@@ -208,6 +215,7 @@ ShallowWrapper {
           "id": "test-input",
           "label": undefined,
           "margin": "normal",
+          "name": "Test",
           "onChange": undefined,
           "placeholder": undefined,
           "required": false,
