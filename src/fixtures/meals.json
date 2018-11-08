@@ -1,0 +1,26 @@
+[
+  {
+    "id" : 0,
+    "name" : "śniadanie"
+  },
+  {
+    "id" : 1,
+    "name" : "obiad"
+  },
+  {
+    "id" : 2,
+    "name" : "kolacja"
+  },
+  {
+    "id" : 3,
+    "name" : "do pracy"
+  },
+  {
+    "id" : 4,
+    "name" : "przekąski"
+  },
+  {
+    "id" : 5,
+    "name" : "dodatki"
+  }
+]
