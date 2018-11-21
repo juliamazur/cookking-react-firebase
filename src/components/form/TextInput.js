@@ -3,7 +3,7 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 
-class Input extends React.Component {
+class TextInput extends React.Component {
 
   render() {
     return (
@@ -23,4 +23,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+export default TextInput;

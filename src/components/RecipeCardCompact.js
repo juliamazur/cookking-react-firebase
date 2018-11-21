@@ -93,6 +93,7 @@ class RecipeCardCompact extends Component {
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
+            <i>{item.description}</i>
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {

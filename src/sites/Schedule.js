@@ -127,7 +127,7 @@ class Schedule extends React.Component {
         }
         scheduleColumns['column-0'].itemIds.push(item.id);
 
-        let items = this.state.items.slice();
+        let items = this.state.items ? this.state.items.slice() : [];
         items.push(item);
 
         this.setState({
@@ -171,6 +171,9 @@ class Schedule extends React.Component {
     // TODO refactor
     getUsedRecipeList = () => {
         let recipeIds = [];
+        if(!this.state.items) {
+          return recipeIds;
+        }
         this.state.items.forEach((item) => {
             recipeIds.push(item.recipeId);
         });

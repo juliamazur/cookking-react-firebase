@@ -4,7 +4,7 @@ import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
 import IntegrationDownshift from '../components/recipe_form/IngredientSelectDownshift'
-import Input from '../components/form/Input'
+import Input from '../components/form/TextInput'
 import SubmitButton from '../components/recipe_form/SubmitButton'
 import MealSelect from "../components/recipe_form/MealSelect";
 import MealList from "../components/recipe_form/MealList";
