@@ -23,9 +23,9 @@ const styles = {
   },
 };
 
-const TitleFont = styled.div`
+const TitleFont = styled.span`
   font-family: 'Sacramento', cursive;
-  font-size: 1.6em;
+  font-size: 2.4em;
 `;
 
 function Header(props) {
@@ -37,7 +37,7 @@ function Header(props) {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="title" color="inherit" className={classes.grow}>
+          <Typography color="inherit" className={classes.grow}>
               <TitleFont>cookking</TitleFont>
           </Typography>
           <Button color="inherit">Login</Button>

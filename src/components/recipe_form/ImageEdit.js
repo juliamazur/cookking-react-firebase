@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
     mainImage: {
@@ -25,6 +26,7 @@ const styles = theme => ({
        fontSize: '6em',
        margin: '60px auto',
        display: 'flex',
+       cursor: 'pointer',
     }
 });
 
@@ -39,7 +41,7 @@ class ImageEdit extends React.Component {
           image = <img className={classes.mainImage} src={this.props.imageUrl} alt = ''/>;
       } else {
           image = <div className={classes.mainImageDummy}>
-              <PhotoCameraIcon className={classes.cameraIcon}/>
+              <PhotoCameraIcon className={classes.cameraIcon} onClick={() => this.refs.fileUploadInput.click()}/>
           </div>;
       }
 
@@ -47,10 +49,11 @@ class ImageEdit extends React.Component {
         <div>
         {image}
       <input
+          ref="fileUploadInput"
           accept="image/*"
           id="button-file"
-          multiple
           type="file"
+          style={{ display: 'none' }}
           onChange={this.props.handleImageChange}
       />
       </div>

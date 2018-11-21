@@ -4,7 +4,8 @@ import md5 from 'md5';
 
 import { recipeRef, storageRef } from '../config/firebase'
 import IntegrationDownshift from '../components/recipe_form/IngredientSelectDownshift'
-import Input from '../components/form/TextInput'
+import TextInput from '../components/form/TextInput'
+// import FileInput from '../components/form/FileInput'
 import SubmitButton from '../components/recipe_form/SubmitButton'
 import MealSelect from "../components/recipe_form/MealSelect";
 import MealList from "../components/recipe_form/MealList";
@@ -207,7 +208,7 @@ class RecipeForm extends React.Component {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Input
+                        <TextInput
                           data-test='nameInput'
                           name='name'
                           value={this.state.name}
@@ -229,7 +230,7 @@ class RecipeForm extends React.Component {
                             meal={this.state.meal}
                             handleMealChange={this.handleMealChange}
                         />
-                      <Input
+                      <TextInput
                         data-test='descInput'
                         name='description'
                         value={this.state.description}
