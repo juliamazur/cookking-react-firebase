@@ -18,8 +18,8 @@ describe('Header component', () => {
     expect(wrapper.contains(<Header />)).toBe(true);
   });
 
-  it('Header title is h2 with "cookking" text', function() {
-    expect(mount(< Header />).find('h2').text()).toBe('cookking');
+  it('Header title contains "cookking" text', function() {
+    expect(mount(< Header />).text()).toContain('cookking');
   });
 
 });
