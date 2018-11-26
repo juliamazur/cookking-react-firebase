@@ -1,14 +1,22 @@
 import React from 'react';
 
-import Button from '@material-ui/core/Button';
-
+import FormControl from '@material-ui/core/FormControl';
 
 class FileInput extends React.Component {
 
   render() {
     return (
-
-      <Button/>
+      <FormControl fullWidth={true}>
+        <input
+          data-test="fileInput"
+          ref={this.props.reference}
+          accept="image/*"
+          id="button-file"
+          type="file"
+          style={{ display: 'none' }}
+          onChange={this.props.handleChange}
+        />
+      </FormControl>
     );
   }
 }
