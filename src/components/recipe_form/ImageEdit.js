@@ -56,9 +56,13 @@ class ImageEdit extends React.Component {
     }
 
     return (
-      <div onClick={this.clickFileInput}>
+      <div
+        data-test="imageEditContainer"
+        onClick={this.clickFileInput}
+      >
         {image}
         <FileInput
+          data-test="imageInput"
           reference={this.fileInput}
           handleChange={this.props.handleImageChange}
         />
