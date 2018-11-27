@@ -5,7 +5,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
-import RecipeForm from './sites/RecipeForm';
+// import RecipeForm from './sites/RecipeForm';
 
 import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./sites/Schedule";
@@ -117,17 +117,19 @@ class App extends Component {
               edit={this.state.edit}
               callbackAfterSubmit={this.recipeFormAfterSubmit}
           />
-          <RecipeForm
-              id={this.state.pickedRecipeId}
-              recipe={this.state.pickedRecipe}
-              fork={this.state.fork}
-              edit={this.state.edit}
-              callbackAfterSubmit={this.recipeFormAfterSubmit}
-          />
+
+        {/*<RecipeForm*/}
+              {/*id={this.state.pickedRecipeId}*/}
+              {/*recipe={this.state.pickedRecipe}*/}
+              {/*fork={this.state.fork}*/}
+              {/*edit={this.state.edit}*/}
+              {/*callbackAfterSubmit={this.recipeFormAfterSubmit}*/}
+          {/*/>*/}
           <RecipeLibrary
               recipeList={this.state.recipeList}
               appEditCallback={this.editRecipe}
               appForkCallback={this.forkRecipe}
+              addRecipeCallback={this.handleModalOpen}
           />
         <Schedule
             recipeList={this.state.recipeList}

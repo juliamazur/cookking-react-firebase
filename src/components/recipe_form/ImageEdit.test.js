@@ -19,5 +19,5 @@ describe("ImageEdit", () => {
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
   //e2e
-  
+
 });

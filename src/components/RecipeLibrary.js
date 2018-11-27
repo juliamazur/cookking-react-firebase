@@ -3,6 +3,7 @@ import _ from "lodash";
 import styled from 'styled-components';
 
 import RecipeCardCompact from "./RecipeCardCompact";
+import RecipeListFab from './recipe_list/RecipeListFab';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -10,6 +11,7 @@ const Container = styled.div`
   margin: 30px auto;
   max-height: 620px;
   overflow-y: scroll;
+  position: relative;
 `;
 
 class RecipeLibrary extends Component {
@@ -45,6 +47,9 @@ class RecipeLibrary extends Component {
                 <Grid container>
                     {this.renderRecipiesCompact()}
                 </Grid>
+              <RecipeListFab
+                onClick={this.props.addRecipeCallback}
+              />
             </Container>
         );
     }
