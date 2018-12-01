@@ -59,11 +59,6 @@ class RecipeCardCompact extends Component {
     this.props.callbackEditRecipe(id);
   };
 
-  forkRecipe = id => {
-    console.log('FORK recipe RecipeCardCompact: ', id);
-    this.props.callbackForkRecipe(id);
-  };
-
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
@@ -113,9 +108,6 @@ class RecipeCardCompact extends Component {
           </IconButton>
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="Fork" onClick={() => this.forkRecipe(id)}>
-              <FileCopyIcon />
             </IconButton>
             <IconButton
               className={classnames(classes.expand, {

@@ -12,7 +12,7 @@ import MealList from "../components/recipe_form/MealList";
 import IngredientList from "../components/recipe_form/IngredientList";
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
 import ImageEdit from "../components/recipe_form/ImageEdit";
@@ -48,7 +48,7 @@ class RecipeForm extends React.Component {
         super(props);
 
         this.state = this.defaultState;
-        //this.resetState();
+        this.resetState();
     }
 
     resetState = () => {
@@ -150,6 +150,7 @@ class RecipeForm extends React.Component {
         } else {
             this.saveToDB('');
         }
+        this.props.handleClose();
     };
 
     addRecipe = newRecipe => {
@@ -179,6 +180,10 @@ class RecipeForm extends React.Component {
         this.props.callbackAfterSubmit();
     }
 
+  componentDidMount(prevProps) {
+    this.resetState();
+  }
+
     componentDidUpdate(prevProps) {
         if (this.props.recipe === prevProps.recipe
             && this.props.edit === prevProps.edit
@@ -195,13 +200,17 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
-                <Paper className={classes.container}>
                 <Grid container>
                     <Grid item xs={12} md={6}>
                         <ImageEdit
                             imageUrl={this.state.imageUrl}
                             handleImageChange={this.handleImageChange}
                         />
+                      <p>{this.state.alert}</p>
+
+                      <IntegrationDownshift
+                        handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
+                      />
                         <IngredientList
                             ingredients={this.state.ingredients}
                             handleIngredientDelete={this.handleIngredientDelete}
@@ -216,20 +225,16 @@ class RecipeForm extends React.Component {
                           handleChange={this.handleInputChange}
                         />
 
-                        <p>{this.state.alert}</p>
-
-                        <IntegrationDownshift
-                            handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
-                        />
+                      <MealSelect
+                        meal={this.state.meal}
+                        handleMealChange={this.handleMealChange}
+                      />
                         <MealList
                             meals={this.state.meals}
                             handleMealDelete={this.handleMealDelete}
 
                         />
-                        <MealSelect
-                            meal={this.state.meal}
-                            handleMealChange={this.handleMealChange}
-                        />
+
                       <TextInput
                         data-test='descInput'
                         name='description'
@@ -240,10 +245,11 @@ class RecipeForm extends React.Component {
                         <SubmitButton
                             handleFormSubmit={this.handleFormSubmit}
                         />
+                      <Button onClick={this.props.handleClose} color="primary" autoFocus>
+                        Anuluj
+                      </Button>
                     </Grid>
-
                 </Grid>
-                </Paper>
             </div>
         );
 

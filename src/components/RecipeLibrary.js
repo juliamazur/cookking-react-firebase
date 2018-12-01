@@ -9,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
   margin: 30px auto;
-  max-height: 620px;
-  overflow-y: scroll;
   position: relative;
 `;
 
@@ -21,15 +19,10 @@ class RecipeLibrary extends Component {
         this.props.appEditCallback(id);
     };
 
-    forkRecipe = id => {
-        console.log('FORK recipe RecipeList: ', id);
-        this.props.appForkCallback(id);
-    };
-
     renderRecipiesCompact() {
         const { recipeList } = this.props;
         const recipies = _.map(recipeList, (value, key) => {
-            return <RecipeCardCompact key={key} id={key} item={value} callbackEditRecipe={this.editRecipe} callbackForkRecipe={this.forkRecipe}/>;
+            return <RecipeCardCompact key={key} id={key} item={value} callbackEditRecipe={this.editRecipe}/>;
         });
         if (!_.isEmpty(recipies)) {
             return recipies;

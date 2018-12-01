@@ -75,13 +75,7 @@ class App extends Component {
   editRecipe = id => {
     console.log('EDIT recipe App: ', id);
     this.setState( functions.editRecipe({...this.state.recipeList}, id) );
-    //this.handleModalOpen();
-  };
-
-  forkRecipe = id => {
-    console.log('FORK recipe App: ', id);
-    this.setState( functions.forkRecipe({...this.state.recipeList}, id) );
-    //  this.handleModalOpen();
+    this.handleModalOpen();
   };
 
   recipeFormAfterSubmit = () => {
@@ -128,7 +122,6 @@ class App extends Component {
           <RecipeLibrary
               recipeList={this.state.recipeList}
               appEditCallback={this.editRecipe}
-              appForkCallback={this.forkRecipe}
               addRecipeCallback={this.handleModalOpen}
           />
         <Schedule

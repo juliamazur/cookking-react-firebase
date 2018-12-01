@@ -8,9 +8,9 @@ import {withStyles} from "@material-ui/core/styles/index";
 
 const styles = theme => ({
     button: {
-      position: 'absolute',
-      right: '20px',
-      bottom: '20px',
+      position: 'fixed',
+      right: '40px',
+      bottom: '30px',
     }
 });
 
