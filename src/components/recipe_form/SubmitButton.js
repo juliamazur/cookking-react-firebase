@@ -5,9 +5,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 
 
 const styles = theme => ({
-    button: {
-        margin: '40px auto',
-    }
+    button: {}
 });
 
 class SubmitButton extends React.Component {

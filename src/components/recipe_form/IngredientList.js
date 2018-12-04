@@ -9,10 +9,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ingredientsFixture from '../../fixtures/ingredients.json';
 
 const styles = theme => ({
-    listItem: {
-       float: 'left',
-       width: 300
-    }
+    listItem: {}
 });
 
 
@@ -28,7 +25,7 @@ class IngredientList extends React.Component {
             <List>
                 {this.props.ingredients.map(ingredient => {
                     return (
-                        <ListItem button className={classes.listItem} key={ingredient}>
+                        <ListItem button className={classes.listItem} key={ingredient} dense='true'>
                             <ListItemIcon onClick={this.props.handleIngredientDelete(ingredient)}><ClearIcon/></ListItemIcon>
                             {ingredientsFixture.filter(v => v.id === ingredient)[0].label}
                         </ListItem>

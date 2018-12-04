@@ -17,6 +17,7 @@ class RecipeFormModal extends React.Component {
                     onClose={this.props.handleClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
+                    maxWidth='lg'
                 >
                     <DialogContent>
                         <RecipeForm
@@ -28,9 +29,6 @@ class RecipeFormModal extends React.Component {
                             handleClose={this.props.handleClose}
                         />
                     </DialogContent>
-                    <DialogActions>
-
-                    </DialogActions>
                 </Dialog>
             </div>
         );

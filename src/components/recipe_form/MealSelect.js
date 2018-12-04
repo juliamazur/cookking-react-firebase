@@ -14,7 +14,7 @@ class IngredientSelect extends React.Component {
   render() {
     return (
         <FormControl fullWidth={true}>
-            <InputLabel shrink htmlFor="age-label-placeholder">
+            <InputLabel htmlFor="age-label-placeholder">
                 Posiłki
             </InputLabel>
             <Select

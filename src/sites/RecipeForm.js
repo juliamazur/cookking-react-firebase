@@ -18,17 +18,8 @@ import ingredientsFixture from '../fixtures/ingredients.json';
 import ImageEdit from "../components/recipe_form/ImageEdit";
 
 const styles = theme => ({
-
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexGrow: 1,
-        margin: 'auto',
-        maxWidth: 900,
-        padding: theme.spacing.unit * 2,
-        marginTop: 45,
-        marginBottom: 45,
-    }
+    container: {},
+    ingredientList: {},
 });
 
 class RecipeForm extends React.Component {
@@ -180,6 +171,11 @@ class RecipeForm extends React.Component {
         this.props.callbackAfterSubmit();
     }
 
+  handleFormCancel = () => {
+    this.resetState();
+    this.props.handleClose();
+  };
+
   componentDidMount(prevProps) {
     this.resetState();
   }
@@ -200,23 +196,23 @@ class RecipeForm extends React.Component {
 
         return (
             <div className="recipe-form-placeholder">
-                <Grid container>
-                    <Grid item xs={12} md={6}>
+                <Grid container spacing={32}
+                  className={classes.container}
+                >
+                    <Grid item xs={12} md={4}>
                         <ImageEdit
                             imageUrl={this.state.imageUrl}
                             handleImageChange={this.handleImageChange}
                         />
-                      <p>{this.state.alert}</p>
+
+                      {this.state.alert}
 
                       <IntegrationDownshift
                         handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
                       />
-                        <IngredientList
-                            ingredients={this.state.ingredients}
-                            handleIngredientDelete={this.handleIngredientDelete}
-                        />
+
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={8}>
                         <TextInput
                           data-test='nameInput'
                           name='name'
@@ -229,26 +225,40 @@ class RecipeForm extends React.Component {
                         meal={this.state.meal}
                         handleMealChange={this.handleMealChange}
                       />
-                        <MealList
-                            meals={this.state.meals}
-                            handleMealDelete={this.handleMealDelete}
+                      <MealList
+                        meals={this.state.meals}
+                        handleMealDelete={this.handleMealDelete}
 
-                        />
-
-                      <TextInput
-                        data-test='descInput'
-                        name='description'
-                        value={this.state.description}
-                        label='Opis'
-                        handleChange={this.handleInputChange}
                       />
-                        <SubmitButton
-                            handleFormSubmit={this.handleFormSubmit}
-                        />
-                      <Button onClick={this.props.handleClose} color="primary" autoFocus>
-                        Anuluj
-                      </Button>
+
                     </Grid>
+                  <Grid item xs={12} md={4}>
+                    <IngredientList
+                      className={classes.ingredientList}
+                      ingredients={this.state.ingredients}
+                      handleIngredientDelete={this.handleIngredientDelete}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={8}>
+                    <TextInput
+                      data-test='descInput'
+                      name='description'
+                      value={this.state.description}
+                      label='Opis'
+                      handleChange={this.handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={10}></Grid>
+                  <Grid item xs={1}>
+                    <Button onClick={this.handleFormCancel} color="primary" autoFocus>
+                      Anuluj
+                    </Button>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <SubmitButton
+                      handleFormSubmit={this.handleFormSubmit}
+                    />
+                  </Grid>
                 </Grid>
             </div>
         );

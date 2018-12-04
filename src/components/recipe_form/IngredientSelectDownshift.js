@@ -138,7 +138,7 @@ function IntegrationDownshift(props) {
                             fullWidth: true,
                             classes,
                             InputProps: getInputProps({
-                                placeholder: 'Wyszukaj składniki',
+                                placeholder: 'Składniki',
                             }),
                         })}
                         <div {...getMenuProps()}>
