@@ -2,7 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## How to start locally
 - `git clone`
-Go to the projects directory and run
+
+Then go to the projects directory and run
 - `npm update`
 - `npm start`
 
