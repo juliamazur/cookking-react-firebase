@@ -56,6 +56,18 @@ class Item extends React.Component {
         );
     }
 
+  renderAvatarIcon() {
+    const { classes } = this.props;
+
+    return (
+        <Avatar className={classes.avatar}>
+          <ClearIcon
+            onClick={() => this.props.handleRemoveItem(this.props.item.id)}
+          />
+        </Avatar>
+    );
+  }
+
   render() {
     return (
       <Draggable draggableId={this.props.item.id} index={this.props.index}>
@@ -72,7 +84,7 @@ class Item extends React.Component {
                 onMouseOut={this.animateStop}
             >
               <CardHeader
-                avatar={this.renderAvatar()}
+                avatar={this.renderAvatarIcon()}
                 title={this.props.item.recipe.name}
               />
             </Card>

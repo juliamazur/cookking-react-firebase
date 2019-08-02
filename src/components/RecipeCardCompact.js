@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -22,8 +23,9 @@ import {recipeRef} from "../config/firebase";
 
 const styles = theme => ({
   bigAvatar: {
-   width: 80,
-   height: 80,
+   width: 60,
+   height: 60,
+   backgroundColor: '#af367e'
   },
   card: {
     maxWidth: 400,
@@ -79,9 +81,9 @@ class RecipeCardCompact extends Component {
           avatar={
             <Avatar
               alt=''
-              src={item.imageUrl}
-              className={classnames(classes.avatar, classes.bigAvatar)}
-            />
+              className={classes.bigAvatar}>
+              <FavoriteBorderIcon />
+            </Avatar>
           }
           title={item.name}
           subheader="September 14, 2016"

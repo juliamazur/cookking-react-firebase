@@ -21,7 +21,7 @@ class SubmitButton extends React.Component {
             color="primary"
             onClick={this.props.handleFormSubmit}
         >
-            Zapisz!
+            Zapisz
         </Button>
     );
   }

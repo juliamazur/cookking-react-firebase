@@ -199,25 +199,24 @@ class RecipeForm extends React.Component {
                 <Grid container spacing={32}
                   className={classes.container}
                 >
-                    <Grid item xs={12} md={4}>
-                        <ImageEdit
-                            imageUrl={this.state.imageUrl}
-                            handleImageChange={this.handleImageChange}
-                        />
+                    <Grid item xs={12}>
+
 
                       {this.state.alert}
 
-                      <IntegrationDownshift
-                        handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
-                      />
-
-                    </Grid>
-                    <Grid item xs={12} md={8}>
                         <TextInput
                           data-test='nameInput'
                           name='name'
                           value={this.state.name}
                           label='Nazwa'
+                          handleChange={this.handleInputChange}
+                        />
+
+                        <TextInput
+                          data-test='descInput'
+                          name='description'
+                          value={this.state.description}
+                          label='Opis'
                           handleChange={this.handleInputChange}
                         />
 
@@ -231,23 +230,17 @@ class RecipeForm extends React.Component {
 
                       />
 
-                    </Grid>
-                  <Grid item xs={12} md={4}>
+                      <IntegrationDownshift
+                        handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
+                      />
+
                     <IngredientList
                       className={classes.ingredientList}
                       ingredients={this.state.ingredients}
                       handleIngredientDelete={this.handleIngredientDelete}
                     />
                   </Grid>
-                  <Grid item xs={12} md={8}>
-                    <TextInput
-                      data-test='descInput'
-                      name='description'
-                      value={this.state.description}
-                      label='Opis'
-                      handleChange={this.handleInputChange}
-                    />
-                  </Grid>
+
                   <Grid item xs={10}></Grid>
                   <Grid item xs={1}>
                     <Button onClick={this.handleFormCancel} color="primary" autoFocus>

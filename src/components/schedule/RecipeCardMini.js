@@ -72,7 +72,11 @@ class RecipeCardMini extends Component {
                     onClick={() => this.props.handleUseRecipe(id)}
                 >
                     <CardHeader
-                        avatar={this.renderAvatar()}
+                        avatar={
+                          <Avatar className={classes.addAvatar}>
+                            <AddIcon />
+                          </Avatar>
+                        }
                         title={item.name}
                     />
                 </Card>

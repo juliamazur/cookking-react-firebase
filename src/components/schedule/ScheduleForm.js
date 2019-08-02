@@ -15,9 +15,9 @@ import AddIcon from '@material-ui/icons/Add';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const Container = styled.div`
-  background-color: #bbb;
-  padding-top: 20px;
-  padding-bottom: 10px;
+  background-color: #eee;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 class ScheduleForm extends React.Component {
