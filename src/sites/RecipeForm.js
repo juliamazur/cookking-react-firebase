@@ -240,19 +240,19 @@ class RecipeForm extends React.Component {
                       handleIngredientDelete={this.handleIngredientDelete}
                     />
                   </Grid>
-
-                  <Grid item xs={10}></Grid>
-                  <Grid item xs={1}>
-                    <Button onClick={this.handleFormCancel} color="primary" autoFocus>
-                      Anuluj
-                    </Button>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <SubmitButton
-                      handleFormSubmit={this.handleFormSubmit}
-                    />
-                  </Grid>
                 </Grid>
+              <Grid
+                justify='center'
+                align='right'
+              >
+                <Button onClick={this.handleFormCancel} color="primary" autoFocus>
+                  Anuluj
+                </Button>
+
+                <SubmitButton
+                  handleFormSubmit={this.handleFormSubmit}
+                />
+              </Grid>
             </div>
         );
 
