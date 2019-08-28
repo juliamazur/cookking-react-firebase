@@ -27,6 +27,10 @@ const styles = theme => ({
    height: 60,
    backgroundColor: '#af367e'
   },
+  bigAvatarImg: {
+    width: 90,
+    height: 90
+  },
   card: {
     maxWidth: 400,
     margin: 'auto',
@@ -67,6 +71,7 @@ class RecipeCardCompact extends Component {
 
   deleteRecipe = id => {
     // TODO dont let to remove if used in current schedule
+    console.log('DELETE recipe RecipeCardCompact: ', id);
       recipeRef.child(id).remove();
   };
 
@@ -81,7 +86,8 @@ class RecipeCardCompact extends Component {
           avatar={
             <Avatar
               alt=''
-              className={classes.bigAvatar}>
+              src={item.imageUrl}
+              className={classes.bigAvatarImg}>
               <FavoriteBorderIcon />
             </Avatar>
           }
