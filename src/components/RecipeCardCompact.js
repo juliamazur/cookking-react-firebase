@@ -114,7 +114,8 @@ class RecipeCardCompact extends Component {
           <IconButton aria-label="Kasuj" onClick={() => this.deleteRecipe(id)}>
             <DeleteIcon />
           </IconButton>
-            <IconButton aria-label="Add to favorites">
+
+            <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.handleUseRecipe(id)}>
               <FavoriteIcon />
             </IconButton>
             <IconButton

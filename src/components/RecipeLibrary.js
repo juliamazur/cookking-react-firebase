@@ -22,7 +22,12 @@ class RecipeLibrary extends Component {
     renderRecipiesCompact() {
         const { recipeList } = this.props;
         const recipies = _.map(recipeList, (value, key) => {
-            return <RecipeCardCompact key={key} id={key} item={value} callbackEditRecipe={this.editRecipe}/>;
+            return <RecipeCardCompact
+              key={key} id={key}
+              item={value}
+              callbackEditRecipe={this.editRecipe}
+              handleUseRecipe={this.props.handleUseRecipe}
+            />;
         });
         if (!_.isEmpty(recipies)) {
             return recipies;

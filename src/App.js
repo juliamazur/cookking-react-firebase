@@ -119,14 +119,16 @@ class App extends Component {
               {/*edit={this.state.edit}*/}
               {/*callbackAfterSubmit={this.recipeFormAfterSubmit}*/}
           {/*/>*/}
-          <RecipeLibrary
-              recipeList={this.state.recipeList}
-              appEditCallback={this.editRecipe}
-              addRecipeCallback={this.handleModalOpen}
-          />
+          {/*<RecipeLibrary*/}
+              {/*recipeList={this.state.recipeList}*/}
+              {/*appEditCallback={this.editRecipe}*/}
+              {/*addRecipeCallback={this.handleModalOpen}*/}
+          {/*/>*/}
         <Schedule
             recipeList={this.state.recipeList}
             usedRecipeListUpdate={this.usedRecipeListUpdate}
+            editRecipe={this.editRecipe}
+            handleModalOpen={this.handleModalOpen}
         />
         <ShoppingList
             usedRecipes={this.state.usedRecipes}

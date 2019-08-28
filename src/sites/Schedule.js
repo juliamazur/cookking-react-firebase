@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { scheduleRef } from '../config/firebase'
 
-import RecipeListTabs from "../components/schedule/RecipeListTabs";
+import RecipeLibrary from "../components/RecipeLibrary";
 
 import ScheduleColumn from '../components/schedule/ScheduleColumn'
 import ScheduleForm from "../components/schedule/ScheduleForm";
@@ -275,10 +275,16 @@ class Schedule extends React.Component {
 
         return (
           <Paper>
-              <RecipeListTabs
-                  recipeList={this.props.recipeList}
-                  handleUseRecipe={this.handleUseRecipe}
-              />
+              {/*<RecipeListTabs*/}
+                  {/*recipeList={this.props.recipeList}*/}
+                  {/*handleUseRecipe={this.handleUseRecipe}*/}
+              {/*/>*/}
+            <RecipeLibrary
+              recipeList={this.props.recipeList}
+              handleUseRecipe={this.handleUseRecipe}
+              appEditCallback={this.props.editRecipe}
+              addRecipeCallback={this.props.handleModalOpen}
+            />
             <ScheduleForm
               name={this.state.name}
               id={this.state.id}
