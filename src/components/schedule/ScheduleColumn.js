@@ -48,9 +48,7 @@ class ScheduleColumn extends React.Component {
                 if (item.id === id) {
                     if(this.props.recipeList[item.recipeId]) {
                         item.recipe = this.props.recipeList[item.recipeId];
-                        if(item.recipe.imageUrl) {
-                            items.push(item);
-                        }
+                        items.push(item);
 
                     }
                 }

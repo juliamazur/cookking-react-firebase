@@ -33,7 +33,7 @@ class ShoppingList extends React.Component {
     this.props.usedRecipes.map(id => {
         const recipe = this.props.recipeList[id];
         // TODO refactor
-        if(recipe) {
+        if(recipe && recipe.ingredients) {
             ingredients = ingredients.concat(recipe.ingredients);
         }
 
