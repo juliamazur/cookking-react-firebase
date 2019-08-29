@@ -15,7 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import ingredientsFixture from '../fixtures/ingredients.json';
@@ -116,6 +116,9 @@ class RecipeCardCompact extends Component {
           </IconButton>
 
             <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.handleUseRecipe(id)}>
+              <DateRangeIcon />
+            </IconButton>
+            <IconButton aria-label="Dodaj do biblioteki">
               <FavoriteIcon />
             </IconButton>
             <IconButton
