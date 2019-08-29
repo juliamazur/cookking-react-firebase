@@ -91,8 +91,17 @@ class Item extends React.Component {
                 onMouseOver={this.animateStart}
                 onMouseOut={this.animateStop}
             >
-              <CardContent className={classes.cardContent}>{this.props.item.recipe.name}</CardContent>
-              <CardActions disableActionSpacing>
+              <CardHeader
+                avatar={
+                  <Avatar
+                    alt=''
+                    src={this.props.item.recipe.imageUrl}
+                  >
+                  </Avatar>
+                }
+                title={this.props.item.recipe.name}
+              />
+              <CardActions style={{ float: 'right' }}>
                 <IconButton aria-label="Usuń" onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
                   <ClearIcon />
                 </IconButton>

@@ -219,17 +219,6 @@ class RecipeForm extends React.Component {
                           label='Opis'
                           handleChange={this.handleInputChange}
                         />
-
-                      <MealSelect
-                        meal={this.state.meal}
-                        handleMealChange={this.handleMealChange}
-                      />
-                      <MealList
-                        meals={this.state.meals}
-                        handleMealDelete={this.handleMealDelete}
-
-                      />
-
                       <IntegrationDownshift
                         handleDownshiftIngredientChange={this.handleDownshiftIngredientChange}
                       />
