@@ -36,6 +36,9 @@ const styles = theme => ({
     margin: 'auto',
     marginTop: 25,
   },
+  cardContent: {
+    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -80,7 +83,7 @@ class RecipeCardCompact extends Component {
     const { classes } = this.props;
 
     return (
-      <Grid item xs={12} md={4} lg={3}>
+      <Grid item xs={12} md={6} lg={4} xl={3}>
       <Card className={classes.card}>
         <CardHeader
           avatar={
@@ -95,7 +98,7 @@ class RecipeCardCompact extends Component {
           subheader="September 14, 2016"
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <i>{item.description}</i>
           {item.ingredients ? (
             <ul>

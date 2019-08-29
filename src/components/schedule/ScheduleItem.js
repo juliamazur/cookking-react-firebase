@@ -5,7 +5,10 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
 const Container = styled.div`
@@ -17,6 +20,9 @@ const CardContainer = styled.div`
 const styles = theme => ({
     avatar: {
       cursor: 'pointer',
+    },
+    cardContent: {
+      fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
     },
 });
 
@@ -69,6 +75,8 @@ class Item extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Draggable draggableId={this.props.item.id} index={this.props.index}>
         {(provided, snapshot) => (
@@ -83,10 +91,12 @@ class Item extends React.Component {
                 onMouseOver={this.animateStart}
                 onMouseOut={this.animateStop}
             >
-              <CardHeader
-                avatar={this.renderAvatarIcon()}
-                title={this.props.item.recipe.name}
-              />
+              <CardContent className={classes.cardContent}>{this.props.item.recipe.name}</CardContent>
+              <CardActions disableActionSpacing>
+                <IconButton aria-label="Usuń" onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
+                  <ClearIcon />
+                </IconButton>
+              </CardActions>
             </Card>
             </CardContainer>
           </Container>

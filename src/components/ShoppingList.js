@@ -15,7 +15,11 @@ const Container = styled.div`
   padding: 4%;
 `;
 
-const styles = theme => ({});
+const styles = theme => ({
+  listItem: {
+    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
+  }
+});
 
 class ShoppingList extends React.Component {
 
