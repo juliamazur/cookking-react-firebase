@@ -2,23 +2,20 @@
   "name": "cookking-react-firebase",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://juliamazur.github.io/cookking-react-firebase",
+  "homepage": "https://cookking-app.firebaseapp.com/",
   "dependencies": {
     "@google-cloud/storage": "^2.0.3",
     "@material-ui/core": "^3.6.0",
     "@material-ui/icons": "^3.0.1",
-    "downshift": "^3.1.0",
+    "downshift": "^3.2.12",
     "firebase": "^5.5.0",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^2.1.1",
     "md5": "^2.2.1",
-    "react": "^16.5.2",
+    "react": "^16.9.0",
     "react-beautiful-dnd": "^9.0.2",
-    "react-dom": "^16.5.2",
-    "react-redux": "^5.0.7",
+    "react-dom": "^16.9.0",
     "react-scripts": "1.1.5",
     "react-transition-group": "^2.5.0",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
     "styled-components": "^3.4.9"
   },
   "scripts": {
@@ -30,8 +27,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "cucumber": "^5.0.2",
-    "enzyme": "^3.7.0",
-    "enzyme-adapter-react-16": "^1.7.0"
+    "cucumber": "^5.1.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0"
   }
 }
