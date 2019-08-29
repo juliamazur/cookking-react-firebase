@@ -92,6 +92,7 @@ class Item extends React.Component {
                 onMouseOut={this.animateStop}
             >
               <CardHeader
+                style={{ float: 'left' }}
                 avatar={
                   <Avatar
                     alt=''
@@ -101,11 +102,12 @@ class Item extends React.Component {
                 }
                 title={this.props.item.recipe.name}
               />
-              <CardActions style={{ float: 'right' }}>
-                <IconButton aria-label="Usuń" onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
-                  <ClearIcon />
-                </IconButton>
-              </CardActions>
+              <IconButton
+                style={{ float: 'right' }}
+                aria-label="Usuń"
+                onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
+                <ClearIcon />
+              </IconButton>
             </Card>
             </CardContainer>
           </Container>
