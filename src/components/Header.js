@@ -29,7 +29,7 @@ const TitleFont = styled.span`
 `;
 
 function Header(props) {
-  const { classes } = props;
+  const { classes, user, signOut, signInWithGoogle } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -40,7 +40,16 @@ function Header(props) {
           <Typography color="inherit" className={classes.grow}>
               <TitleFont>cookking</TitleFont>
           </Typography>
-          <Button color="inherit">Login</Button>
+          {
+            user
+              ? <p>Hello, {user.displayName}</p>
+              : <p></p>
+          }
+          {
+            user
+              ? <Button color="inherit" onClick={signOut}>Log out</Button>
+              : <Button color="inherit" onClick={signInWithGoogle}>Sign in</Button>
+          }
         </Toolbar>
       </AppBar>
     </div>

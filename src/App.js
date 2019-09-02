@@ -15,6 +15,11 @@ import * as backend from './backend/';
 import * as functions from './functions/';
 import RecipeFormModal from "./sites/RecipeFormModal";
 
+import withFirebaseAuth from "react-with-firebase-auth";
+
+import { firebaseAppAuth } from './config/firebase'
+import { providers } from './config/firebase'
+
 
 const theme = createMuiTheme({
     palette: {
@@ -95,12 +100,51 @@ class App extends Component {
     componentDidMount() {
       this.fetchRecipeList();
   }
+  //
+  // render() {
+  //
+  //   const {
+  //     user,
+  //     signOut,
+  //     signInWithGoogle,
+  //   } = this.props;
+  //
+  //   return (
+  //     <div className="App">
+  //       <header className="App-header">
+  //
+  //         {
+  //           user
+  //             ? <p>Hello, {user.displayName}</p>
+  //             : <p>Please sign in.</p>
+  //         }
+  //         {
+  //           user
+  //             ? <button onClick={signOut}>Sign out</button>
+  //             : <button onClick={signInWithGoogle}>Sign in with Google</button>
+  //         }
+  //       </header>
+  //     </div>
+  //   );
+  // }
 
   render() {
+
+      const {
+        user,
+        signOut,
+        signInWithGoogle,
+      } = this.props;
+
+
     return (
       <div className="App">
       <MuiThemeProvider theme={theme}>
-        <Header/>
+        <Header
+          user={user}
+          signOut={signOut}
+          signInWithGoogle={signInWithGoogle}
+        />
           <RecipeFormModal
               open={this.state.modalOpen}
               handleOpen={this.handleModalOpen}
@@ -140,4 +184,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withFirebaseAuth({
+  providers,
+  firebaseAppAuth,
+})(App);
