@@ -244,23 +244,27 @@ class App extends Component {
   handleNameInputChange(event) {
     event.preventDefault();
 
-    let newRecipe = this.state.recipeToEdit;
+    const newRecipe = {...this.state.recipeToEdit};
     newRecipe.name = event.target.value;
 
-    this.setState({
-      recipeToEdit: newRecipe,
-    });
+    const newState = {
+      ...this.state,
+      recipeToEdit: newRecipe
+    };
+    this.setState(newState);
   }
 
   handleDescriptionInputChange(event) {
     event.preventDefault();
 
-    let newRecipe = this.state.recipeToEdit;
+    const newRecipe = {...this.state.recipeToEdit};
     newRecipe.description = event.target.value;
 
-    this.setState({
-      recipeToEdit: newRecipe,
-    });
+    const newState = {
+      ...this.state,
+      recipeToEdit: newRecipe
+    };
+    this.setState(newState);
   }
 
   handleIngredientNameInputChange(event) {
