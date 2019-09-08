@@ -32,9 +32,7 @@ const styles = theme => ({
     height: 90
   },
   card: {
-    maxWidth: 400,
-    margin: 'auto',
-    marginTop: 25,
+    margin: 10
   },
   cardContent: {
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
@@ -63,34 +61,18 @@ class RecipeCardCompact extends Component {
 
   state = { expanded: false };
 
-  editRecipe = id => {
-    console.log('EDIT recipe RecipeCardCompact: ', id);
-    this.props.callbackEditRecipe(id);
-  };
-
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  deleteRecipe = id => {
-    // TODO dont let to remove if used in current schedule
-    console.log('DELETE recipe RecipeCardCompact: ', id);
-      recipeRef.child(id).remove();
-  };
-
   render() {
-    const { id, item } = this.props;
-    const { classes } = this.props;
+    const { id, item, classes } = this.props;
 
     return (
-      <Grid item xs={12} md={6} lg={4} xl={3}>
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar
-              alt=''
-              src={item.imageUrl}
-              className={classes.bigAvatarImg}>
+            <Avatar className={classes.bigAvatar}>
               <FavoriteBorderIcon />
             </Avatar>
           }
@@ -103,7 +85,7 @@ class RecipeCardCompact extends Component {
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {
-                  return (<li key={ingredient}>{ingredientsFixture.filter(v => v.id === ingredient)[0].label}</li>)
+                  return (<li>{ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.unit}</li>)
                 })
               }
             </ul>
@@ -111,18 +93,14 @@ class RecipeCardCompact extends Component {
           </CardContent>
           </Collapse>
           <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Edytuj" onClick={() => this.editRecipe(id)}>
+          <IconButton aria-label="Edytuj" onClick={() => this.props.editRecipe(this.props.id)}>
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="Kasuj" onClick={() => this.deleteRecipe(id)}>
+          <IconButton aria-label="Kasuj" onClick={() => this.props.deleteRecipe(this.props.id)}>
             <DeleteIcon />
           </IconButton>
-
-            <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.handleUseRecipe(id)}>
+            <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.addToSchedule(this.props.id)}>
               <DateRangeIcon />
-            </IconButton>
-            <IconButton aria-label="Dodaj do biblioteki">
-              <FavoriteIcon />
             </IconButton>
             <IconButton
               className={classnames(classes.expand, {
@@ -136,7 +114,6 @@ class RecipeCardCompact extends Component {
             </IconButton>
           </CardActions>
       </Card>
-    </Grid>
    );
  }
 }

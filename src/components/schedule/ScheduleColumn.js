@@ -4,12 +4,6 @@ import styled from 'styled-components';
 import { Droppable } from 'react-beautiful-dnd';
 import Item from './ScheduleItem'
 
-// const Container = styled.div`
-//   width: 300px;
-//   display: flex;
-//   flex-direction: column;
-// `;
-
 const Container = styled.div``;
 
 const Title = styled.div`
@@ -35,31 +29,7 @@ const styles = theme => ({
 
 class ScheduleColumn extends React.Component {
 
-    // TODO refactor
-    getItems = () => {
-        let items = [];
-
-        if(!this.props.column.itemIds
-            || this.props.column.itemIds.length < 1) {
-            return items;
-        }
-        this.props.column.itemIds.forEach((id) => {
-            this.props.items.forEach((item) => {
-                if (item.id === id) {
-                    if(this.props.recipeList[item.recipeId]) {
-                        item.recipe = this.props.recipeList[item.recipeId];
-                        items.push(item);
-
-                    }
-                }
-            });
-        });
-        return items;
-    }
-
   render() {
-
-     const items = this.getItems();
 
     return (
       <Container>
@@ -71,13 +41,13 @@ class ScheduleColumn extends React.Component {
               innerRef={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
-                {items.map((item, index)  =>
-                    <Item className={this.props.scheduleItem}
+                {this.props.items.map((item, index)  =>
+                  <Item className={this.props.scheduleItem}
                         key={item.id}
                         item={item}
                         index={index}
-                        handleRemoveItem={this.props.handleRemoveItem}
-                    />
+                        handleRemoveItem={() => this.props.handleRemoveItem(this.props.column.id, index)}
+                  />
                 )}
                 {provided.placeholder}
             </DraggableList>

@@ -14,19 +14,23 @@ class RecipeFormModal extends React.Component {
             <div>
                 <Dialog
                     open={this.props.open}
-                    onClose={this.props.handleClose}
+                    onClose={this.props.onClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                     maxWidth='lg'
                 >
                     <DialogContent>
                         <RecipeForm
-                            id={this.props.id}
-                            recipe={this.props.recipe}
-                            fork={this.props.fork}
-                            edit={this.props.edit}
-                            callbackAfterSubmit={this.props.callbackAfterSubmit}
-                            handleClose={this.props.handleClose}
+                          recipe={this.props.recipe}
+                          ingredient={this.props.ingredient}
+                          handleNameInputChange={this.props.handleNameInputChange}
+                          handleDescriptionInputChange={this.props.handleDescriptionInputChange}
+                          handleIngredientNameInputChange={this.props.handleIngredientNameInputChange}
+                          handleIngredientAmountInputChange={this.props.handleIngredientAmountInputChange}
+                          handleIngredientUnitInputChange={this.props.handleIngredientUnitInputChange}
+                          handleAddIngredient={this.props.handleAddIngredient}
+                          handleRemoveIngredient={this.props.handleRemoveIngredient}
+                          handleSubmit={this.props.handleSubmit}
                         />
                     </DialogContent>
                 </Dialog>

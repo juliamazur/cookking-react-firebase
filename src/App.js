@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import './App.css';
 
 import {createMuiTheme} from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import Header from './components/Header';
 import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
+import RecipeListFab from './components/recipe_list/RecipeListFab';
 
 import * as backend from './backend/';
 import * as functions from './functions/';
@@ -17,174 +18,428 @@ import RecipeFormModal from "./sites/RecipeFormModal";
 
 import withFirebaseAuth from "react-with-firebase-auth";
 
-import { firebaseAppAuth } from './config/firebase'
-import { providers } from './config/firebase'
+import {firebaseAppAuth, recipeRef} from './config/firebase'
+import {providers} from './config/firebase'
+import { userRef } from './config/firebase'
+
+import md5 from "md5";
 
 
 const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#000',
-        },
-        secondary: {
-            main: '#fce514',
-        },
+  palette: {
+    primary: {
+      main: '#000',
     },
-    typography: {
-      useNextVariants: true,
-        fontFamily: [
-            'Montserrat',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-        ].join(','),
+    secondary: {
+      main: '#fce514',
     },
+  },
+  typography: {
+    useNextVariants: true,
+    fontFamily: [
+      'Montserrat',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
 });
 
 class App extends Component {
 
-  defaultState = {
-    pickedRecipe: {
-        name: '',
-        description: '',
-        imageUrl: '',
-        ingredient: '',
-        ingredients: [],
-        meal: '',
-        meals: [],
-        alert: null,
-    },
-    pickedRecipeId: null,
-    edit: false,
-    fork: false,
-    recipeList: {},
-    usedRecipes: [],
-    modalOpen: false,
-  };
-
-  state = this.defaultState;
-
-  fetchRecipeList = () => {
-      console.log('FETCH recipe list');
-      backend.fetchRecipeList().then((data) => {
-        this.setState({ recipeList: data });
-      });
-    };
-
-    usedRecipeListUpdate = usedRecipes => {
-        console.log('USED RECIPES UPDATE');
-        this.setState({ usedRecipes: usedRecipes });
-    };
-
-  editRecipe = id => {
-    console.log('EDIT recipe App: ', id);
-    this.setState( functions.editRecipe({...this.state.recipeList}, id) );
-    this.handleModalOpen();
-  };
-
-  recipeFormAfterSubmit = () => {
-      console.log('AFTER SUBMIT');
-      this.setState( functions.clearRecipeForm() );
-      this.fetchRecipeList();
-  };
-
-    handleModalOpen = () => {
-        this.setState({ modalOpen: true });
-    };
-
-    handleModalClose = () => {
-        this.setState({ modalOpen: false });
-    };
-
-    componentDidMount() {
-      this.fetchRecipeList();
+  constructor() {
+    super();
+    this.handleNameInputChange = this.handleNameInputChange.bind(this);
+    this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this);
+    this.handleIngredientNameInputChange = this.handleIngredientNameInputChange.bind(this);
+    this.handleIngredientAmountInputChange = this.handleIngredientAmountInputChange.bind(this);
+    this.handleIngredientUnitInputChange = this.handleIngredientUnitInputChange.bind(this);
+    this.addIngredient = this.addIngredient.bind(this);
+    this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
+    this.addRecipe = this.addRecipe.bind(this);
+    this.editRecipe = this.editRecipe.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+    this.addToSchedule = this.addToSchedule.bind(this);
+    this.handleRemoveItem = this.handleRemoveItem.bind(this);
   }
+
+  // const
+  // SCHEDULE = {
+  //   name: 'Pierwszy',
+  //   columns: [
+  //     {
+  //       id: 'column-0',
+  //       items: [
+  //         {id: 1, recipeId: '23940-3249-2'},
+  //         {id: 2, recipeId: '23940-3249-3'}
+  //       ]
+  //     },
+  //     {
+  //       id: 'column-1',
+  //       items: [
+  //         {id: 4, recipeId: '23940-3249-2'}
+  //       ],
+  //     }
+  //   ]
+  // };
   //
-  // render() {
-  //
-  //   const {
-  //     user,
-  //     signOut,
-  //     signInWithGoogle,
-  //   } = this.props;
-  //
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //
+  // const
+  // USER_DOC = {
+  //   name: 'Julia',
+  //   recipes: [
+  //     {
+  //       'id': '23940-3249-3',
+  //       'name': 'Zupa pomidorowa',
+  //       'description': 'smaczna i zdrowa',
+  //       'ingredients': [
   //         {
-  //           user
-  //             ? <p>Hello, {user.displayName}</p>
-  //             : <p>Please sign in.</p>
-  //         }
+  //           'name': 'pomidory',
+  //           'amount': '2',
+  //           'unit': 'kg'
+  //         },
   //         {
-  //           user
-  //             ? <button onClick={signOut}>Sign out</button>
-  //             : <button onClick={signInWithGoogle}>Sign in with Google</button>
+  //           'name': 'czosnek',
+  //           'amount': '1',
+  //           'unit': 'szt'
   //         }
-  //       </header>
-  //     </div>
-  //   );
-  // }
+  //       ]
+  //     },
+  //     {
+  //       'id': '23940-3249-2',
+  //       'name': 'Jajecznica',
+  //       'description': ''
+  //     },
+  //     {
+  //       'id': '23940-3249-22',
+  //       'name': 'Owsianka',
+  //       'description': ''
+  //     }
+  //   ],
+  //   schedules: [
+  //     this.SCHEDULE
+  //   ]
+  // };
+
+  state = {
+    modalOpen: false,
+    recipeToEdit: {
+      name: '',
+      description: ''
+    },
+    ingredientToEdit: {
+      name: '',
+      amount: '',
+      unit: ''
+    },
+    scheduleToEdit: this.SCHEDULE,
+    userDoc: this.USER_DOC
+  };
+
+  componentDidMount() {
+    backend.fetchUserDoc('-Lo1M7ZO9pUTBJqekV5r').then((data) => {
+      this.setState(data);
+    });
+  }
+
+  saveUserDocToDb() {
+    console.log(this.state);
+    userRef.child('-Lo1M7ZO9pUTBJqekV5r').update(this.state);
+    //userRef.push().set(this.state);
+  }
+
+  onDragEnd = result => {
+    const {destination, source} = result;
+    if (!destination) {
+      return;
+    }
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    let newColumns = this.state.scheduleToEdit.columns;
+    let sourceColumn = newColumns.find((v) => {
+      return v.id === source.droppableId
+    });
+    let sourceColumnItems = sourceColumn.items;
+    const pickedItem = sourceColumnItems.splice(source.index, 1)[0];
+
+    let destinationColumn = newColumns.find((v) => {
+      return v.id === destination.droppableId
+    });
+    if(!destinationColumn) {
+      newColumns.push({
+        id: destination.droppableId
+      });
+      destinationColumn = newColumns.find((v) => {
+        return v.id === destination.droppableId
+      });
+    }
+    if(!destinationColumn.items) {
+      destinationColumn.items = [];
+    }
+    let destinationColumnItems = destinationColumn.items;
+    destinationColumnItems.splice(destination.index, 0, pickedItem);
+
+    const newState = {
+      ...this.state,
+      scheduleToEdit: {
+        ...this.state.scheduleToEdit,
+        columns: newColumns,
+      },
+    };
+    this.setState(newState);
+    this.saveUserDocToDb();
+  }
+
+  handleRemoveItem(columnId, index) {
+    let newColumns = this.state.scheduleToEdit.columns;
+    let newScheduleColumn = newColumns.find((v) => { return v.id === columnId; });
+    newScheduleColumn.items.splice(index, 1);
+
+    const newState = {
+      ...this.state,
+      scheduleToEdit: {
+        ...this.state.scheduleToEdit,
+        columns: newColumns,
+      },
+    };
+    this.setState(newState);
+    this.saveUserDocToDb();
+  }
+
+  addToSchedule(id) {
+    // @TODO ladniej
+    let newColumns = this.state.scheduleToEdit.columns;
+    let newColumn = newColumns.find((v) => {return v.id === 'column-0'});
+
+    if(!newColumn.items) {
+      newColumn.items = [];
+    }
+
+    const d = new Date();
+    const newItem = {
+      id: md5(d.getTime()),
+      recipeId: id
+    };
+
+    newColumn.items.push(newItem);
+
+    const newState = {
+      ...this.state,
+      scheduleToEdit: {
+        ...this.state.scheduleToEdit,
+        columns: newColumns,
+      },
+    };
+    this.setState(newState);
+    this.saveUserDocToDb();
+  }
+
+  handleNameInputChange(event) {
+    event.preventDefault();
+
+    let newRecipe = this.state.recipeToEdit;
+    newRecipe.name = event.target.value;
+
+    this.setState({
+      recipeToEdit: newRecipe,
+    });
+  }
+
+  handleDescriptionInputChange(event) {
+    event.preventDefault();
+
+    let newRecipe = this.state.recipeToEdit;
+    newRecipe.description = event.target.value;
+
+    this.setState({
+      recipeToEdit: newRecipe,
+    });
+  }
+
+  handleIngredientNameInputChange(event) {
+    event.preventDefault();
+
+    let newIngredient = this.state.ingredientToEdit;
+    newIngredient.name = event.target.value;
+
+    this.setState({
+      ingredientToEdit: newIngredient,
+    });
+  }
+
+  handleIngredientAmountInputChange(event) {
+    event.preventDefault();
+
+    let newIngredient = this.state.ingredientToEdit;
+    newIngredient.amount = event.target.value;
+
+    this.setState({
+      ingredientToEdit: newIngredient,
+    });
+  }
+
+  handleIngredientUnitInputChange(event) {
+    event.preventDefault();
+
+    let newIngredient = this.state.ingredientToEdit;
+    newIngredient.unit = event.target.value;
+
+    this.setState({
+      ingredientToEdit: newIngredient,
+    });
+  }
+
+  handleModalOpen = () => {
+    this.setState({modalOpen: true});
+  };
+
+  handleModalClose = () => {
+    this.setState({recipeToEdit: {}, modalOpen: false});
+  };
+
+  addRecipe() {
+
+    if (!this.state.recipeToEdit.name) {
+      return true;
+    }
+
+    //@TODO poprawic
+    let newRecipe = this.state.recipeToEdit;
+    let newUserDoc = this.state.userDoc;
+    // this is existing recipe - edit it
+    if(this.state.recipeToEdit.id) {
+      let index = newUserDoc.recipes.findIndex((v) => { return v.id === newRecipe.id; });
+      newUserDoc.recipes[index] = newRecipe;
+    } else {
+      // this is a new recipe - add it
+      const d = new Date();
+      newRecipe.id = md5(d.getTime());
+      let newRecipes = newUserDoc.recipes ? newUserDoc.recipes : [];
+      newRecipes.push(newRecipe);
+      newUserDoc.recipes = newRecipes;
+    }
+
+    this.setState({userDoc: newUserDoc, recipeToEdit: {}});
+    this.handleModalClose();
+    this.saveUserDocToDb();
+  }
+
+  editRecipe(id) {
+    const newRecipeToEdit = this.state.userDoc.recipes.find((v) => { return v.id === id; });
+    this.setState({recipeToEdit: newRecipeToEdit});
+    this.handleModalOpen();
+  }
+
+  addIngredient() {
+
+    if (!this.state.ingredientToEdit.name) {
+      return true;
+    }
+
+    let newRecipeToEdit = this.state.recipeToEdit;
+    const d = new Date();
+    let newIngredient = this.state.ingredientToEdit;
+    newIngredient.id = md5(d.getTime());
+
+    if (!newRecipeToEdit.ingredients) {
+      newRecipeToEdit.ingredients = [];
+    }
+    newRecipeToEdit.ingredients.push(newIngredient);
+    this.setState({recipeToEdit: newRecipeToEdit, ingredientToEdit: {}});
+  }
+
+  handleRemoveIngredient(index) {
+    let newRecipeToEdit = this.state.recipeToEdit ? this.state.recipeToEdit : {};
+    newRecipeToEdit.ingredients.splice(index, 1);
+
+    const newState = {
+      ...this.state,
+      recipeToEdit: newRecipeToEdit
+    };
+    this.setState(newState);
+    this.saveUserDocToDb();
+  }
+
+  deleteRecipe(id) {
+    // @TODO ladniej
+
+    // @TODO jesli jest w grafiku to poinformuj i nie usuwaj
+
+    const newRecipes = this.state.userDoc.recipes.filter((r) => {
+      return r.id !== id;
+    });
+    let newUserDoc = this.state.userDoc;
+    newUserDoc.recipes = newRecipes;
+    this.setState({userDoc: newUserDoc});
+    this.saveUserDocToDb();
+  }
 
   render() {
 
-      const {
-        user,
-        signOut,
-        signInWithGoogle,
-      } = this.props;
-
+    const {
+      user,
+      signOut,
+      signInWithGoogle,
+    } = this.props;
 
     return (
       <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <Header
-          user={user}
-          signOut={signOut}
-          signInWithGoogle={signInWithGoogle}
-        />
-          <RecipeFormModal
-              open={this.state.modalOpen}
-              handleOpen={this.handleModalOpen}
-              handleClose={this.handleModalClose}
-              id={this.state.pickedRecipeId}
-              recipe={this.state.pickedRecipe}
-              fork={this.state.fork}
-              edit={this.state.edit}
-              callbackAfterSubmit={this.recipeFormAfterSubmit}
+        <MuiThemeProvider theme={theme}>
+          <Header
+            user={user}
+            signOut={signOut}
+            signInWithGoogle={signInWithGoogle}
           />
-
-        {/*<RecipeForm*/}
-              {/*id={this.state.pickedRecipeId}*/}
-              {/*recipe={this.state.pickedRecipe}*/}
-              {/*fork={this.state.fork}*/}
-              {/*edit={this.state.edit}*/}
-              {/*callbackAfterSubmit={this.recipeFormAfterSubmit}*/}
-          {/*/>*/}
-          {/*<RecipeLibrary*/}
-              {/*recipeList={this.state.recipeList}*/}
-              {/*appEditCallback={this.editRecipe}*/}
-              {/*addRecipeCallback={this.handleModalOpen}*/}
-          {/*/>*/}
-        <Schedule
-            recipeList={this.state.recipeList}
-            usedRecipeListUpdate={this.usedRecipeListUpdate}
-            editRecipe={this.editRecipe}
-            handleModalOpen={this.handleModalOpen}
-        />
-        <ShoppingList
-            usedRecipes={this.state.usedRecipes}
-            recipeList={this.state.recipeList}
-        />
-       </MuiThemeProvider>
+          <RecipeLibrary
+            recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}
+            handleDeleteRecipe={this.deleteRecipe}
+            handleEditRecipe={this.editRecipe}
+            handleAddToSchedule={this.addToSchedule}
+          />
+          <RecipeFormModal
+            open={this.state.modalOpen}
+            recipe={this.state.recipeToEdit}
+            ingredient={this.state.ingredientToEdit}
+            handleOpen={this.handleModalOpen}
+            onClose={this.handleModalClose}
+            handleNameInputChange={this.handleNameInputChange}
+            handleDescriptionInputChange={this.handleDescriptionInputChange}
+            handleIngredientNameInputChange={this.handleIngredientNameInputChange}
+            handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}
+            handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}
+            handleAddIngredient={this.addIngredient}
+            handleRemoveIngredient={this.handleRemoveIngredient}
+            handleSubmit={this.addRecipe}
+          />
+          <Schedule
+            recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
+            schedule={this.state.scheduleToEdit}
+            onDragEnd={this.onDragEnd}
+            handleRemoveItem={this.handleRemoveItem}
+          />
+          <ShoppingList
+            recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
+            schedule={this.state.scheduleToEdit}
+          />
+          <RecipeListFab
+            onClick={this.handleModalOpen}
+          />
+        </MuiThemeProvider>
       </div>
     );
   }
 }
 
-export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth,
-})(App);
+// export default withFirebaseAuth({
+//   providers,
+//   firebaseAppAuth,
+// })(App);
+
+export default App;
