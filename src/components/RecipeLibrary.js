@@ -19,11 +19,7 @@ class RecipeLibrary extends Component {
     if (recipes.length) {
       return recipes;
     }
-    return (
-      <div>
-        <h4>Nie masz jeszcze żadnych przepisów.</h4>
-      </div>
-    );
+    return ('');
   }
 
   render() {

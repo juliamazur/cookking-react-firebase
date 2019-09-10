@@ -48,6 +48,7 @@ class Item extends React.Component {
                 />
                 <IconButton
                   aria-label="Usuń"
+                  style={{'float': 'right'}}
                   onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
                   <ClearIcon/>
                 </IconButton>

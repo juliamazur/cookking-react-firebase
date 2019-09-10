@@ -55,6 +55,7 @@ class App extends Component {
     this.handleIngredientNameInputChange = this.handleIngredientNameInputChange.bind(this);
     this.handleIngredientAmountInputChange = this.handleIngredientAmountInputChange.bind(this);
     this.handleIngredientUnitInputChange = this.handleIngredientUnitInputChange.bind(this);
+    this.setType = this.setType.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
@@ -267,6 +268,17 @@ class App extends Component {
     this.setState(newState);
   }
 
+  setType(type) {
+    const newRecipe = {...this.state.recipeToEdit};
+    newRecipe.type = type;
+
+    const newState = {
+      ...this.state,
+      recipeToEdit: newRecipe
+    };
+    this.setState(newState);
+  }
+
   handleIngredientNameInputChange(event) {
     event.preventDefault();
 
@@ -421,6 +433,7 @@ class App extends Component {
             handleAddIngredient={this.addIngredient}
             handleRemoveIngredient={this.handleRemoveIngredient}
             handleSubmit={this.addRecipe}
+            setType={this.setType}
           />
           <Schedule
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
