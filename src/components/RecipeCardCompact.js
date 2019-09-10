@@ -23,13 +23,14 @@ import {recipeRef} from "../config/firebase";
 
 const styles = theme => ({
   bigAvatar: {
-   width: 60,
-   height: 60,
-   backgroundColor: '#af367e'
+   width: 50,
+   height: 50,
+   backgroundColor: '#feadb9'
   },
   bigAvatarImg: {
     width: 90,
-    height: 90
+    height: 90,
+    transform: 'rotate(180deg)'
   },
   card: {
     margin: 10
@@ -85,7 +86,7 @@ class RecipeCardCompact extends Component {
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {
-                  return (<li>{ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.unit}</li>)
+                  return (<li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
                 })
               }
             </ul>

@@ -9,7 +9,7 @@ const Container = styled.div``;
 const Title = styled.div`
   text-align: center;
   padding: 15px 5px;
-  font-family: 'Sacramento', cursive;
+  font-family: 'Great Vibes', cursive;
   font-size: 2em;
 `;
 

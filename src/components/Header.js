@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import AttachmentIcon from '@material-ui/icons/Attachment';
 
 const styles = {
   root: {
@@ -24,8 +25,8 @@ const styles = {
 };
 
 const TitleFont = styled.span`
-  font-family: 'Sacramento', cursive;
-  font-size: 2.4em;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8em;
 `;
 
 function Header(props) {
@@ -34,11 +35,11 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
+          {/*<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">*/}
+            {/*<MenuIcon />*/}
+          {/*</IconButton>*/}
           <Typography color="inherit" className={classes.grow}>
-              <TitleFont>cookking</TitleFont>
+              <TitleFont><AttachmentIcon className={classes.mainIcon}/> planella</TitleFont>
           </Typography>
           {
             user

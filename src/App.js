@@ -28,7 +28,7 @@ import md5 from "md5";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#000',
+      main: '#383950',
     },
     secondary: {
       main: '#fce514',
