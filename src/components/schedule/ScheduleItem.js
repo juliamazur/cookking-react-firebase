@@ -9,6 +9,9 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
+import RecipeTypeAvatar from '../RecipeTypeAvatar';
+
+
 const Container = styled.div`
 `;
 const CardContainer = styled.div`
@@ -41,8 +44,9 @@ class Item extends React.Component {
               <Card>
                 <CardHeader
                   avatar={
-                    <Avatar>
-                    </Avatar>
+                    <RecipeTypeAvatar
+                      type={this.props.item.type}
+                    />
                   }
                   title={this.props.item.name}
                 />

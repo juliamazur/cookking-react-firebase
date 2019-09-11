@@ -50,6 +50,9 @@ class Schedule extends React.Component {
       if(recipe && recipe.name) {
         item.name = recipe.name;
       }
+       if(recipe && recipe.type) {
+         item.type = recipe.type;
+       }
      });
 
     return column.items;

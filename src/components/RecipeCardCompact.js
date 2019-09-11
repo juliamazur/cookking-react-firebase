@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import Avatar from '@material-ui/core/Avatar';
+import RecipeTypeAvatar from './RecipeTypeAvatar';
+
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,17 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import SpaIcon from '@material-ui/icons/Spa';
-import CakeIcon from '@material-ui/icons/Cake';
-import BrightnessIcon from '@material-ui/icons/Brightness5';
-import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import RoomServiceIcon from '@material-ui/icons/RoomService';
-import FastFoodIcon from '@material-ui/icons/Fastfood';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -34,36 +24,6 @@ const styles = theme => ({
   bigAvatar: {
    width: 50,
    height: 50
-  },
-  brightness: {
-    backgroundColor: '#fcf678'
-  },
-  cake: {
-    backgroundColor: '#e7cd76'
-  },
-  fastfood: {
-    backgroundColor: '#e7bb78'
-  },
-  whatshot: {
-    backgroundColor: '#f99a9c'
-  },
-  favorite: {
-    backgroundColor: '#e7a7d2'
-  },
-  star: {
-    backgroundColor: '#8ba2e7'
-  },
-  roomservice: {
-    backgroundColor: '#89cbe7'
-  },
-  restaurant: {
-    backgroundColor: '#88e7db'
-  },
-  breakfast: {
-    backgroundColor: '#9ee79d'
-  },
-  spa: {
-    backgroundColor: '#cce796'
   },
   bigAvatarImg: {
     width: 90,
@@ -104,21 +64,6 @@ class RecipeCardCompact extends Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  displayIcon(type) {
-    if(type === 'brightness') return (<BrightnessIcon/>);
-    if(type === 'cake') return (<CakeIcon/>);
-    if(type === 'fastfood') return (<FastFoodIcon/>);
-    if(type === 'whatshot') return (<WhatsHotIcon/>);
-    if(type === 'favorite') return (<FavoriteBorderIcon/>);
-    if(type === 'star') return (<StarBorderIcon/>);
-    if(type === 'roomservice') return (<RoomServiceIcon/>);
-    if(type === 'restaurant') return (<RestaurantIcon/>);
-    if(type === 'breakfast') return (<FreeBreakfastIcon/>);
-    if(type === 'spa') return (<SpaIcon/>);
-
-    return (<FavoriteBorderIcon/>);
-  }
-
   render() {
     const { item, classes } = this.props;
 
@@ -126,9 +71,9 @@ class RecipeCardCompact extends Component {
       <Card className={classes.card}>
         <CardHeader
           avatar={
-            <Avatar className={classes.bigAvatar + ' ' + (item.type ? classes[item.type] : '')}>
-              {this.displayIcon(item.type)}
-            </Avatar>
+            <RecipeTypeAvatar
+              type={item.type}
+            />
           }
           title={item.name}
           subheader="September 14, 2016"

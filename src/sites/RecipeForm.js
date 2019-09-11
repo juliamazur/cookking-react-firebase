@@ -1,10 +1,11 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 
 import TextInput from '../components/form/TextInput';
 import Button from '@material-ui/core/Button';
-import SubmitButton from '../components/recipe_form/SubmitButton';
 import Grid from '@material-ui/core/Grid';
+
+import SubmitButton from '../components/recipe_form/SubmitButton';
+import RecipeTypeAvatar from '../components/RecipeTypeAvatar';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,102 +15,29 @@ import TableRow from '@material-ui/core/TableRow';
 
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
-import SpaIcon from '@material-ui/icons/Spa';
-import CakeIcon from '@material-ui/icons/Cake';
-import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import RoomServiceIcon from '@material-ui/icons/RoomService';
-import FastFoodIcon from '@material-ui/icons/Fastfood';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
-import BrightnessIcon from '@material-ui/icons/Brightness5';
-import { Avatar } from '@material-ui/core';
-
-const styles = theme => ({
-  avatar: {
-    cursor: 'pointer',
-    width: 50,
-    height: 50,
-    float: 'left',
-    marginLeft: '-10px',
-    opacity: '0.6'
-  },
-  brightness: {
-    backgroundColor: '#fcf678'
-  },
-  cake: {
-    backgroundColor: '#e7cd76'
-  },
-  fastfood: {
-    backgroundColor: '#e7bb78'
-  },
-  whatshot: {
-    backgroundColor: '#f99a9c'
-  },
-  favorite: {
-    backgroundColor: '#e7a7d2'
-  },
-  star: {
-    backgroundColor: '#8ba2e7'
-  },
-  roomservice: {
-    backgroundColor: '#89cbe7'
-  },
-  restaurant: {
-    backgroundColor: '#88e7db'
-  },
-  breakfast: {
-    backgroundColor: '#9ee79d'
-  },
-  spa: {
-    backgroundColor: '#cce796'
-  },
-  active: {
-    opacity: 1
-  }
-});
 
 class RecipeForm extends React.Component {
 
-  displayAvatar(classes, type) {
+  displayAvatar(type) {
     return (
-      <Avatar
-        className={classes.avatar + ' ' + ' ' + classes[type] + ' ' + (this.props.recipe.type === type ? classes.active : '')}
-        onClick={() => {this.props.setType(type);}}
-      >
-        {type === 'cake' ? (<CakeIcon/>) : ''}
-        {type === 'fastfood' ? (<FastFoodIcon/>) : ''}
-        {type === 'whatshot' ? (<WhatsHotIcon/>) : ''}
-        {type === 'favorite' ? (<FavoriteBorderIcon/>) : ''}
-        {type === 'star' ? (<StarBorderIcon/>) : ''}
-        {type === 'roomservice' ? (<RoomServiceIcon/>) : ''}
-        {type === 'restaurant' ? (<RestaurantIcon/>) : ''}
-        {type === 'breakfast' ? (<FreeBreakfastIcon/>) : ''}
-        {type === 'spa' ? (<SpaIcon/>) : ''}
-        {type === 'brightness' ? (<BrightnessIcon/>) : ''}
-      </Avatar>
+        <RecipeTypeAvatar
+          type={type}
+          active={(this.props.recipe.type === type)}
+          onClick={this.props.setType}
+        />
     );
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div className="recipe-form-placeholder">
         <Grid container spacing={32}
         >
           <Grid item xs={12}>
-            {this.displayAvatar(classes, 'brightness')}
-            {this.displayAvatar(classes, 'cake')}
-            {this.displayAvatar(classes, 'fastfood')}
-            {this.displayAvatar(classes, 'whatshot')}
-            {this.displayAvatar(classes, 'favorite')}
-            {this.displayAvatar(classes, 'star')}
-            {this.displayAvatar(classes, 'roomservice')}
-            {this.displayAvatar(classes, 'restaurant')}
-            {this.displayAvatar(classes, 'breakfast')}
-            {this.displayAvatar(classes, 'spa')}
+            {
+              ['brightness','cake','fastfood','whatshot','favorite','star','roomservice','restaurant','breakfast','spa'].map((type) => (
+                this.displayAvatar(type)
+                ))}
           </Grid>
           <Grid item xs={12}>
             <TextInput
@@ -194,4 +122,4 @@ class RecipeForm extends React.Component {
 
 }
 
-export default withStyles(styles)(RecipeForm);
+export default RecipeForm;
