@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import SubmitButton from '../components/recipe_form/SubmitButton';
-import RecipeTypeAvatar from '../components/RecipeTypeAvatar';
+import RecipeTypeAvatar from '../components/recipe_type_avatar/RecipeTypeAvatar';
+import RecipeTypeAvatarBar from '../components/recipe_type_avatar/RecipeTypeAvatarBar';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,10 +35,10 @@ class RecipeForm extends React.Component {
         <Grid container spacing={32}
         >
           <Grid item xs={12}>
-            {
-              ['brightness','cake','fastfood','whatshot','favorite','star','roomservice','restaurant','breakfast','spa'].map((type) => (
-                this.displayAvatar(type)
-                ))}
+            <RecipeTypeAvatarBar
+              activeTypes={[this.props.recipe.type]}
+              setActive={this.props.setType}
+            />
           </Grid>
           <Grid item xs={12}>
             <TextInput

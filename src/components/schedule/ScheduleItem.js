@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import RecipeTypeAvatar from '../RecipeTypeAvatar';
+import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 
 const Container = styled.div`

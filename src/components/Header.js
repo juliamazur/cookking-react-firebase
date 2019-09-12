@@ -35,11 +35,14 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          {/*<IconButton className={classes.menuButton} color="inherit" aria-label="Menu">*/}
-            {/*<MenuIcon />*/}
-          {/*</IconButton>*/}
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
           <Typography color="inherit" className={classes.grow}>
-              <TitleFont><AttachmentIcon className={classes.mainIcon}/> planella</TitleFont>
+              <TitleFont>
+                {/*<AttachmentIcon className={classes.mainIcon}/> */}
+                planella
+              </TitleFont>
           </Typography>
           {
             user

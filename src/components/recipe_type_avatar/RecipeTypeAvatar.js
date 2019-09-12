@@ -3,7 +3,7 @@ import React from 'react';
 import { Avatar } from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles/index";
 
-import RecipeTypeIcon from '../components/RecipeTypeIcon';
+import RecipeTypeIcon from './RecipeTypeIcon';
 
 
 const styles = theme => ({
@@ -13,7 +13,7 @@ const styles = theme => ({
     height: 50,
     float: 'left',
     marginLeft: '-10px',
-    opacity: '0.6'
+    opacity: '0.7'
   },
   breakfast: {
     backgroundColor: '#f9e1e0'
@@ -62,7 +62,7 @@ class RecipeTypeAvatar extends React.Component {
     return (
       <Avatar
         className={classes.avatar + ' ' + ' ' + classes[type] + ' ' + (active ? classes.active : '')}
-        onClick={() => {this.props.onClick(type);}}
+        onClick={this.props.onClick ? () => {this.props.onClick(type);} : ''}
       >
         <RecipeTypeIcon
           type={type}

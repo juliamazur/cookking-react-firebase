@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import RecipeTypeAvatar from './RecipeTypeAvatar';
+import RecipeTypeAvatar from './recipe_type_avatar/RecipeTypeAvatar';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
