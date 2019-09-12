@@ -15,7 +15,7 @@ const styles = theme => ({
   },
   listItem: {
     margin: 10,
-    minWidth: 300,
+    minWidth: 260,
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   }
 });
