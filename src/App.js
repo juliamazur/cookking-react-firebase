@@ -433,7 +433,6 @@ class App extends Component {
             handleAddIngredient={this.addIngredient}
             handleRemoveIngredient={this.handleRemoveIngredient}
             handleSubmit={this.addRecipe}
-            handleClose={this.handleModalClose}
             setType={this.setType}
           />
           <Schedule
