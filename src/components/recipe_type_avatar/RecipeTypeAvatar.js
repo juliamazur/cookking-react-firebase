@@ -7,13 +7,8 @@ import RecipeTypeIcon from './RecipeTypeIcon';
 
 
 const styles = theme => ({
-  avatar: {
-    cursor: 'pointer',
-    width: 50,
-    height: 50,
-    float: 'left',
-    marginLeft: '-10px',
-    opacity: '0.7'
+  notactive: {
+    opacity: '0.6'
   },
   breakfast: {
     backgroundColor: '#f9e1e0'
@@ -61,7 +56,7 @@ class RecipeTypeAvatar extends React.Component {
 
     return (
       <Avatar
-        className={classes.avatar + ' ' + ' ' + classes[type] + ' ' + (active ? classes.active : '')}
+        className={classes[type] + ' ' + (active ? classes.active : classes.notactive)}
         onClick={this.props.onClick ? () => {this.props.onClick(type);} : ''}
       >
         <RecipeTypeIcon
