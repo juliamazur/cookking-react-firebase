@@ -21,25 +21,22 @@ class RecipeForm extends React.Component {
 
   displayAvatar(type) {
     return (
-        <RecipeTypeAvatar
-          type={type}
-          active={(this.props.recipe.type === type)}
-          onClick={this.props.setType}
-        />
+      <RecipeTypeAvatar
+        type={type}
+        active={(this.props.recipe.type === type)}
+        onClick={this.props.setType}
+      />
     );
   }
 
   render() {
     return (
       <div className="recipe-form-placeholder">
-        <Grid container spacing={32}
-        >
-          <Grid item xs={12}>
-            <RecipeTypeAvatarBar
-              activeTypes={[this.props.recipe.type]}
-              setActive={this.props.setType}
-            />
-          </Grid>
+        <RecipeTypeAvatarBar
+          activeTypes={[this.props.recipe.type]}
+          setActive={this.props.setType}
+        />
+        <Grid container>
           <Grid item xs={12}>
             <TextInput
               data-test='nameInput'
@@ -48,6 +45,8 @@ class RecipeForm extends React.Component {
               label='Nazwa'
               handleChange={this.props.handleNameInputChange}
             />
+          </Grid>
+          <Grid item xs={12}>
             <TextInput
               data-test='descriptionInput'
               name='recipeDescription'
@@ -55,62 +54,56 @@ class RecipeForm extends React.Component {
               label='Opis'
               handleChange={this.props.handleDescriptionInputChange}
             />
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Składnik</TableCell>
-                  <TableCell>Ilość</TableCell>
-                  <TableCell>Jednostka</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>
-                    <TextInput
-                      name='ingredientName'
-                      value={this.props.ingredient ? this.props.ingredient.name : ''}
-                      handleChange={this.props.handleIngredientNameInputChange}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextInput
-                      name='ingredientAmount'
-                      value={this.props.ingredient ? this.props.ingredient.amount : ''}
-                      handleChange={this.props.handleIngredientAmountInputChange}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextInput
-                      name='ingredientUnit'
-                      value={this.props.ingredient ? this.props.ingredient.unit : ''}
-                      handleChange={this.props.handleIngredientUnitInputChange}
-                    />
-                  </TableCell>
-                  <TableCell><Button onClick={this.props.handleAddIngredient}>Dodaj</Button></TableCell>
-                </TableRow>
-                {
-                  this.props.recipe.ingredients ?
-                    this.props.recipe.ingredients.map((v, index) => (
-                      <TableRow key={v.id}>
-                        <TableCell>{v.name}</TableCell>
-                        <TableCell>{v.amount}</TableCell>
-                        <TableCell>{v.unit}</TableCell>
-                        <TableCell>
-                          <IconButton
-                            aria-label="Usuń"
-                            onClick={() => this.props.handleRemoveIngredient(index)}>
-                            <ClearIcon/>
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                    : ''}
-              </TableBody>
-            </Table>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextInput
+              name='ingredientName'
+              label='Składnik'
+              value={this.props.ingredient ? this.props.ingredient.name : ''}
+              handleChange={this.props.handleIngredientNameInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextInput
+              name='ingredientAmount'
+              label='Ilość'
+              value={this.props.ingredient ? this.props.ingredient.amount : ''}
+              handleChange={this.props.handleIngredientAmountInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextInput
+              name='ingredientUnit'
+              label='Jednostka'
+              value={this.props.ingredient ? this.props.ingredient.unit : ''}
+              handleChange={this.props.handleIngredientUnitInputChange}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Button onClick={this.props.handleAddIngredient}>Dodaj</Button>
           </Grid>
         </Grid>
-        <Grid>&nbsp;</Grid>
+        <Table>
+          <TableBody>
+            {
+              this.props.recipe.ingredients ?
+                this.props.recipe.ingredients.map((v, index) => (
+                  <TableRow key={v.id}>
+                    <TableCell>{v.name}</TableCell>
+                    <TableCell>{v.amount}</TableCell>
+                    <TableCell>{v.unit}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        aria-label="Usuń"
+                        onClick={() => this.props.handleRemoveIngredient(index)}>
+                        <ClearIcon/>
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))
+                : ''}
+          </TableBody>
+        </Table>
         <Grid>
           <SubmitButton
             handleFormSubmit={this.props.handleSubmit}
