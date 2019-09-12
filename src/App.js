@@ -31,7 +31,7 @@ const theme = createMuiTheme({
       main: '#383950',
     },
     secondary: {
-      main: '#fce514',
+      main: '#383950',
     },
   },
   typography: {
@@ -433,6 +433,7 @@ class App extends Component {
             handleAddIngredient={this.addIngredient}
             handleRemoveIngredient={this.handleRemoveIngredient}
             handleSubmit={this.addRecipe}
+            handleClose={this.handleModalClose}
             setType={this.setType}
           />
           <Schedule

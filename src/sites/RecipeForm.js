@@ -4,14 +4,12 @@ import TextInput from '../components/form/TextInput';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import SubmitButton from '../components/recipe_form/SubmitButton';
 import RecipeTypeAvatar from '../components/recipe_type_avatar/RecipeTypeAvatar';
 import RecipeTypeAvatarBar from '../components/recipe_type_avatar/RecipeTypeAvatarBar';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -104,11 +102,6 @@ class RecipeForm extends React.Component {
                 : ''}
           </TableBody>
         </Table>
-        <Grid>
-          <SubmitButton
-            handleFormSubmit={this.props.handleSubmit}
-          />
-        </Grid>
       </div>
     );
 
