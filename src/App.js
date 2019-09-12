@@ -342,9 +342,9 @@ class App extends Component {
       newUserDoc.recipes = newRecipes;
     }
 
-    this.setState({userDoc: newUserDoc, recipeToEdit: {}});
-    this.handleModalClose();
-    this.saveUserDocToDb();
+    this.setState({userDoc: newUserDoc, recipeToEdit: {}, modalOpen: false}, () => {
+      this.saveUserDocToDb();
+    });
   }
 
   editRecipe(id) {
@@ -379,8 +379,9 @@ class App extends Component {
       ...this.state,
       recipeToEdit: newRecipeToEdit
     };
-    this.setState(newState);
-    this.saveUserDocToDb();
+    this.setState(newState, () => {
+      this.saveUserDocToDb();
+    });
   }
 
   deleteRecipe(id) {
@@ -393,8 +394,9 @@ class App extends Component {
     });
     let newUserDoc = this.state.userDoc;
     newUserDoc.recipes = newRecipes;
-    this.setState({userDoc: newUserDoc});
-    this.saveUserDocToDb();
+    this.setState({userDoc: newUserDoc}, () => {
+      this.saveUserDocToDb();
+    });
   }
 
   render() {

@@ -5,29 +5,18 @@ import {DragDropContext} from 'react-beautiful-dnd';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-import {scheduleRef} from '../config/firebase'
-
 import ScheduleColumn from '../components/schedule/ScheduleColumn'
 import ScheduleForm from "../components/schedule/ScheduleForm";
-
 import initialScheduleData from '../components/initial-data';
-import md5 from "md5";
-import * as backend from "../backend";
-import styled from "styled-components";
-
-
-const Container = styled.div`
-  background-color: #fff;
-  max-width: 90%;
-  margin: 30px auto;
-  padding: 4%;
-`;
 
 
 const styles = theme => ({
   columnGrid: {
     minWidth: '12%',
   },
+  paper: {
+    margin: 30
+  }
 });
 
 class Schedule extends React.Component {
@@ -62,7 +51,7 @@ class Schedule extends React.Component {
     const {classes} = this.props;
 
     return (
-      <Container>
+      <Paper className={classes.paper}>
         {/*<ScheduleForm*/}
         {/*name={this.state.name}*/}
         {/*id={this.state.id}*/}
@@ -91,7 +80,7 @@ class Schedule extends React.Component {
             }
           </Grid>
         </DragDropContext>
-      </Container>
+      </Paper>
     );
 
   }

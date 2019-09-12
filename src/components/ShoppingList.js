@@ -1,20 +1,21 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import styled from 'styled-components';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
-const Container = styled.div`
-  background-color: #fff;
-  max-width: 90%;
-  margin: 30px auto;
-  padding: 4%;
-`;
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
+  paper: {
+    margin: 30
+  },
+  title: {
+    padding: 30
+  },
   listItem: {
+    margin: 10,
+    minWidth: 300,
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   }
 });
@@ -58,28 +59,33 @@ class ShoppingList extends React.Component {
     const ingredients = this.getIngredients();
 
     return (
-      <Container>
-        <h3>Lista zakupów</h3>
-        <Grid container>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+      <Paper className={classes.paper}>
+        <h3 className={classes.title}>Lista zakupów</h3>
+
             {
               ingredients ? (
-                <List>
+                <Grid
+                  container
+                  spacing={2}
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="flex-start"
+                >
                   {ingredients.map(ingredient => {
                     return (
-                      <ListItem button className={classes.listItem}>
-                        {ingredient.name} - {ingredient.amount} {ingredient.unit}
-                      </ListItem>
+                      <Card className={classes.listItem}>
+                        <CardContent className={classes.cardContent}>
+                        {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.amount ? ingredient.unit : ''}
+                        </CardContent>
+                      </Card>
                     )
                   })
                   }
-                </List>
+                </Grid>
 
               ) : ('')
             }
-          </Grid>
-        </Grid>
-      </Container>
+           </Paper>
     );
 
   }

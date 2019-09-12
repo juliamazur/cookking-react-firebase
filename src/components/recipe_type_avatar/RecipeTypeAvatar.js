@@ -38,7 +38,7 @@ const styles = theme => ({
     backgroundColor: '#bc85a3'
   },
   restaurant: {
-    backgroundColor: '#f9e1e0'
+    backgroundColor: '#8699bc'
   },
   spa: {
     backgroundColor: '#cce796'

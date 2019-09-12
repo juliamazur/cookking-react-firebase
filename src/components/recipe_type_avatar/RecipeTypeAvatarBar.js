@@ -28,7 +28,7 @@ class RecipeTypeAvatarBar extends React.Component {
 
   render() {
 
-    const TYPES = ['brightness', 'cake', 'fastfood', 'whatshot', 'favorite', 'star', 'restaurant', 'breakfast', 'spa'];
+    const TYPES = ['cake', 'fastfood', 'whatshot', 'favorite', 'star', 'restaurant', 'breakfast', 'spa'];
 
     return (
       <div className={this.props.classes.container}>
