@@ -64,6 +64,7 @@ class App extends Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToSchedule = this.addToSchedule.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    this.handleCopyItem = this.handleCopyItem.bind(this);
   }
 
   // const
@@ -184,7 +185,7 @@ class App extends Component {
     if(!destinationColumn.items) {
       destinationColumn.items = [];
     }
-    let destinationColumnItems = destinationColumn.items;
+    const destinationColumnItems = destinationColumn.items;
     destinationColumnItems.splice(destination.index, 0, pickedItem);
 
     const newState = {
@@ -194,24 +195,41 @@ class App extends Component {
         columns: newColumns,
       },
     };
-    this.setState(newState);
-    this.saveUserDocToDb();
+
+    this.setState(newState, () => {
+      this.saveUserDocToDb();
+    });
+  }
+
+  handleCopyItem(columnId, index) {
+    const newSchedule = {...this.state.scheduleToEdit};
+    const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
+    const element = newScheduleColumn.items[index];
+    newScheduleColumn.items.splice(index, 0, element);
+
+    const newState = {
+      ...this.state,
+      scheduleToEdit: newSchedule
+    };
+
+    this.setState(newState, () => {
+      this.saveUserDocToDb();
+    });
   }
 
   handleRemoveItem(columnId, index) {
-    let newColumns = this.state.scheduleToEdit.columns;
-    let newScheduleColumn = newColumns.find((v) => { return v.id === columnId; });
+    const newSchedule = {...this.state.scheduleToEdit};
+    const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
     newScheduleColumn.items.splice(index, 1);
 
     const newState = {
       ...this.state,
-      scheduleToEdit: {
-        ...this.state.scheduleToEdit,
-        columns: newColumns,
-      },
+      scheduleToEdit: newSchedule
     };
-    this.setState(newState);
-    this.saveUserDocToDb();
+
+    this.setState(newState, () => {
+      this.saveUserDocToDb();
+    });
   }
 
   addToSchedule(id) {
@@ -442,6 +460,7 @@ class App extends Component {
             schedule={this.state.scheduleToEdit}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
+            handleCopyItem={this.handleCopyItem}
           />
           <ShoppingList
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}

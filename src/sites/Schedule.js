@@ -68,12 +68,13 @@ class Schedule extends React.Component {
             {
               initialScheduleData.columnOrder.map(columnId => {
                 const column = initialScheduleData.columns[columnId];
-                return <Grid className={classes.columnGrid} item xs={12} md={3} lg={1}>
+                return <Grid className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
                   <ScheduleColumn
                     key={column.id}
                     column={column}
                     items={this.getColumnItems(column.id)}
                     handleRemoveItem={this.props.handleRemoveItem}
+                    handleCopyItem={this.props.handleCopyItem}
                   />
                 </Grid>;
               })

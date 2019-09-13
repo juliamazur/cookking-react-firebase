@@ -8,6 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import CopyIcon from '@material-ui/icons/FileCopy';
 
 import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
@@ -52,9 +53,13 @@ class Item extends React.Component {
                 />
                 <IconButton
                   aria-label="Usuń"
-                  style={{'float': 'right'}}
-                  onClick={() => this.props.handleRemoveItem(this.props.item.id)}>
+                  onClick={this.props.handleRemoveItem}>
                   <ClearIcon/>
+                </IconButton>
+                <IconButton
+                  aria-label="Usuń"
+                  onClick={this.props.handleCopyItem}>
+                  <CopyIcon/>
                 </IconButton>
               </Card>
             </CardContainer>

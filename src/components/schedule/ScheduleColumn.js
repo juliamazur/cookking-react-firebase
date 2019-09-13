@@ -47,6 +47,7 @@ class ScheduleColumn extends React.Component {
                         item={item}
                         index={index}
                         handleRemoveItem={() => this.props.handleRemoveItem(this.props.column.id, index)}
+                        handleCopyItem={() => this.props.handleCopyItem(this.props.column.id, index)}
                   />
                 )}
                 {provided.placeholder}

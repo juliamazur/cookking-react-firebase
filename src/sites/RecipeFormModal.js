@@ -44,7 +44,7 @@ class RecipeFormModal extends React.Component {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="form-dialog-title">
-            <Typography variant="h4" className={classes.headerTitle}>Dodaj lub edytuj przepis</Typography>
+            <Typography variant="h4" className={classes.headerTitle}>Edytuj przepis</Typography>
             <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
               <CloseIcon />
             </IconButton>
