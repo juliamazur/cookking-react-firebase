@@ -57,7 +57,7 @@ class RecipeTypeAvatar extends React.Component {
     return (
       <Avatar
         className={classes[type] + ' ' + (active ? classes.active : classes.notactive)}
-        onClick={this.props.onClick ? () => {this.props.onClick(type);} : ''}
+        onClick={this.props.onClick ? () => {this.props.onClick(type);} : () => {}}
       >
         <RecipeTypeIcon
           type={type}

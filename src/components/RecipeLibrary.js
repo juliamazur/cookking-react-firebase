@@ -27,7 +27,7 @@ class RecipeLibrary extends Component {
 
       <Grid
         container
-        spacing={2}
+        spacing={8}
         direction="row"
         justify="flex-start"
         alignItems="flex-start"

@@ -1,5 +1,7 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import {DragDropContext} from 'react-beautiful-dnd';
 
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +17,9 @@ const styles = theme => ({
     minWidth: '12%',
   },
   paper: {
-    margin: 30
+    [theme.breakpoints.up('md')]: {
+      margin: 30
+    }
   }
 });
 
@@ -42,6 +46,14 @@ class Schedule extends React.Component {
        if(recipe && recipe.type) {
          item.type = recipe.type;
        }
+       if(recipe && recipe.description) {
+         item.description = recipe.description;
+       }
+       if(recipe && recipe.ingredients) {
+         item.ingredients = recipe.ingredients;
+       }
+       // @TODO tak by bylo najlepiej ale nie bangla
+       //   item = {...item, ...recipe}
      });
 
     return column.items;

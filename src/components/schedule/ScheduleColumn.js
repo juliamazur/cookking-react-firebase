@@ -21,9 +21,7 @@ const DraggableList = styled.div`
 `;
 
 const styles = theme => ({
-  scheduleItem: {
-    maxWidth: '95%',
-  },
+  scheduleItem: {}
 });
 
 

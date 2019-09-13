@@ -17,9 +17,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import ingredientsFixture from '../fixtures/ingredients.json';
-import {recipeRef} from "../config/firebase";
-
 const styles = theme => ({
   bigAvatar: {
    width: 50,
@@ -68,7 +65,7 @@ class RecipeCardCompact extends Component {
     const { item, classes } = this.props;
 
     return (
-      <Card className={classes.card}>
+      <Card className={classes.card} key={item.id}>
         <CardHeader
           avatar={
             <RecipeTypeAvatar
@@ -84,7 +81,7 @@ class RecipeCardCompact extends Component {
           {item.ingredients ? (
             <ul>
                 {item.ingredients.map(ingredient => {
-                  return (<li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                  return (<li key={ingredient.id}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
                 })
               }
             </ul>

@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import classnames from 'classnames';
+
 import {withStyles} from '@material-ui/core/styles';
 import {Draggable} from 'react-beautiful-dnd';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import CopyIcon from '@material-ui/icons/FileCopy';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
@@ -26,11 +31,24 @@ const styles = theme => ({
   cardContent: {
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   },
+  expandButton: {
+    float: 'right',
+    margin: 5
+  }
 });
 
 class Item extends React.Component {
 
+
+  state = {expanded: false};
+
+  handleExpandClick = () => {
+    this.setState(state => ({expanded: !state.expanded}));
+  };
+
   render() {
+    const {classes, item} = this.props;
+
 
     return (
       <Draggable draggableId={this.props.item.id} index={this.props.index}>
@@ -43,24 +61,49 @@ class Item extends React.Component {
           >
             <CardContainer>
               <Card>
+                <IconButton
+                  className={classnames(classes.expandButton, classes.expand, {
+                    [classes.expandOpen]: this.state.expanded,
+                  })}
+                  onClick={this.handleExpandClick}
+                  aria-expanded={this.state.expanded}
+                  aria-label="Show more"
+                >
+                  <ExpandMoreIcon/>
+                </IconButton>
                 <CardHeader
                   avatar={
                     <RecipeTypeAvatar
-                      type={this.props.item.type}
+                      type={item.type}
                     />
                   }
-                  title={this.props.item.name}
+                  title={item.name}
                 />
-                <IconButton
-                  aria-label="Usuń"
-                  onClick={this.props.handleRemoveItem}>
-                  <ClearIcon/>
-                </IconButton>
-                <IconButton
-                  aria-label="Usuń"
-                  onClick={this.props.handleCopyItem}>
-                  <CopyIcon/>
-                </IconButton>
+                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                  <CardContent className={classes.cardContent}>
+                    <i>{item.description}</i>
+                    {item.ingredients ? (
+                      <ul>
+                        {item.ingredients.map(ingredient => {
+                          return (<li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                        })
+                        }
+                      </ul>
+                    ) : ('')}
+                  </CardContent>
+                  <CardActions className={classes.actions} disableActionSpacing>
+                    <IconButton
+                      aria-label="Usuń"
+                      onClick={this.props.handleRemoveItem}>
+                      <ClearIcon/>
+                    </IconButton>
+                    <IconButton
+                      aria-label="Usuń"
+                      onClick={this.props.handleCopyItem}>
+                      <CopyIcon/>
+                    </IconButton>
+                  </CardActions>
+                </Collapse>
               </Card>
             </CardContainer>
           </Container>

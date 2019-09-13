@@ -8,14 +8,21 @@ import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
   paper: {
-    margin: 30
+    [theme.breakpoints.up('md')]: {
+      margin: 30
+    }
   },
   title: {
     padding: 30
   },
   listItem: {
-    margin: 10,
-    minWidth: 260,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: 10,
+      minWidth: 260
+    },
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   }
 });
@@ -66,14 +73,14 @@ class ShoppingList extends React.Component {
               ingredients ? (
                 <Grid
                   container
-                  spacing={2}
+                  spacing={8}
                   direction="row"
                   justify="flex-start"
                   alignItems="flex-start"
                 >
                   {ingredients.map(ingredient => {
                     return (
-                      <Card className={classes.listItem}>
+                      <Card className={classes.listItem} key={ingredient.id}>
                         <CardContent className={classes.cardContent}>
                         {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.amount ? ingredient.unit : ''}
                         </CardContent>
