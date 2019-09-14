@@ -17,7 +17,8 @@ const styles = theme => ({
   },
   listItem: {
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
+      width: '100%',
+      margin: '5px 10px'
     },
     [theme.breakpoints.up('md')]: {
       margin: 10,

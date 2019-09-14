@@ -43,6 +43,9 @@ const styles = theme => ({
   spa: {
     backgroundColor: '#cce796'
   },
+  eco: {
+    backgroundColor: '#cce796'
+  },
   active: {
     opacity: 1
   }

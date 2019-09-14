@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import classnames from 'classnames';
+import Typography from '@material-ui/core/Typography';
 
 import {withStyles} from '@material-ui/core/styles';
 import {Draggable} from 'react-beautiful-dnd';
@@ -14,19 +15,15 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import CopyIcon from '@material-ui/icons/FileCopy';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 
 const Container = styled.div`
 `;
-const CardContainer = styled.div`
-  margin: 15px 5px;
-`;
 
 const styles = theme => ({
-  avatar: {
-    cursor: 'pointer',
+  card: {
+    margin: 5
   },
   cardContent: {
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
@@ -59,8 +56,7 @@ class Item extends React.Component {
             innerRef={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <CardContainer>
-              <Card>
+              <Card className={classes.card}>
                 <IconButton
                   className={classnames(classes.expandButton, classes.expand, {
                     [classes.expandOpen]: this.state.expanded,
@@ -80,17 +76,20 @@ class Item extends React.Component {
                   title={item.name}
                 />
                 <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                  <CardContent className={classes.cardContent}>
-                    <i>{item.description}</i>
-                    {item.ingredients ? (
-                      <ul>
-                        {item.ingredients.map(ingredient => {
-                          return (<li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
-                        })
-                        }
-                      </ul>
-                    ) : ('')}
-                  </CardContent>
+                  <Typography component="div">
+                    <CardContent className={classes.cardContent} fontSize="small">
+                      <i>{item.description}</i>
+                      {item.ingredients ? (
+                        <ul>
+                          {item.ingredients.map(ingredient => {
+                            return (
+                              <li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                          })
+                          }
+                        </ul>
+                      ) : ('')}
+                    </CardContent>
+                  </Typography>
                   <CardActions className={classes.actions} disableActionSpacing>
                     <IconButton
                       aria-label="Usuń"
@@ -105,7 +104,6 @@ class Item extends React.Component {
                   </CardActions>
                 </Collapse>
               </Card>
-            </CardContainer>
           </Container>
         )}
       </Draggable>

@@ -11,7 +11,6 @@ import RestaurantIcon from '@material-ui/icons/Restaurant';
 import FreeBreakfastIcon from '@material-ui/icons/FreeBreakfast';
 import BrightnessIcon from '@material-ui/icons/Brightness5';
 
-
 class RecipeTypeIcon extends React.Component {
 
   render() {
