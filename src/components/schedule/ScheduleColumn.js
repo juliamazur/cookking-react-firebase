@@ -14,7 +14,6 @@ const Title = styled.div`
 `;
 
 const DraggableList = styled.div`
-  padding: 8px;
   background-color: ${props =>  (props.isDraggingOver ? 'lightgrey' : 'white')};
   flex-grow: 1;
   min-height: 100px;

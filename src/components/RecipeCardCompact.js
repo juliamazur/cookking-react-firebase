@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classnames from 'classnames';
+import Typography from '@material-ui/core/Typography';
 
 import RecipeTypeAvatar from './recipe_type_avatar/RecipeTypeAvatar';
 
@@ -19,16 +20,21 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
   bigAvatar: {
-   width: 50,
-   height: 50
+    width: 50,
+    height: 50
   },
   bigAvatarImg: {
     width: 90,
     height: 90
   },
   card: {
-    margin: 10,
-    minWidth: 300
+    [theme.breakpoints.down('sm')]: {
+      margin: 3
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: 7,
+      minWidth: 300
+    }
   },
   cardContent: {
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
@@ -55,14 +61,14 @@ const styles = theme => ({
 
 class RecipeCardCompact extends Component {
 
-  state = { expanded: false };
+  state = {expanded: false};
 
   handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
+    this.setState(state => ({expanded: !state.expanded}));
   };
 
   render() {
-    const { item, classes } = this.props;
+    const {item, classes} = this.props;
 
     return (
       <Card className={classes.card} key={item.id}>
@@ -76,42 +82,45 @@ class RecipeCardCompact extends Component {
           subheader="September 14, 2016"
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent className={classes.cardContent}>
-            <i>{item.description}</i>
-          {item.ingredients ? (
-            <ul>
-                {item.ingredients.map(ingredient => {
-                  return (<li key={ingredient.id}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
-                })
-              }
-            </ul>
-          ) : ('')}
-          </CardContent>
-          </Collapse>
-          <CardActions className={classes.actions} disableActionSpacing>
+          <Typography component="div">
+            <CardContent className={classes.cardContent} fontSize="small">
+              <i>{item.description}</i>
+              {item.ingredients ? (
+                <ul>
+                  {item.ingredients.map(ingredient => {
+                    return (<li
+                      key={ingredient.id}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                  })
+                  }
+                </ul>
+              ) : ('')}
+            </CardContent>
+          </Typography>
+        </Collapse>
+        <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Edytuj" onClick={() => this.props.editRecipe(this.props.id)}>
-            <EditIcon />
+            <EditIcon/>
           </IconButton>
           <IconButton aria-label="Kasuj" onClick={() => this.props.deleteRecipe(this.props.id)}>
-            <DeleteIcon />
+            <DeleteIcon/>
           </IconButton>
-            <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.addToSchedule(this.props.id)}>
-              <DateRangeIcon />
-            </IconButton>
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded,
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
+          <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.addToSchedule(this.props.id)}>
+            <DateRangeIcon/>
+          </IconButton>
+          <IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: this.state.expanded,
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={this.state.expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon/>
+          </IconButton>
+        </CardActions>
       </Card>
-   );
- }
+    );
+  }
 }
 
 export default withStyles(styles)(RecipeCardCompact);

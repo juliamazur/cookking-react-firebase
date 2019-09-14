@@ -1,6 +1,19 @@
 import React, {Component} from "react";
+import {withStyles} from '@material-ui/core/styles';
+
 import RecipeCardCompact from "./RecipeCardCompact";
-import Grid from '@material-ui/core/Grid';
+
+const styles = theme => ({
+  container: {
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      alignContent: 'space-evenly'
+    }
+  }
+});
+
 
 class RecipeLibrary extends Component {
 
@@ -23,20 +36,17 @@ class RecipeLibrary extends Component {
   }
 
   render() {
+
+    const {classes} = this.props;
+
     return (
 
-      <Grid
-        container
-        spacing={8}
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      >
+      <div className={classes.container}>
         {this.renderRecipesCompact()}
-      </Grid>
+      </div>
 
     );
   }
 }
 
-export default RecipeLibrary;
+export default withStyles(styles)(RecipeLibrary);

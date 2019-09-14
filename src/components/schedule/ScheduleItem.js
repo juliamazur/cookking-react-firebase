@@ -23,7 +23,10 @@ const Container = styled.div`
 
 const styles = theme => ({
   card: {
-    margin: 5
+    margin: '5px 0',
+    [theme.breakpoints.up('md')]: {
+      margin: 5
+    }
   },
   cardContent: {
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
