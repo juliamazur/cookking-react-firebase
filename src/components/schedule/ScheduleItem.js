@@ -23,7 +23,10 @@ const Container = styled.div`
 
 const styles = theme => ({
   card: {
-    margin: '5px 0',
+    [theme.breakpoints.down('sm')]: {
+      margin: '10px auto',
+      width: '90%'
+    },
     [theme.breakpoints.up('md')]: {
       margin: 10
     }
