@@ -29,7 +29,8 @@ const styles = theme => ({
   },
   card: {
     [theme.breakpoints.down('sm')]: {
-      margin: 3
+      margin: '7px auto',
+      width: '90%'
     },
     [theme.breakpoints.up('md')]: {
       margin: 7,
