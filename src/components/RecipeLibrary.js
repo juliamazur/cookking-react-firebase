@@ -9,7 +9,8 @@ const styles = theme => ({
       display: 'flex',
       flexWrap: 'wrap',
       alignItems: 'center',
-      alignContent: 'space-evenly'
+      alignContent: 'space-evenly',
+      margin: 30
     }
   }
 });

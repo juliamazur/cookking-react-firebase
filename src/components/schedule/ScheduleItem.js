@@ -25,7 +25,7 @@ const styles = theme => ({
   card: {
     margin: '5px 0',
     [theme.breakpoints.up('md')]: {
-      margin: 5
+      margin: 10
     }
   },
   cardContent: {
