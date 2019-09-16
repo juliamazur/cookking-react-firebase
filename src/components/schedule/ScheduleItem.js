@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import classnames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 
 import {withStyles} from '@material-ui/core/styles';
@@ -64,9 +63,9 @@ class Item extends React.Component {
           >
               <Card className={classes.card}>
                 <IconButton
-                  className={classnames(classes.expandButton, classes.expand, {
+                  className={classes.expandButton + ' ' + classes.expand + ' ' + {
                     [classes.expandOpen]: this.state.expanded,
-                  })}
+                  }}
                   onClick={this.handleExpandClick}
                   aria-expanded={this.state.expanded}
                   aria-label="Show more"

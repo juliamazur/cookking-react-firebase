@@ -28,7 +28,7 @@ class RecipeTypeIcon extends React.Component {
     if(type === 'breakfast') return (<FreeBreakfastIcon/>);
     if(type === 'spa') return (<SpaIcon/>);
 
-    return (<FavoriteBorderIcon/>);
+    return (<StarBorderIcon/>);
   }
 }
 

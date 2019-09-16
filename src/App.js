@@ -5,12 +5,10 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
-// import RecipeForm from './sites/RecipeForm';
-
 import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
-import RecipeListFab from './components/recipe_list/RecipeListFab';
+import AppSpeedDial from './components/AppSpeedDial';
 
 import * as backend from './backend/';
 import * as functions from './functions/';
@@ -466,8 +464,9 @@ class App extends Component {
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
             schedule={this.state.scheduleToEdit}
           />
-          <RecipeListFab
-            onClick={this.handleModalOpen}
+          <AppSpeedDial
+            handleAddRecipe={this.handleModalOpen}
+            zupa='dupa'
           />
         </MuiThemeProvider>
       </div>

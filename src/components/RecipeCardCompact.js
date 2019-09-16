@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
 import {withStyles} from '@material-ui/core/styles';
-import classnames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 
 import RecipeTypeAvatar from './recipe_type_avatar/RecipeTypeAvatar';
@@ -109,9 +108,10 @@ class RecipeCardCompact extends Component {
             <DateRangeIcon/>
           </IconButton>
           <IconButton
-            className={classnames(classes.expand, {
+//            @TODO many llasses
+            className={classes.expand + ' ' + {
               [classes.expandOpen]: this.state.expanded,
-            })}
+            }}
             onClick={this.handleExpandClick}
             aria-expanded={this.state.expanded}
             aria-label="Show more"
