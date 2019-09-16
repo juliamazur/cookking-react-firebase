@@ -12,11 +12,8 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    height: 380,
-  },
   speedDial: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(3),
   },
@@ -55,8 +52,6 @@ export default function AppSpeedDial(props) {
   };
 
   return (
-    <div className={classes.root}>
-      <Button onClick={handleVisibility}>Toggle Speed Dial</Button>
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
         className={classes.speedDial}
@@ -79,6 +74,5 @@ export default function AppSpeedDial(props) {
           />
         ))}
       </SpeedDial>
-    </div>
   );
 }

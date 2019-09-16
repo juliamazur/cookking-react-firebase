@@ -72,12 +72,7 @@ class ShoppingList extends React.Component {
 
             {
               ingredients ? (
-                <Grid
-                  container
-                  spacing={8}
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="flex-start"
+                <div
                 >
                   {ingredients.map(ingredient => {
                     return (
@@ -89,7 +84,7 @@ class ShoppingList extends React.Component {
                     )
                   })
                   }
-                </Grid>
+                </div>
 
               ) : ('')
             }
