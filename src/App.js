@@ -164,7 +164,7 @@ class App extends Component {
       return;
     }
 
-    let newColumns = this.state.scheduleToEdit.columns;
+    const newColumns = this.getActiveScheduleColumns();
     let sourceColumn = newColumns.find((v) => {
       return v.id === source.droppableId
     });
@@ -201,19 +201,26 @@ class App extends Component {
   }
 
   saveScheduleColumns(newColumns) {
+    const newSchedule = this.getActiveSchedule();
+    newSchedule.columns = newColumns;
     const newState = {
       ...this.state,
-      scheduleToEdit: {
-        ...this.state.scheduleToEdit,
-        columns: newColumns,
-      },
+      scheduleToEdit: newSchedule
     };
 
     this.save(newState);
   }
 
+  getActiveSchedule() {
+    return {...this.state.scheduleToEdit};
+  }
+
+  getActiveScheduleColumns() {
+    return this.state.scheduleToEdit.columns.slice();
+  }
+
   handleCopyItem(columnId, index) {
-    const newSchedule = {...this.state.scheduleToEdit};
+    const newSchedule = this.getActiveSchedule();
     const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
     const element = newScheduleColumn.items[index];
     newScheduleColumn.items.splice(index, 0, element);
@@ -222,7 +229,7 @@ class App extends Component {
   }
 
   handleRemoveItem(columnId, index) {
-    const newSchedule = {...this.state.scheduleToEdit};
+    const newSchedule = this.getActiveSchedule();
     const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
     newScheduleColumn.items.splice(index, 1);
 
@@ -231,7 +238,7 @@ class App extends Component {
 
   addToSchedule(id) {
     // @TODO ladniej
-    let newColumns = this.state.scheduleToEdit.columns;
+    let newColumns = this.getActiveScheduleColumns();
     let newColumn = newColumns.find((v) => {return v.id === 'column-0'});
 
     if(!newColumn.items) {
@@ -460,7 +467,7 @@ class App extends Component {
           />
           <Schedule
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
-            schedule={this.state.scheduleToEdit}
+            schedule={this.getActiveSchedule()}
             allSchedules={this.state.userDoc ? this.state.userDoc.schedules : []}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
@@ -469,7 +476,7 @@ class App extends Component {
           />
           <ShoppingList
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
-            schedule={this.state.scheduleToEdit}
+            schedule={this.getActiveSchedule()}
           />
           <AppSpeedDial
             handleAddRecipe={this.handleModalOpen}
