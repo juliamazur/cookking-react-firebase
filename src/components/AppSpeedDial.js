@@ -25,19 +25,12 @@ export default function AppSpeedDial(props) {
   const [open, setOpen] = React.useState(false);
   const [hidden, setHidden] = React.useState(false);
 
-  const actions = [
-    {icon: <DateRangeIcon/>, name: 'Dodaj do grafiku'},
-    {icon: <FileCopyIcon/>, name: 'Kopiuj grafik'},
-    {icon: <BorderAllIcon/>, name: 'Nowy grafik'},
-    {icon: <StarBorderIcon/>, name: 'Nowy przepis', handleClick: props.handleAddRecipe},
-  ];
-
   const handleVisibility = () => {
     setOpen(false);
     setHidden(prevHidden => !prevHidden);
   };
 
-  const handleClick = props => {
+  const handleClick = () => {
     setOpen(prevOpen => !prevOpen);
   };
 
@@ -51,28 +44,50 @@ export default function AppSpeedDial(props) {
     setOpen(false);
   };
 
+  const { handleAddRecipe } = props;
+
   return (
       <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
+        ariaLabel="Menu"
         className={classes.speedDial}
         hidden={hidden}
         icon={<SpeedDialIcon openIcon={<CloseIcon />} />}
         onBlur={handleClose}
         onClick={handleClick}
         onClose={handleClose}
-        onFocus={handleOpen}
+        // onFocus={handleOpen}
         onMouseEnter={handleOpen}
         onMouseLeave={handleClose}
         open={open}
       >
-        {actions.map(action => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-            onClick={action.handleClick}
-          />
-        ))}
+        <SpeedDialAction
+          key='addToSchedule'
+          icon={<DateRangeIcon/>}
+          tooltipTitle='Dodaj do grafiku'
+          tooltipOpen
+          onClick={()=>{}}
+        />
+        <SpeedDialAction
+          key='copySchedule'
+          icon={<FileCopyIcon/>}
+        tooltipTitle='Kopiuj grafik'
+        tooltipOpen
+        onClick={()=>{}}
+        />
+        <SpeedDialAction
+          key='newSchedule'
+          icon={<BorderAllIcon/>}
+          tooltipTitle='Nowy grafik'
+          tooltipOpen
+          onClick={()=>{}}
+        />
+        <SpeedDialAction
+          key='newRecipe'
+          icon={<StarBorderIcon/>}
+          tooltipTitle='Nowy przepis'
+          tooltipOpen
+          onClick={handleAddRecipe}
+        />
       </SpeedDial>
   );
 }
