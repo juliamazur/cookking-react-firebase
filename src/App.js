@@ -145,6 +145,7 @@ class App extends Component {
   }
 
   saveUserDocToDb() {
+
     console.log(this.state);
     userRef.child('-Lo1M7ZO9pUTBJqekV5r').update(this.state);
     //userRef.push().set(this.state);
@@ -187,6 +188,19 @@ class App extends Component {
     const destinationColumnItems = destinationColumn.items;
     destinationColumnItems.splice(destination.index, 0, pickedItem);
 
+    this.saveScheduleColumns(newColumns);
+  }
+
+  saveSchedule(newSchedule) {
+    const newState = {
+      ...this.state,
+      scheduleToEdit: newSchedule
+    };
+
+    this.save(newState);
+  }
+
+  saveScheduleColumns(newColumns) {
     const newState = {
       ...this.state,
       scheduleToEdit: {
@@ -195,9 +209,7 @@ class App extends Component {
       },
     };
 
-    this.setState(newState, () => {
-      this.saveUserDocToDb();
-    });
+    this.save(newState);
   }
 
   handleCopyItem(columnId, index) {
@@ -206,14 +218,7 @@ class App extends Component {
     const element = newScheduleColumn.items[index];
     newScheduleColumn.items.splice(index, 0, element);
 
-    const newState = {
-      ...this.state,
-      scheduleToEdit: newSchedule
-    };
-
-    this.setState(newState, () => {
-      this.saveUserDocToDb();
-    });
+    this.saveSchedule(newSchedule);
   }
 
   handleRemoveItem(columnId, index) {
@@ -221,14 +226,7 @@ class App extends Component {
     const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
     newScheduleColumn.items.splice(index, 1);
 
-    const newState = {
-      ...this.state,
-      scheduleToEdit: newSchedule
-    };
-
-    this.setState(newState, () => {
-      this.saveUserDocToDb();
-    });
+    this.saveSchedule(newSchedule);
   }
 
   addToSchedule(id) {
@@ -248,14 +246,11 @@ class App extends Component {
 
     newColumn.items.push(newItem);
 
-    const newState = {
-      ...this.state,
-      scheduleToEdit: {
-        ...this.state.scheduleToEdit,
-        columns: newColumns,
-      },
-    };
-    this.setState(newState).then(() => {
+    this.saveScheduleColumns(newColumns);
+  }
+
+  save(newState) {
+    this.setState(newState, () => {
       this.saveUserDocToDb();
     });
   }
@@ -441,12 +436,12 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
-          {/*<RecipeLibrary*/}
-            {/*recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}*/}
-            {/*handleDeleteRecipe={this.deleteRecipe}*/}
-            {/*handleEditRecipe={this.editRecipe}*/}
-            {/*handleAddToSchedule={this.addToSchedule}*/}
-          {/*/>*/}
+          <RecipeLibrary
+            recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}
+            handleDeleteRecipe={this.deleteRecipe}
+            handleEditRecipe={this.editRecipe}
+            handleAddToSchedule={this.addToSchedule}
+          />
           <RecipeFormModal
             open={this.state.modalOpen}
             recipe={this.state.recipeToEdit}
