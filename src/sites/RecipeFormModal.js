@@ -1,5 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+
 
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
@@ -13,7 +15,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 
 import RecipeForm from './RecipeForm';
-
+//
 const styles = theme => ({
   closeButton: {
     position: 'absolute',
@@ -39,12 +41,13 @@ class RecipeFormModal extends React.Component {
       <div>
         <Dialog
           open={this.props.open}
+          fullScreen={!isWidthUp('sm', this.props.width)}
           onClose={onClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="form-dialog-title">
-            <Typography variant="h4" className={classes.headerTitle}>Edytuj przepis</Typography>
+            {/*<Typography variant="h4" className={classes.headerTitle}>Edytuj przepis</Typography>*/}
             <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
               <CloseIcon />
             </IconButton>

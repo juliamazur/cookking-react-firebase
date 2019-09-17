@@ -63,6 +63,7 @@ class App extends Component {
     this.addToSchedule = this.addToSchedule.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleCopyItem = this.handleCopyItem.bind(this);
+    this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
   }
 
   // const
@@ -133,8 +134,8 @@ class App extends Component {
       amount: '',
       unit: ''
     },
-    scheduleToEdit: this.SCHEDULE,
-    userDoc: this.USER_DOC
+    scheduleToEdit: false,
+    userDoc: false
   };
 
   componentDidMount() {
@@ -254,8 +255,17 @@ class App extends Component {
         columns: newColumns,
       },
     };
+    this.setState(newState).then(() => {
+      this.saveUserDocToDb();
+    });
+  }
+
+  handleAddRecipeToColumn(columnId) {
+    const newState = {
+      ...this.state,
+      columnToAddId: columnId
+    };
     this.setState(newState);
-    this.saveUserDocToDb();
   }
 
   handleNameInputChange(event) {
@@ -431,12 +441,12 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
-          <RecipeLibrary
-            recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}
-            handleDeleteRecipe={this.deleteRecipe}
-            handleEditRecipe={this.editRecipe}
-            handleAddToSchedule={this.addToSchedule}
-          />
+          {/*<RecipeLibrary*/}
+            {/*recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}*/}
+            {/*handleDeleteRecipe={this.deleteRecipe}*/}
+            {/*handleEditRecipe={this.editRecipe}*/}
+            {/*handleAddToSchedule={this.addToSchedule}*/}
+          {/*/>*/}
           <RecipeFormModal
             open={this.state.modalOpen}
             recipe={this.state.recipeToEdit}
@@ -456,9 +466,11 @@ class App extends Component {
           <Schedule
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
             schedule={this.state.scheduleToEdit}
+            allSchedules={this.state.userDoc ? this.state.userDoc.schedules : []}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
             handleCopyItem={this.handleCopyItem}
+            handleAddRecipeToColumn={this.handleAddRecipeToColumn}
           />
           <ShoppingList
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}

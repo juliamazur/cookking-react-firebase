@@ -61,13 +61,6 @@ export default function AppSpeedDial(props) {
         open={open}
       >
         <SpeedDialAction
-          key='addToSchedule'
-          icon={<DateRangeIcon/>}
-          tooltipTitle='Dodaj do grafiku'
-          tooltipOpen
-          onClick={()=>{}}
-        />
-        <SpeedDialAction
           key='copySchedule'
           icon={<FileCopyIcon/>}
         tooltipTitle='Kopiuj grafik'

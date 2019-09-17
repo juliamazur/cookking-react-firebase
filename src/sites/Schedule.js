@@ -26,7 +26,7 @@ const styles = theme => ({
 class Schedule extends React.Component {
 
   getColumnItems(columnId) {
-    if(!this.props.schedule || !this.props.schedule.columns) {
+    if (!this.props.schedule || !this.props.schedule.columns) {
       return [];
     }
 
@@ -34,27 +34,29 @@ class Schedule extends React.Component {
       return v.id === columnId;
     });
 
-    if(!column || !column.items) {
+    if (!column || !column.items) {
       return [];
     }
     //
-     column.items.forEach((item) => {
-      const recipe = this.props.recipes.find((v) => {return v.id === item.recipeId;});
-      if(recipe && recipe.name) {
+    column.items.forEach((item) => {
+      const recipe = this.props.recipes.find((v) => {
+        return v.id === item.recipeId;
+      });
+      if (recipe && recipe.name) {
         item.name = recipe.name;
       }
-       if(recipe && recipe.type) {
-         item.type = recipe.type;
-       }
-       if(recipe && recipe.description) {
-         item.description = recipe.description;
-       }
-       if(recipe && recipe.ingredients) {
-         item.ingredients = recipe.ingredients;
-       }
-       // @TODO tak by bylo najlepiej ale nie bangla
-       //   item = {...item, ...recipe}
-     });
+      if (recipe && recipe.type) {
+        item.type = recipe.type;
+      }
+      if (recipe && recipe.description) {
+        item.description = recipe.description;
+      }
+      if (recipe && recipe.ingredients) {
+        item.ingredients = recipe.ingredients;
+      }
+      // @TODO tak by bylo najlepiej ale nie bangla
+      //   item = {...item, ...recipe}
+    });
 
     return column.items;
   }
@@ -63,37 +65,35 @@ class Schedule extends React.Component {
     const {classes} = this.props;
 
     return (
-      <Paper className={classes.paper}>
-        {/*<ScheduleForm*/}
-        {/*name={this.state.name}*/}
-        {/*id={this.state.id}*/}
-        {/*allSchedules={this.state.allSchedules}*/}
-        {/*handleScheduleChange={this.handleScheduleChange}*/}
-        {/*handleNameChange={this.handleNameChange}*/}
-        {/*handleFormSubmit={this.handleFormSubmit}*/}
-        {/*copySchedule={this.handleScheduleCopy}*/}
-        {/*deleteSchedule={this.handleScheduleDelete}*/}
-        {/*newSchedule={this.handleScheduleNew}*/}
-        {/*/>*/}
-        <DragDropContext onDragEnd={(result) => {this.props.onDragEnd(result);}}>
-          <Grid container>
-            {
-              initialScheduleData.columnOrder.map(columnId => {
-                const column = initialScheduleData.columns[columnId];
-                return <Grid className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
-                  <ScheduleColumn
-                    key={column.id}
-                    column={column}
-                    items={this.getColumnItems(column.id)}
-                    handleRemoveItem={this.props.handleRemoveItem}
-                    handleCopyItem={this.props.handleCopyItem}
-                  />
-                </Grid>;
-              })
-            }
-          </Grid>
-        </DragDropContext>
-      </Paper>
+      <div>
+        <ScheduleForm
+          allSchedules={this.props.allSchedules}
+          schedule={this.props.schedule}
+        />
+        <Paper className={classes.paper}>
+          <DragDropContext onDragEnd={(result) => {
+            this.props.onDragEnd(result);
+          }}>
+            <Grid container>
+              {
+                initialScheduleData.columnOrder.map(columnId => {
+                  const column = initialScheduleData.columns[columnId];
+                  return <Grid className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
+                    <ScheduleColumn
+                      key={column.id}
+                      column={column}
+                      items={this.getColumnItems(column.id)}
+                      handleRemoveItem={this.props.handleRemoveItem}
+                      handleCopyItem={this.props.handleCopyItem}
+                      handleAddRecipeToColumn={this.props.handleAddRecipeToColumn}
+                    />
+                  </Grid>;
+                })
+              }
+            </Grid>
+          </DragDropContext>
+        </Paper>
+      </div>
     );
 
   }
