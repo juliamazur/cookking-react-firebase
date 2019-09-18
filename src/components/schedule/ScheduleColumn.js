@@ -13,7 +13,7 @@ const Container = styled.div``;
 const Title = styled.div`
   text-align: center;
   padding: 15px 5px;
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Sacramento', cursive;
   font-size: 2em;
 `;
 

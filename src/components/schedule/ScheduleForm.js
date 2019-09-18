@@ -29,11 +29,11 @@ class ScheduleForm extends React.Component {
         <Grid container>
           <Grid item xs={12} md={1}></Grid>
           <Grid item xs={12} md={2}>
-            <FormControl variant="outlined" fullWidth={true}>
+            <FormControl fullWidth={true}>
               <Select
                 value={this.props.schedule ? this.props.schedule.id : ''}
                 onChange={this.props.handleScheduleChange}
-                input={<Input id="schedule" />}
+                input={<Input id="schedule"/>}
               >
                 {this.props.allSchedules.map(item => {
                   return (<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)
@@ -41,24 +41,6 @@ class ScheduleForm extends React.Component {
                 }
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={12} md={3} lg={2}>
-            <Fab
-              // variant="extended"
-              size="small"
-              color="secondary"
-              aria-label="delete"
-              // className={classes.margin}
-            ><DeleteIcon/></Fab>
-            {/*<IconButton aria-label="Delete" variant="outlined" color="secondary" onClick={() => this.props.deleteSchedule(this.props.id)}>*/}
-            {/*<DeleteIcon/>*/}
-            {/*</IconButton>*/}
-            <IconButton aria-label="Copy" onClick={() => this.props.copySchedule(this.props.id)}>
-              <FileCopyIcon/>
-            </IconButton>
-            <IconButton aria-label="New" onClick={() => this.props.newSchedule(this.props.id)}>
-              <AddIcon/>
-            </IconButton>
           </Grid>
         </Grid>
       </Container>

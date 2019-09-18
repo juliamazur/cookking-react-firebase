@@ -9,37 +9,37 @@ const initialData = {
     },
     'column-1': {
       id: 'column-1',
-      title: 'Poniedziałek',
+      title: 'poniedziałek',
         itemIds: [],
     },
     'column-2': {
       id: 'column-2',
-      title: 'Wtorek',
+      title: 'wtorek',
         itemIds: [],
     },
     'column-3': {
       id: 'column-3',
-      title: 'Środa',
+      title: 'środa',
         itemIds: [],
     },
       'column-4': {
           id: 'column-4',
-          title: 'Czwartek',
+          title: 'czwartek',
           itemIds: [],
       },
       'column-5': {
           id: 'column-5',
-          title: 'Piątek',
+          title: 'piątek',
           itemIds: [],
       },
       'column-6': {
           id: 'column-6',
-          title: 'Sobota',
+          title: 'sobota',
           itemIds: [],
       },
       'column-7': {
           id: 'column-7',
-          title: 'Niedziela',
+          title: 'niedziella',
           itemIds: [],
       },
 

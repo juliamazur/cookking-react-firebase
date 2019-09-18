@@ -25,8 +25,8 @@ const styles = {
 };
 
 const TitleFont = styled.span`
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.8em;
+  font-family: 'Sacramento', cursive;
+  font-size: 2.2em;
 `;
 
 function Header(props) {

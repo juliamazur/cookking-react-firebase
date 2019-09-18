@@ -44,7 +44,7 @@ export default function AppSpeedDial(props) {
     setOpen(false);
   };
 
-  const { handleAddRecipe } = props;
+  const { handleAddRecipe, handleAddSchedule } = props;
 
   return (
       <SpeedDial
@@ -72,7 +72,7 @@ export default function AppSpeedDial(props) {
           icon={<BorderAllIcon/>}
           tooltipTitle='Nowy grafik'
           tooltipOpen
-          onClick={()=>{}}
+          onClick={handleAddSchedule}
         />
         <SpeedDialAction
           key='newRecipe'

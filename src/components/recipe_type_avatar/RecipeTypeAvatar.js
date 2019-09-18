@@ -56,15 +56,15 @@ class RecipeTypeAvatar extends React.Component {
   render() {
 
     const { type, active, classes } = this.props;
+    const images = ['jajco.png','rzodkiewka.png','baklazan.png','czajnik.png'];
+    const image = images[Math.floor(Math.random()*images.length)];
 
     return (
       <Avatar
+        src={'/static/images/icons/' + image}
         className={classes[type] + ' ' + (active ? classes.active : classes.notactive)}
         onClick={this.props.onClick ? () => {this.props.onClick(type);} : () => {}}
       >
-        <RecipeTypeIcon
-          type={type}
-        />
       </Avatar>
     );
   }

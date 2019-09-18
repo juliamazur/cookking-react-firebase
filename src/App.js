@@ -9,6 +9,9 @@ import RecipeLibrary from "./components/RecipeLibrary";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
 import AppSpeedDial from './components/AppSpeedDial';
+import Modal from './components/Modal';
+import RecipeForm from './sites/RecipeForm';
+import ScheduleForm from './sites/ScheduleForm';
 
 import * as backend from './backend/';
 import * as functions from './functions/';
@@ -26,10 +29,10 @@ import md5 from "md5";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#383950',
+      main: '#333',
     },
     secondary: {
-      main: '#383950',
+      main: '#666',
     },
   },
   typography: {
@@ -48,6 +51,7 @@ class App extends Component {
 
   constructor() {
     super();
+    this.handleScheduleNameInputChange = this.handleScheduleNameInputChange.bind(this);
     this.handleNameInputChange = this.handleNameInputChange.bind(this);
     this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this);
     this.handleIngredientNameInputChange = this.handleIngredientNameInputChange.bind(this);
@@ -135,6 +139,7 @@ class App extends Component {
       unit: ''
     },
     scheduleToEdit: false,
+    activeScheduleId: 0,
     userDoc: false
   };
 
@@ -192,9 +197,12 @@ class App extends Component {
   }
 
   saveSchedule(newSchedule) {
+    const schedules = this.state.userDoc.schedules.slice();
+    schedules[this.state.activeScheduleId] = newSchedule;
     const newState = {
       ...this.state,
-      scheduleToEdit: newSchedule
+      scheduleToEdit: newSchedule,
+      userDoc: {...this.state.userDoc, schedules: schedules}
     };
 
     this.save(newState);
@@ -203,12 +211,8 @@ class App extends Component {
   saveScheduleColumns(newColumns) {
     const newSchedule = this.getActiveSchedule();
     newSchedule.columns = newColumns;
-    const newState = {
-      ...this.state,
-      scheduleToEdit: newSchedule
-    };
 
-    this.save(newState);
+    this.saveSchedule(newSchedule);
   }
 
   getActiveSchedule() {
@@ -268,6 +272,19 @@ class App extends Component {
       columnToAddId: columnId
     };
     this.setState(newState);
+  }
+
+  handleScheduleNameInputChange(event) {
+    event.preventDefault();
+
+    // const newRecipe = {...this.state.recipeToEdit};
+    // newRecipe.name = event.target.value;
+    //
+    // const newState = {
+    //   ...this.state,
+    //   recipeToEdit: newRecipe
+    // };
+    // this.setState(newState);
   }
 
   handleNameInputChange(event) {
@@ -346,6 +363,14 @@ class App extends Component {
 
   handleModalClose = () => {
     this.setState({recipeToEdit: {}, modalOpen: false});
+  };
+
+  handleScheduleModalOpen = () => {
+    this.setState({scheduleModalOpen: true});
+  };
+
+  handleScheduleModalClose = () => {
+    this.setState({scheduleModalOpen: false});
   };
 
   addRecipe() {
@@ -427,6 +452,27 @@ class App extends Component {
     });
   }
 
+  getRecipeForm() {
+    return (<RecipeForm
+      recipe={this.state.recipeToEdit}
+      ingredient={this.state.ingredientToEdit}
+      handleNameInputChange={this.handleNameInputChange}
+      handleDescriptionInputChange={this.handleDescriptionInputChange}
+      handleIngredientNameInputChange={this.handleIngredientNameInputChange}
+      handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}
+      handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}
+      handleAddIngredient={this.addIngredient}
+      handleRemoveIngredient={this.handleRemoveIngredient}
+      setType={this.setType}
+    />);
+  }
+
+  getScheduleForm() {
+    return (<ScheduleForm
+      handleNameInputChange={this.handleScheduleNameInputChange}
+    />);
+  }
+
   render() {
 
     const {
@@ -449,22 +495,28 @@ class App extends Component {
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
           />
-          <RecipeFormModal
+          <Modal
             open={this.state.modalOpen}
-            recipe={this.state.recipeToEdit}
-            ingredient={this.state.ingredientToEdit}
-            handleOpen={this.handleModalOpen}
             onClose={this.handleModalClose}
-            handleNameInputChange={this.handleNameInputChange}
-            handleDescriptionInputChange={this.handleDescriptionInputChange}
-            handleIngredientNameInputChange={this.handleIngredientNameInputChange}
-            handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}
-            handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}
-            handleAddIngredient={this.addIngredient}
-            handleRemoveIngredient={this.handleRemoveIngredient}
             handleSubmit={this.addRecipe}
-            setType={this.setType}
+            content={this.getRecipeForm()}
           />
+          {/*<RecipeFormModal*/}
+            {/*open={this.state.modalOpen}*/}
+            {/*recipe={this.state.recipeToEdit}*/}
+            {/*ingredient={this.state.ingredientToEdit}*/}
+            {/*handleOpen={this.handleModalOpen}*/}
+            {/*onClose={this.handleModalClose}*/}
+            {/*handleNameInputChange={this.handleNameInputChange}*/}
+            {/*handleDescriptionInputChange={this.handleDescriptionInputChange}*/}
+            {/*handleIngredientNameInputChange={this.handleIngredientNameInputChange}*/}
+            {/*handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}*/}
+            {/*handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}*/}
+            {/*handleAddIngredient={this.addIngredient}*/}
+            {/*handleRemoveIngredient={this.handleRemoveIngredient}*/}
+            {/*handleSubmit={this.addRecipe}*/}
+            {/*setType={this.setType}*/}
+          {/*/>*/}
           <Schedule
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
@@ -480,7 +532,7 @@ class App extends Component {
           />
           <AppSpeedDial
             handleAddRecipe={this.handleModalOpen}
-            zupa='dupa'
+            handleAddSchedule={this.handleScheduleModalOpen}
           />
         </MuiThemeProvider>
       </div>

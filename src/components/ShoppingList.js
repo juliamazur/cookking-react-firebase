@@ -68,7 +68,7 @@ class ShoppingList extends React.Component {
 
     return (
       <Paper className={classes.paper}>
-        <h3 className={classes.title}>Lista zakupów</h3>
+        <h3 className={classes.title}>Lista Zakupów</h3>
 
             {
               ingredients ? (

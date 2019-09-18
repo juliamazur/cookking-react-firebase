@@ -30,10 +30,10 @@ class RecipeForm extends React.Component {
   render() {
     return (
       <div className="recipe-form-placeholder">
-        <RecipeTypeAvatarBar
-          activeTypes={[this.props.recipe.type]}
-          setActive={this.props.setType}
-        />
+        {/*<RecipeTypeAvatarBar*/}
+          {/*activeTypes={[this.props.recipe.type]}*/}
+          {/*setActive={this.props.setType}*/}
+        {/*/>*/}
         <Grid container>
           <Grid item xs={12}>
             <TextInput
