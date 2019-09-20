@@ -127,7 +127,6 @@ class App extends Component {
   // };
 
   state = {
-    modalOpen: false,
     recipeToEdit: {
       name: '',
       description: ''
@@ -137,8 +136,7 @@ class App extends Component {
       amount: '',
       unit: ''
     },
-    activeScheduleId: 0,
-    userDoc: false
+    userDoc: {}
   };
 
   componentDidMount() {
@@ -148,8 +146,6 @@ class App extends Component {
   }
 
   saveUserDocToDb() {
-
-    console.log(this.state);
     userRef.child('-Lo1M7ZO9pUTBJqekV5r').update(this.state);
     //userRef.push().set(this.state);
   }
@@ -293,7 +289,6 @@ class App extends Component {
 
     newColumn.items.push(newItem);
     newColumns['column-0'] = newColumn;
-
     this.saveScheduleColumns(newColumns);
   }
 
@@ -525,7 +520,7 @@ class App extends Component {
             signInWithGoogle={signInWithGoogle}
           />
           <RecipeLibrary
-            recipeList={this.state.userDoc ? this.state.userDoc.recipes : []}
+            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
@@ -543,9 +538,9 @@ class App extends Component {
             content={this.getScheduleForm()}
           />
           <Schedule
-            recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
+            recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
-            allSchedules={this.state.userDoc ? this.state.userDoc.schedules : []}
+            allSchedules={this.state.userDoc.schedules ? this.state.userDoc.schedules : []}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
             handleCopyItem={this.handleCopyItem}
@@ -553,7 +548,7 @@ class App extends Component {
             handleScheduleChange={this.handleScheduleChange}
           />
           <ShoppingList
-            recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
+            recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
           />
           <AppSpeedDial
