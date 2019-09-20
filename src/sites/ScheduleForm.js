@@ -8,7 +8,7 @@ class ScheduleForm extends React.Component {
 
   render() {
 
-    const {handleNameInputChange} = this.props;
+    const {name, handleNameInputChange} = this.props;
 
     return (
       <div className="schedule-form-placeholder">
@@ -17,7 +17,7 @@ class ScheduleForm extends React.Component {
             <TextInput
               data-test='scheduleNameInput'
               name='scheduleName'
-              value=''
+              value={name}
               label='Nazwa'
               handleChange={handleNameInputChange}
             />

@@ -14,13 +14,10 @@ import RecipeForm from './sites/RecipeForm';
 import ScheduleForm from './sites/ScheduleForm';
 
 import * as backend from './backend/';
-import * as functions from './functions/';
-import RecipeFormModal from "./sites/RecipeFormModal";
-
-import withFirebaseAuth from "react-with-firebase-auth";
-
-import {firebaseAppAuth, recipeRef} from './config/firebase'
-import {providers} from './config/firebase'
+// import * as functions from './functions/';
+// import withFirebaseAuth from "react-with-firebase-auth";
+// import {firebaseAppAuth, recipeRef} from './config/firebase'
+// import {providers} from './config/firebase'
 import { userRef } from './config/firebase'
 
 import md5 from "md5";
@@ -63,11 +60,13 @@ class App extends Component {
     this.addRecipe = this.addRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
+    this.addSchedule = this.addSchedule.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToSchedule = this.addToSchedule.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleCopyItem = this.handleCopyItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
+    this.handleScheduleChange = this.handleScheduleChange.bind(this);
   }
 
   // const
@@ -138,7 +137,6 @@ class App extends Component {
       amount: '',
       unit: ''
     },
-    scheduleToEdit: false,
     activeScheduleId: 0,
     userDoc: false
   };
@@ -196,15 +194,48 @@ class App extends Component {
     this.saveScheduleColumns(newColumns);
   }
 
-  saveSchedule(newSchedule) {
-    const schedules = this.state.userDoc.schedules.slice();
+  saveActiveSchedule(newSchedule) {
+    const schedules = this.getSchedules();
     schedules[this.state.activeScheduleId] = newSchedule;
     const newState = {
       ...this.state,
-      scheduleToEdit: newSchedule,
       userDoc: {...this.state.userDoc, schedules: schedules}
     };
 
+    this.save(newState);
+  }
+
+  getSchedules() {
+    return this.state.userDoc.schedules ? this.state.userDoc.schedules.slice() : [];
+  }
+
+  addSchedule() {
+    const d = new Date();
+    const id = md5(d.getTime());
+    const newSchedule = {
+      id: id,
+      name: this.state.newScheduleName
+    };
+
+    const schedules = this.getSchedules();
+    schedules.push(newSchedule);
+
+    const newState = {
+      ...this.state,
+      newScheduleName: '',
+      activeScheduleId: id,
+      userDoc: {...this.state.userDoc, schedules: schedules}
+    };
+
+    this.save(newState);
+    this.handleScheduleModalClose();
+  }
+
+  handleScheduleChange(event) {
+    const newState = {
+      ...this.state,
+      activeScheduleId: event.target.value
+    };
     this.save(newState);
   }
 
@@ -212,15 +243,17 @@ class App extends Component {
     const newSchedule = this.getActiveSchedule();
     newSchedule.columns = newColumns;
 
-    this.saveSchedule(newSchedule);
+    this.saveActiveSchedule(newSchedule);
   }
 
   getActiveSchedule() {
-    return {...this.state.scheduleToEdit};
+    const schedules = this.getSchedules();
+    return schedules.find((v) => { return v.id ===  this.state.activeScheduleId });
   }
 
   getActiveScheduleColumns() {
-    return this.state.scheduleToEdit.columns.slice();
+    const activeSchedule = this.getActiveSchedule();
+    return activeSchedule.columns ? activeSchedule.columns : [];
   }
 
   handleCopyItem(columnId, index) {
@@ -229,7 +262,7 @@ class App extends Component {
     const element = newScheduleColumn.items[index];
     newScheduleColumn.items.splice(index, 0, element);
 
-    this.saveSchedule(newSchedule);
+    this.saveActiveSchedule(newSchedule);
   }
 
   handleRemoveItem(columnId, index) {
@@ -237,13 +270,16 @@ class App extends Component {
     const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
     newScheduleColumn.items.splice(index, 1);
 
-    this.saveSchedule(newSchedule);
+    this.saveActiveSchedule(newSchedule);
   }
 
   addToSchedule(id) {
-    // @TODO ladniej
-    let newColumns = this.getActiveScheduleColumns();
+    const newColumns = this.getActiveScheduleColumns();
     let newColumn = newColumns.find((v) => {return v.id === 'column-0'});
+
+    if(!newColumn) {
+      newColumn = {};
+    }
 
     if(!newColumn.items) {
       newColumn.items = [];
@@ -256,6 +292,7 @@ class App extends Component {
     };
 
     newColumn.items.push(newItem);
+    newColumns['column-0'] = newColumn;
 
     this.saveScheduleColumns(newColumns);
   }
@@ -277,14 +314,11 @@ class App extends Component {
   handleScheduleNameInputChange(event) {
     event.preventDefault();
 
-    // const newRecipe = {...this.state.recipeToEdit};
-    // newRecipe.name = event.target.value;
-    //
-    // const newState = {
-    //   ...this.state,
-    //   recipeToEdit: newRecipe
-    // };
-    // this.setState(newState);
+    const newState = {
+      ...this.state,
+      newScheduleName: event.target.value
+    };
+    this.setState(newState);
   }
 
   handleNameInputChange(event) {
@@ -470,6 +504,7 @@ class App extends Component {
   getScheduleForm() {
     return (<ScheduleForm
       handleNameInputChange={this.handleScheduleNameInputChange}
+      name={this.state.newScheduleName}
     />);
   }
 
@@ -496,27 +531,17 @@ class App extends Component {
             handleAddToSchedule={this.addToSchedule}
           />
           <Modal
-            open={this.state.modalOpen}
+            open={this.state.modalOpen ? this.state.modalOpen : false}
             onClose={this.handleModalClose}
             handleSubmit={this.addRecipe}
             content={this.getRecipeForm()}
           />
-          {/*<RecipeFormModal*/}
-            {/*open={this.state.modalOpen}*/}
-            {/*recipe={this.state.recipeToEdit}*/}
-            {/*ingredient={this.state.ingredientToEdit}*/}
-            {/*handleOpen={this.handleModalOpen}*/}
-            {/*onClose={this.handleModalClose}*/}
-            {/*handleNameInputChange={this.handleNameInputChange}*/}
-            {/*handleDescriptionInputChange={this.handleDescriptionInputChange}*/}
-            {/*handleIngredientNameInputChange={this.handleIngredientNameInputChange}*/}
-            {/*handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}*/}
-            {/*handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}*/}
-            {/*handleAddIngredient={this.addIngredient}*/}
-            {/*handleRemoveIngredient={this.handleRemoveIngredient}*/}
-            {/*handleSubmit={this.addRecipe}*/}
-            {/*setType={this.setType}*/}
-          {/*/>*/}
+          <Modal
+            open={this.state.scheduleModalOpen ? this.state.scheduleModalOpen : false}
+            onClose={this.handleScheduleModalClose}
+            handleSubmit={this.addSchedule}
+            content={this.getScheduleForm()}
+          />
           <Schedule
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
@@ -525,6 +550,7 @@ class App extends Component {
             handleRemoveItem={this.handleRemoveItem}
             handleCopyItem={this.handleCopyItem}
             handleAddRecipeToColumn={this.handleAddRecipeToColumn}
+            handleScheduleChange={this.handleScheduleChange}
           />
           <ShoppingList
             recipes={this.state.userDoc ? this.state.userDoc.recipes : []}

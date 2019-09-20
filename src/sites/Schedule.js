@@ -1,6 +1,6 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import {DragDropContext} from 'react-beautiful-dnd';
 
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import ScheduleColumn from '../components/schedule/ScheduleColumn'
-import ScheduleForm from "../components/schedule/ScheduleForm";
+import ScheduleSelect from "../components/schedule/ScheduleSelect";
 import initialScheduleData from '../components/initial-data';
 
 
@@ -66,9 +66,10 @@ class Schedule extends React.Component {
 
     return (
       <div>
-        <ScheduleForm
+        <ScheduleSelect
           allSchedules={this.props.allSchedules}
           schedule={this.props.schedule}
+          handleScheduleChange={this.props.handleScheduleChange}
         />
         <Paper className={classes.paper}>
           <DragDropContext onDragEnd={(result) => {
@@ -78,7 +79,7 @@ class Schedule extends React.Component {
               {
                 initialScheduleData.columnOrder.map(columnId => {
                   const column = initialScheduleData.columns[columnId];
-                  return <Grid className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
+                  return <Grid key={columnId} className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
                     <ScheduleColumn
                       key={column.id}
                       column={column}

@@ -2,18 +2,10 @@ import React from 'react';
 import styled from "styled-components";
 
 import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 const Container = styled.div`
   background-color: #eee;
@@ -21,7 +13,7 @@ const Container = styled.div`
   padding-bottom: 40px;
 `;
 
-class ScheduleForm extends React.Component {
+class ScheduleSelect extends React.Component {
 
   render() {
     return (
@@ -48,4 +40,4 @@ class ScheduleForm extends React.Component {
   }
 }
 
-export default ScheduleForm;
+export default ScheduleSelect;

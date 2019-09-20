@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import RecipeTypeAvatar from '../components/recipe_type_avatar/RecipeTypeAvatar';
-import RecipeTypeAvatarBar from '../components/recipe_type_avatar/RecipeTypeAvatarBar';
+// import RecipeTypeAvatarBar from '../components/recipe_type_avatar/RecipeTypeAvatarBar';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';

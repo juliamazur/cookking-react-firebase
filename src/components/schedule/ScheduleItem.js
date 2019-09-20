@@ -58,7 +58,7 @@ class Item extends React.Component {
           <Container
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            innerRef={provided.innerRef}
+            ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
               <Card className={classes.card}>
@@ -95,7 +95,7 @@ class Item extends React.Component {
                       ) : ('')}
                     </CardContent>
                   </Typography>
-                  <CardActions className={classes.actions} disableActionSpacing>
+                  <CardActions className={classes.actions}>
                     <IconButton
                       aria-label="Usuń"
                       onClick={this.props.handleRemoveItem}>

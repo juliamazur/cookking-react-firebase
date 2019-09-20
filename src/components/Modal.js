@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+// import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import { isWidthUp } from '@material-ui/core/withWidth';
 
 
 import Dialog from '@material-ui/core/Dialog';

@@ -3,7 +3,7 @@ import React from 'react';
 import { Avatar } from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles/index";
 
-import RecipeTypeIcon from './RecipeTypeIcon';
+// import RecipeTypeIcon from './RecipeTypeIcon';
 
 
 const styles = theme => ({
@@ -15,9 +15,6 @@ const styles = theme => ({
   },
   brightness: {
     backgroundColor: '#f9e1e0'
-  },
-  spa: {
-    backgroundColor: '#feadb9'
   },
   cake: {
     backgroundColor: '#feadb9'

@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import {Droppable} from 'react-beautiful-dnd';
 import Item from './ScheduleItem'
 import BasicScheduleItem from './BasicScheduleItem'
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 const Container = styled.div``;
 
@@ -39,7 +36,7 @@ class ScheduleColumn extends React.Component {
           {(provided, snapshot) => (
             <DraggableList
               {...provided.droppableProps}
-              innerRef={provided.innerRef}
+              ref={provided.innerRef}
               isDraggingOver={snapshot.isDraggingOver}
             >
               {this.props.items.map((item, index) =>

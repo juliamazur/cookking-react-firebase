@@ -41,11 +41,9 @@ class RecipeLibrary extends Component {
     const {classes} = this.props;
 
     return (
-
       <div className={classes.container}>
         {this.renderRecipesCompact()}
       </div>
-
     );
   }
 }

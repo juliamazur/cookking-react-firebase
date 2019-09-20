@@ -10,7 +10,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -88,8 +87,10 @@ class RecipeCardCompact extends Component {
               {item.ingredients ? (
                 <ul>
                   {item.ingredients.map(ingredient => {
-                    return (<li
-                      key={ingredient.id}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                    // @TODO add and process ingredient id
+                    return (<li key={ingredient.name}>
+                      {ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}
+                    </li>)
                   })
                   }
                 </ul>
@@ -97,7 +98,7 @@ class RecipeCardCompact extends Component {
             </CardContent>
           </Typography>
         </Collapse>
-        <CardActions className={classes.actions} disableActionSpacing>
+        <CardActions className={classes.actions}>
           <IconButton aria-label="Edytuj" onClick={() => this.props.editRecipe(this.props.id)}>
             <EditIcon/>
           </IconButton>
@@ -108,7 +109,7 @@ class RecipeCardCompact extends Component {
             <DateRangeIcon/>
           </IconButton>
           <IconButton
-//            @TODO many llasses
+            //            @TODO many llasses
             className={classes.expand + ' ' + {
               [classes.expandOpen]: this.state.expanded,
             }}

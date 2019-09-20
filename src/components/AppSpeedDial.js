@@ -1,13 +1,10 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-
-import Button from '@material-ui/core/Button';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
 import BorderAllIcon from '@material-ui/icons/BorderAll';
-import DateRangeIcon from '@material-ui/icons/DateRange';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -23,12 +20,13 @@ const useStyles = makeStyles(theme => ({
 export default function AppSpeedDial(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [hidden, setHidden] = React.useState(false);
+  const [hidden] = React.useState(false);
+  // const [hidden, setHidden] = React.useState(false);
 
-  const handleVisibility = () => {
-    setOpen(false);
-    setHidden(prevHidden => !prevHidden);
-  };
+  // const handleVisibility = () => {
+  //   setOpen(false);
+  //   setHidden(prevHidden => !prevHidden);
+  // };
 
   const handleClick = () => {
     setOpen(prevOpen => !prevOpen);
