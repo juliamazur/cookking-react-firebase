@@ -26,7 +26,7 @@ import md5 from "md5";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#333',
+      main: '#111',
     },
     secondary: {
       main: '#666',
@@ -69,62 +69,62 @@ class App extends Component {
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
   }
 
-  // const
-  // SCHEDULE = {
-  //   name: 'Pierwszy',
-  //   columns: [
-  //     {
-  //       id: 'column-0',
-  //       items: [
-  //         {id: 1, recipeId: '23940-3249-2'},
-  //         {id: 2, recipeId: '23940-3249-3'}
-  //       ]
-  //     },
-  //     {
-  //       id: 'column-1',
-  //       items: [
-  //         {id: 4, recipeId: '23940-3249-2'}
-  //       ],
-  //     }
-  //   ]
-  // };
-  //
-  // const
-  // USER_DOC = {
-  //   name: 'Julia',
-  //   recipes: [
-  //     {
-  //       'id': '23940-3249-3',
-  //       'name': 'Zupa pomidorowa',
-  //       'description': 'smaczna i zdrowa',
-  //       'ingredients': [
-  //         {
-  //           'name': 'pomidory',
-  //           'amount': '2',
-  //           'unit': 'kg'
-  //         },
-  //         {
-  //           'name': 'czosnek',
-  //           'amount': '1',
-  //           'unit': 'szt'
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'id': '23940-3249-2',
-  //       'name': 'Jajecznica',
-  //       'description': ''
-  //     },
-  //     {
-  //       'id': '23940-3249-22',
-  //       'name': 'Owsianka',
-  //       'description': ''
-  //     }
-  //   ],
-  //   schedules: [
-  //     this.SCHEDULE
-  //   ]
-  // };
+  const
+  SCHEDULE = {
+    name: 'Pierwszy',
+    columns: [
+      {
+        id: 'column-0',
+        items: [
+          {id: 1, recipeId: '23940-3249-2'},
+          {id: 2, recipeId: '23940-3249-3'}
+        ]
+      },
+      {
+        id: 'column-1',
+        items: [
+          {id: 4, recipeId: '23940-3249-2'}
+        ],
+      }
+    ]
+  };
+
+  const
+  USER_DOC = {
+    name: 'Julia',
+    recipes: [
+      {
+        'id': '23940-3249-3',
+        'name': 'Zupa pomidorowa',
+        'description': 'smaczna i zdrowa',
+        'ingredients': [
+          {
+            'name': 'pomidory',
+            'amount': '2',
+            'unit': 'kg'
+          },
+          {
+            'name': 'czosnek',
+            'amount': '1',
+            'unit': 'szt'
+          }
+        ]
+      },
+      {
+        'id': '23940-3249-2',
+        'name': 'Jajecznica',
+        'description': ''
+      },
+      {
+        'id': '23940-3249-22',
+        'name': 'Owsianka',
+        'description': ''
+      }
+    ],
+    schedules: [
+      this.SCHEDULE
+    ]
+  };
 
   state = {
     recipeToEdit: {
@@ -143,6 +143,10 @@ class App extends Component {
     backend.fetchUserDoc('-Lo1M7ZO9pUTBJqekV5r').then((data) => {
       this.setState(data);
     });
+
+    // this.setState({
+    //   userDoc: this.USER_DOC
+    // });
   }
 
   saveUserDocToDb() {
@@ -274,7 +278,9 @@ class App extends Component {
     let newColumn = newColumns.find((v) => {return v.id === 'column-0'});
 
     if(!newColumn) {
-      newColumn = {};
+      newColumn = {
+        id: 'column-0'
+      };
     }
 
     if(!newColumn.items) {
@@ -288,7 +294,7 @@ class App extends Component {
     };
 
     newColumn.items.push(newItem);
-    newColumns['column-0'] = newColumn;
+    newColumns.push(newColumn);
     this.saveScheduleColumns(newColumns);
   }
 

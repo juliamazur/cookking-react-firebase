@@ -8,7 +8,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 
 const styles = theme => ({
   notactive: {
-    opacity: '0.6'
+    // opacity: '0.6'
   },
   breakfast: {
     backgroundColor: '#f9e1e0'
@@ -53,7 +53,7 @@ class RecipeTypeAvatar extends React.Component {
   render() {
 
     const { type, active, classes } = this.props;
-    const images = ['jajco.png','rzodkiewka.png','baklazan.png','czajnik.png'];
+    const images = ['jajo_a.png','sztucce_a.png','arbuz_a.png','wisnia_a.png','ciacho_a.png'];
     const image = images[Math.floor(Math.random()*images.length)];
 
     return (
