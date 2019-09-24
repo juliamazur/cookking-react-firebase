@@ -32,6 +32,10 @@ class ScheduleColumn extends React.Component {
     return (
       <Container>
         <Title>{this.props.column.title}</Title>
+        <BasicScheduleItem
+          item={{name: 'Dodaj przepis'}}
+          onClick={() => this.props.handleAddRecipeToColumn(this.props.column.id)}
+        />
         <Droppable droppableId={this.props.column.id}>
           {(provided, snapshot) => (
             <DraggableList
@@ -48,10 +52,6 @@ class ScheduleColumn extends React.Component {
                       handleCopyItem={() => this.props.handleCopyItem(this.props.column.id, index)}
                 />
               )}
-              <BasicScheduleItem
-                item={{name: 'Dodaj przepis'}}
-                onClick={() => this.props.handleAddRecipeToColumn(this.props.column.id)}
-              />
               {provided.placeholder}
             </DraggableList>
           )}
