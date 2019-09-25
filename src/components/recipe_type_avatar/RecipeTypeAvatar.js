@@ -1,66 +1,42 @@
 import React from 'react';
 
-import { Avatar } from '@material-ui/core';
+import {Avatar} from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles/index";
 
 // import RecipeTypeIcon from './RecipeTypeIcon';
 
 
 const styles = theme => ({
-  notactive: {
-    // opacity: '0.6'
-  },
-  breakfast: {
-    backgroundColor: '#f9e1e0'
-  },
-  brightness: {
-    backgroundColor: '#f9e1e0'
-  },
-  cake: {
-    backgroundColor: '#feadb9'
-  },
-  fastfood: {
-    backgroundColor: '#bc85a3'
-  },
-  whatshot: {
-    backgroundColor: '#bc85a3'
-  },
-  favorite: {
-    backgroundColor: '#feadb9'
-  },
-  star: {
-    backgroundColor: '#8699bc'
-  },
-  roomservice: {
-    backgroundColor: '#bc85a3'
-  },
-  restaurant: {
-    backgroundColor: '#8699bc'
-  },
-  spa: {
-    backgroundColor: '#cce796'
-  },
-  eco: {
-    backgroundColor: '#cce796'
-  },
-  active: {
-    opacity: 1
+  avatar: {
+    backgroundColor: '#fff'
   }
 });
+
+const IMAGES = {
+  breakfast: 'jajo_a.png',
+  lunch: 'pizza_a.png',
+  dinner: 'marchewka_a.png',
+  desert: 'ciacho_a.png',
+  snack: 'arbuz_a.png',
+  add: 'wisnia_a.png'
+};
+
+const DEFAULT_IMAGE = 'sztucce_a.png';
 
 class RecipeTypeAvatar extends React.Component {
 
   render() {
 
-    const { type, active, classes } = this.props;
-    const images = ['jajo_a.png','sztucce_a.png','arbuz_a.png','wisnia_a.png','ciacho_a.png'];
-    const image = images[Math.floor(Math.random()*images.length)];
+    const {type, active, classes} = this.props;
 
     return (
       <Avatar
-        src={'/static/images/icons/' + image}
-        className={classes[type] + ' ' + (active ? classes.active : classes.notactive)}
-        onClick={this.props.onClick ? () => {this.props.onClick(type);} : () => {}}
+        src={'/static/images/icons/' + (IMAGES[this.props.type] ? IMAGES[this.props.type] : DEFAULT_IMAGE)}
+        className={classes.avatar}
+        onClick={this.props.onClick ? () => {
+          this.props.onClick(type);
+        } : () => {
+        }}
       >
       </Avatar>
     );

@@ -58,6 +58,16 @@ const styles = theme => ({
   },
 });
 
+const TYPE_LABELS = {
+  breakfast: 'Śniadanie',
+  lunch: 'Obiad',
+  soup: 'Zupa',
+  dinner: 'Kolacja',
+  desert: 'Deser',
+  snack: 'Przekąski',
+  add: 'Dodatki'
+};
+
 class RecipeCardCompact extends Component {
 
   state = {expanded: false};
@@ -78,7 +88,7 @@ class RecipeCardCompact extends Component {
             />
           }
           title={item.name}
-          subheader="September 14, 2016"
+          subheader={TYPE_LABELS[item.type]}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">

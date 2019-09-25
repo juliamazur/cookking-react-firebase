@@ -63,7 +63,7 @@ class RecipeFormModal extends React.Component {
               handleIngredientUnitInputChange={this.props.handleIngredientUnitInputChange}
               handleAddIngredient={this.props.handleAddIngredient}
               handleRemoveIngredient={this.props.handleRemoveIngredient}
-              setType={this.props.setType}
+              setType={this.props.handleTypeInputChange}
             />
           </DialogContent>
           <DialogActions>

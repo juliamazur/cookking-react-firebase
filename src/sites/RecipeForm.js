@@ -11,29 +11,19 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
 class RecipeForm extends React.Component {
 
-  displayAvatar(type) {
-    return (
-      <RecipeTypeAvatar
-        type={type}
-        active={(this.props.recipe.type === type)}
-        onClick={this.props.setType}
-      />
-    );
-  }
-
   render() {
     return (
       <div className="recipe-form-placeholder">
-        {/*<RecipeTypeAvatarBar*/}
-          {/*activeTypes={[this.props.recipe.type]}*/}
-          {/*setActive={this.props.setType}*/}
-        {/*/>*/}
         <Grid container>
           <Grid item xs={12}>
             <TextInput
@@ -43,6 +33,23 @@ class RecipeForm extends React.Component {
               label='Nazwa'
               handleChange={this.props.handleNameInputChange}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth={true}>
+            <Select
+              label='Posiłek'
+              value={this.props.recipe.type ? this.props.recipe.type : null}
+              onChange={this.props.handleTypeChange}
+              input={<Input id="type"/>}
+            >
+              <MenuItem key='breakfast' value='breakfast'>Śniadanie</MenuItem>
+              <MenuItem key='lunch' value='lunch'>Obiad</MenuItem>
+              <MenuItem key='desert' value='desert'>Deser</MenuItem>
+              <MenuItem key='dinner' value='dinner'>Kolacja</MenuItem>
+              <MenuItem key='snack' value='snack'>Przekąski</MenuItem>
+              <MenuItem key='add' value='add'>Dodatki</MenuItem>
+            </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <TextInput
