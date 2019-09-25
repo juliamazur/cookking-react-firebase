@@ -14,15 +14,24 @@ const styles = theme => ({
   title: {
     padding: 30
   },
+  listContainer: {
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      alignContent: 'space-evenly'
+    }
+  },
   listItem: {
     [theme.breakpoints.down('sm')]: {
       width: '100%',
       margin: '5px 10px'
     },
     [theme.breakpoints.up('md')]: {
-      margin: 10,
-      minWidth: 260
+      width: 260,
+      margin: 10
     },
+
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   }
 });
@@ -71,7 +80,7 @@ class ShoppingList extends React.Component {
 
             {
               ingredients ? (
-                <div
+                <div className={classes.listContainer}
                 >
                   {ingredients.map(ingredient => {
                     return (
