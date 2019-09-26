@@ -88,7 +88,7 @@ class Item extends React.Component {
                         <ul>
                           {item.ingredients.map(ingredient => {
                             return (
-                              <li>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
+                              <li key={ingredient.name}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
                           })
                           }
                         </ul>
