@@ -76,6 +76,7 @@ class Item extends React.Component {
                   avatar={
                     <RecipeTypeAvatar
                       type={item.type}
+                      avatar={item.avatar}
                     />
                   }
                   title={item.name}

@@ -429,6 +429,11 @@ class App extends Component {
       // this is a new recipe - add it
       const d = new Date();
       newRecipe.id = md5(d.getTime());
+
+      if(!newRecipe.avatar) {
+        newRecipe.avatar = this.getRandomAvatar();
+      }
+
       let newRecipes = newUserDoc.recipes ? newUserDoc.recipes : [];
       newRecipes.push(newRecipe);
       newUserDoc.recipes = newRecipes;
@@ -439,8 +444,19 @@ class App extends Component {
     });
   }
 
+  getRandomAvatar() {
+    const images = ['jajo_a.png','pizza_a.png','marchewka_a.png','arbuz_a.png','wisnia_a.png','ciacho_a.png'];
+    return images[Math.floor(Math.random()*images.length)];
+  }
+
   editRecipe(id) {
     const newRecipeToEdit = this.state.userDoc.recipes.find((v) => { return v.id === id; });
+
+    //@TODO - its temporary avatar setup
+    if(!newRecipeToEdit.avatar) {
+      newRecipeToEdit.avatar = this.getRandomAvatar();
+    }
+
     this.setState({recipeToEdit: newRecipeToEdit});
     this.handleModalOpen();
   }

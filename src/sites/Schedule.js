@@ -48,6 +48,9 @@ class Schedule extends React.Component {
       if (recipe && recipe.type) {
         item.type = recipe.type;
       }
+      if (recipe && recipe.avatar) {
+        item.avatar = recipe.avatar;
+      }
       if (recipe && recipe.description) {
         item.description = recipe.description;
       }
@@ -55,7 +58,7 @@ class Schedule extends React.Component {
         item.ingredients = recipe.ingredients;
       }
       // @TODO tak by bylo najlepiej ale nie bangla
-      //   item = {...item, ...recipe}
+      //    item = {...recipe, ...item};
     });
 
     return column.items;

@@ -85,6 +85,7 @@ class RecipeCardCompact extends Component {
           avatar={
             <RecipeTypeAvatar
               type={item.type}
+              avatar={item.avatar}
             />
           }
           title={item.name}
