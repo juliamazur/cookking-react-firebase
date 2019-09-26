@@ -20,7 +20,7 @@ class RecipeLibrary extends Component {
 
   renderRecipesCompact() {
     const {recipeList} = this.props;
-    const recipes = recipeList.map((recipe) => {
+    const recipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
       return <RecipeCardCompact
         key={recipe.id}
         id={recipe.id}
