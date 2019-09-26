@@ -49,7 +49,7 @@ class ShoppingList extends React.Component {
       }
     });
 
-    return result;
+    return result.sort((a,b) => { return a.name > b.name ? 1 : -1; });
   }
 
   getUsedRecipeIds() {
