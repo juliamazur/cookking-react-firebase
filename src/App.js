@@ -12,6 +12,7 @@ import AppSpeedDial from './components/AppSpeedDial';
 import Modal from './components/Modal';
 import RecipeForm from './sites/RecipeForm';
 import ScheduleForm from './sites/ScheduleForm';
+import AddRecipeCardMini from './components/recipe_list/AddRecipeCardMini';
 
 import * as backend from './backend/';
 // import * as functions from './functions/';
@@ -577,6 +578,7 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
+          <AddRecipeCardMini/>
           <RecipeLibrary
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             handleDeleteRecipe={this.deleteRecipe}
