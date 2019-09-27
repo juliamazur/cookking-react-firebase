@@ -15,12 +15,13 @@ import ScheduleForm from './sites/ScheduleForm';
 
 import * as backend from './backend/';
 // import * as functions from './functions/';
-// import withFirebaseAuth from "react-with-firebase-auth";
-// import {firebaseAppAuth, recipeRef} from './config/firebase'
-// import {providers} from './config/firebase'
+import withFirebaseAuth from "react-with-firebase-auth";
+import {firebaseAppAuth, firebaseUser} from './config/firebase'
+import {providers} from './config/firebase'
 import { userRef } from './config/firebase'
 
 import md5 from "md5";
+import firebase from "firebase/index";
 
 
 const theme = createMuiTheme({
@@ -140,18 +141,49 @@ class App extends Component {
   };
 
   componentDidMount() {
-    backend.fetchUserDoc('-Lo1M7ZO9pUTBJqekV5r').then((data) => {
-      this.setState(data);
-    });
-
+    //@TODO handle no logged user
+    this.setStateFromDB();
     // this.setState({
     //   userDoc: this.USER_DOC
     // });
   }
 
-  saveUserDocToDb() {
-    userRef.child('-Lo1M7ZO9pUTBJqekV5r').update(this.state);
+  async setStateFromDB() {
+    const uid = await this.getUid();
+    if(!uid) {
+      // @TODO handle errors, no user signed in etc
+      return;
+    }
+    backend.fetchUserDoc(uid).then((data) => {
+      this.setState(data);
+    });
+  }
+
+  async saveUserDocToDb() {
+    const uid = await this.getUid();
+    if(!uid) {
+      // @TODO handle errors, no user signed in etc
+      return;
+    }
+
+    userRef.child(uid).update(this.state);
     //userRef.push().set(this.state);
+  }
+
+
+  getUid() {
+    return new Promise((resolve, reject) => {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          resolve(user.uid);
+        } else {
+          // No user is signed in.
+          // @TODO handle errors, no user signed in etc
+          resolve();
+        }
+      });
+    });
   }
 
   onDragEnd = result => {
@@ -587,9 +619,10 @@ class App extends Component {
   }
 }
 
-// export default withFirebaseAuth({
-//   providers,
-//   firebaseAppAuth,
-// })(App);
+export default withFirebaseAuth({
+  providers,
+  firebaseAppAuth,
+  firebaseUser
+})(App);
 
-export default App;
+// export default App;

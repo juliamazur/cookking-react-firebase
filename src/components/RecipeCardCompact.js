@@ -120,7 +120,7 @@ class RecipeCardCompact extends Component {
             <DateRangeIcon/>
           </IconButton>
           <IconButton
-            //            @TODO many llasses
+            //            @TODO many classes
             className={classes.expand + ' ' + {
               [classes.expandOpen]: this.state.expanded,
             }}
