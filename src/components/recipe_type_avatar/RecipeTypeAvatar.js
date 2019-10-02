@@ -27,7 +27,7 @@ class RecipeTypeAvatar extends React.Component {
 
   render() {
 
-    const {type, active, classes} = this.props;
+    const {type, classes} = this.props;
 
     return (
       <Avatar

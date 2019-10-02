@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import RecipeTypeAvatar from './recipe_type_avatar/RecipeTypeAvatar';
+import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -83,13 +83,13 @@ class RecipeCardMini extends Component {
           <ExpandMoreIcon/>
         </IconButton>
         <CardHeader
-          avatar={<RecipeTypeAvatar/>}
-          title='Zupa grzybowa'
+          avatar={<RecipeTypeAvatar avatar={item.avatar}/>}
+          title={item.name}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">
             <CardContent className={classes.cardContent} fontSize="small">
-              <i>'Opis...'</i>
+              <i>{item.description}</i>
               {item.ingredients ? (
                 <ul>
                   {item.ingredients.map(ingredient => {

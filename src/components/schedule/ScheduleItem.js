@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
 import {Draggable} from 'react-beautiful-dnd';
 
+import RecipeCardMini from '../card/RecipeCardMini';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -48,6 +49,23 @@ class Item extends React.Component {
     this.setState(state => ({expanded: !state.expanded}));
   };
 
+  getActions = () => {
+    return(
+      <div>
+      <IconButton
+        aria-label="Usuń"
+        onClick={this.props.handleRemoveItem}>
+        <ClearIcon/>
+      </IconButton>
+      <IconButton
+    aria-label="Usuń"
+    onClick={this.props.handleCopyItem}>
+  <CopyIcon/>
+    </IconButton>
+      </div>
+    );
+  };
+
   render() {
     const {classes, item} = this.props;
 
@@ -61,55 +79,10 @@ class Item extends React.Component {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-              <Card className={classes.card}>
-                <IconButton
-                  className={classes.expandButton + ' ' + classes.expand + ' ' + {
-                    [classes.expandOpen]: this.state.expanded,
-                  }}
-                  onClick={this.handleExpandClick}
-                  aria-expanded={this.state.expanded}
-                  aria-label="Show more"
-                >
-                  <ExpandMoreIcon/>
-                </IconButton>
-                <CardHeader
-                  avatar={
-                    <RecipeTypeAvatar
-                      type={item.type}
-                      avatar={item.avatar}
-                    />
-                  }
-                  title={item.name}
-                />
-                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-                  <Typography component="div">
-                    <CardContent className={classes.cardContent} fontSize="small">
-                      <i>{item.description}</i>
-                      {item.ingredients ? (
-                        <ul>
-                          {item.ingredients.map(ingredient => {
-                            return (
-                              <li key={ingredient.name}>{ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}</li>)
-                          })
-                          }
-                        </ul>
-                      ) : ('')}
-                    </CardContent>
-                  </Typography>
-                  <CardActions className={classes.actions}>
-                    <IconButton
-                      aria-label="Usuń"
-                      onClick={this.props.handleRemoveItem}>
-                      <ClearIcon/>
-                    </IconButton>
-                    <IconButton
-                      aria-label="Usuń"
-                      onClick={this.props.handleCopyItem}>
-                      <CopyIcon/>
-                    </IconButton>
-                  </CardActions>
-                </Collapse>
-              </Card>
+            <RecipeCardMini
+              item={item}
+              actions={this.getActions()}
+            />
           </Container>
         )}
       </Draggable>
