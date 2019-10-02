@@ -12,7 +12,6 @@ import AppSpeedDial from './components/AppSpeedDial';
 import Modal from './components/Modal';
 import RecipeForm from './sites/RecipeForm';
 import ScheduleForm from './sites/ScheduleForm';
-import AddRecipeCardMini from './components/card/AddRecipeCardMini';
 
 import * as backend from './backend/';
 // import * as functions from './functions/';
@@ -483,7 +482,12 @@ class App extends Component {
   }
 
   editRecipe(id) {
+
+    if(!id) return;
+
     const newRecipeToEdit = this.state.userDoc.recipes.find((v) => { return v.id === id; });
+
+    if(!newRecipeToEdit) return; //@TODO error handling
 
     //@TODO - its temporary avatar setup
     if(!newRecipeToEdit.avatar) {
@@ -578,7 +582,6 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
-          <AddRecipeCardMini/>
           <RecipeLibrary
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             handleDeleteRecipe={this.deleteRecipe}

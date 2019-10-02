@@ -67,7 +67,7 @@ class Item extends React.Component {
   };
 
   render() {
-    const {classes, item} = this.props;
+    const {item} = this.props;
 
 
     return (

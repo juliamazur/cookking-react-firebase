@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 
-import RecipeCardCompact from "./RecipeCardCompact";
+import ListRecipeCardMidi from "./card/ListRecipeCardMidi";
 
 const styles = theme => ({
   container: {
@@ -21,12 +21,11 @@ class RecipeLibrary extends Component {
   renderRecipesCompact() {
     const {recipeList} = this.props;
     const recipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
-      return <RecipeCardCompact
+      return <ListRecipeCardMidi
         key={recipe.id}
-        id={recipe.id}
         item={recipe}
-        deleteRecipe={this.props.handleDeleteRecipe}
         editRecipe={this.props.handleEditRecipe}
+        deleteRecipe={this.props.handleDeleteRecipe}
         addToSchedule={this.props.handleAddToSchedule}
       />;
     });

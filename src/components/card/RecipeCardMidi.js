@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import RecipeTypeAvatar from './recipe_type_avatar/RecipeTypeAvatar';
+import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,9 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import DateRangeIcon from '@material-ui/icons/DateRange';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
@@ -32,7 +29,7 @@ const styles = theme => ({
     },
     [theme.breakpoints.up('md')]: {
       margin: 7,
-      minWidth: 300
+      width: 300
     }
   },
   cardContent: {
@@ -54,21 +51,15 @@ const styles = theme => ({
 
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: 'rotate(180deg)', //@TODO bugfix - doesnt rotate!
   },
+  expandButton: {
+    float: 'right',
+    margin: 5
+  }
 });
 
-const TYPE_LABELS = {
-  breakfast: 'Śniadanie',
-  lunch: 'Obiad',
-  soup: 'Zupa',
-  dinner: 'Kolacja',
-  desert: 'Deser',
-  snack: 'Przekąski',
-  add: 'Dodatki'
-};
-
-class RecipeCardCompact extends Component {
+class RecipeCardMidi extends Component {
 
   state = {expanded: false};
 
@@ -77,19 +68,24 @@ class RecipeCardCompact extends Component {
   };
 
   render() {
-    const {item, classes} = this.props;
+    const {item, actions, classes} = this.props;
 
     return (
       <Card className={classes.card} key={item.id}>
+        <IconButton
+          className={classes.expandButton + ' ' + classes.expand + ' ' + {
+            [classes.expandOpen]: this.state.expanded,
+          }}
+          onClick={this.handleExpandClick}
+          aria-expanded={this.state.expanded}
+          aria-label="Show more"
+        >
+          <ExpandMoreIcon/>
+        </IconButton>
         <CardHeader
-          avatar={
-            <RecipeTypeAvatar
-              type={item.type}
-              avatar={item.avatar}
-            />
-          }
+          avatar={<RecipeTypeAvatar avatar={item.avatar}/>}
           title={item.name}
-          subheader={TYPE_LABELS[item.type]}
+          subheader={item.type}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">
@@ -98,7 +94,6 @@ class RecipeCardCompact extends Component {
               {item.ingredients ? (
                 <ul>
                   {item.ingredients.map(ingredient => {
-                    // @TODO add and process ingredient id
                     return (<li key={ingredient.name}>
                       {ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}
                     </li>)
@@ -109,31 +104,15 @@ class RecipeCardCompact extends Component {
             </CardContent>
           </Typography>
         </Collapse>
+
         <CardActions className={classes.actions}>
-          <IconButton aria-label="Edytuj" onClick={() => this.props.editRecipe(this.props.id)}>
-            <EditIcon/>
-          </IconButton>
-          <IconButton aria-label="Kasuj" onClick={() => this.props.deleteRecipe(this.props.id)}>
-            <DeleteIcon/>
-          </IconButton>
-          <IconButton aria-label="Dodaj do jadłospisu" onClick={() => this.props.addToSchedule(this.props.id)}>
-            <DateRangeIcon/>
-          </IconButton>
-          <IconButton
-            //            @TODO many classes
-            className={classes.expand + ' ' + {
-              [classes.expandOpen]: this.state.expanded,
-            }}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon/>
-          </IconButton>
+          {actions}
         </CardActions>
+
+
       </Card>
     );
   }
 }
 
-export default withStyles(styles)(RecipeCardCompact);
+export default withStyles(styles)(RecipeCardMidi);
