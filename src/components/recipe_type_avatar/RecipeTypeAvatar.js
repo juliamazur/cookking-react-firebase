@@ -27,16 +27,13 @@ class RecipeTypeAvatar extends React.Component {
 
   render() {
 
-    const {type, classes} = this.props;
+    const {classes, onClick} = this.props;
 
     return (
       <Avatar
         src={'/static/images/icons/' + (this.props.avatar ? this.props.avatar : DEFAULT_IMAGE)}
         className={classes.avatar}
-        onClick={this.props.onClick ? () => {
-          this.props.onClick(type);
-        } : () => {
-        }}
+        onClick={onClick ? () => {onClick(this.props.id)} : () => {}}
       >
       </Avatar>
     );

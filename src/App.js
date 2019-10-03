@@ -64,6 +64,7 @@ class App extends Component {
     this.addSchedule = this.addSchedule.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToSchedule = this.addToSchedule.bind(this);
+    this.changeAvatar = this.changeAvatar.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleCopyItem = this.handleCopyItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
@@ -471,9 +472,26 @@ class App extends Component {
       newUserDoc.recipes = newRecipes;
     }
 
+    // @TODO use save()
     this.setState({userDoc: newUserDoc, recipeToEdit: {}, modalOpen: false}, () => {
       this.saveUserDocToDb();
     });
+  }
+
+
+  changeAvatar(id) {
+
+    const newUserDoc = {...this.state.userDoc};
+    const newRecipe = newUserDoc.recipes.find((v) => { return v.id === id; });
+
+
+    newRecipe.avatar = this.getRandomAvatar();
+    const newState = {
+      ...this.state,
+      userDoc: newUserDoc
+    };
+
+    this.save(newState);
   }
 
   getRandomAvatar() {
@@ -483,11 +501,7 @@ class App extends Component {
 
   editRecipe(id) {
 
-    if(!id) return;
-
     const newRecipeToEdit = this.state.userDoc.recipes.find((v) => { return v.id === id; });
-
-    if(!newRecipeToEdit) return; //@TODO error handling
 
     //@TODO - its temporary avatar setup
     if(!newRecipeToEdit.avatar) {
@@ -587,6 +601,7 @@ class App extends Component {
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
+            handleAvatarClick={this.changeAvatar}
           />
           <Modal
             open={this.state.modalOpen ? this.state.modalOpen : false}

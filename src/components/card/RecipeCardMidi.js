@@ -68,7 +68,7 @@ class RecipeCardMidi extends Component {
   };
 
   render() {
-    const {item, actions, classes} = this.props;
+    const {item, actions, handleAvatarClick, classes} = this.props;
 
     return (
       <Card className={classes.card} key={item.id}>
@@ -83,7 +83,7 @@ class RecipeCardMidi extends Component {
           <ExpandMoreIcon/>
         </IconButton>
         <CardHeader
-          avatar={<RecipeTypeAvatar avatar={item.avatar}/>}
+          avatar={<RecipeTypeAvatar avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
           title={item.name}
           subheader={item.type}
         />

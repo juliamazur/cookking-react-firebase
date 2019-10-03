@@ -1,21 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 
 import {withStyles} from '@material-ui/core/styles';
 import {Draggable} from 'react-beautiful-dnd';
 
 import RecipeCardMini from '../card/RecipeCardMini';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import CopyIcon from '@material-ui/icons/FileCopy';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import RecipeTypeAvatar from '../recipe_type_avatar/RecipeTypeAvatar';
 
 
 const Container = styled.div`

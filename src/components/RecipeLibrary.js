@@ -27,6 +27,7 @@ class RecipeLibrary extends Component {
         editRecipe={this.props.handleEditRecipe}
         deleteRecipe={this.props.handleDeleteRecipe}
         addToSchedule={this.props.handleAddToSchedule}
+        handleAvatarClick={this.props.handleAvatarClick}
       />;
     });
     if (recipes.length) {
