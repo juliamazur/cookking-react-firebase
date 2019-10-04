@@ -12,15 +12,6 @@ const styles = theme => ({
   }
 });
 
-const IMAGES = {
-  breakfast: 'jajo_a.png',
-  lunch: 'pizza_a.png',
-  dinner: 'marchewka_a.png',
-  desert: 'ciacho_a.png',
-  snack: 'arbuz_a.png',
-  add: 'wisnia_a.png'
-};
-
 const DEFAULT_IMAGE = 'sztucce_a.png';
 
 class RecipeTypeAvatar extends React.Component {
