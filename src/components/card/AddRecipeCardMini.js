@@ -13,12 +13,6 @@ class AddRecipeCardMini extends Component {
       <div>
         <CustomCardAction
           id={id}
-          label='Edytuj'
-          type='edit'
-          onClick={this.actionEdit}
-        />
-        <CustomCardAction
-          id={id}
           label='Dodaj'
           type='schedule'
           onClick={this.actionAddToSchedule}
@@ -31,8 +25,8 @@ class AddRecipeCardMini extends Component {
   render() {
     return (
       <RecipeCardMini
-        item={{id: 7}}
-        actions={this.getSampleCardActions(7)}
+        item={item}
+        actions={this.getSampleCardActions(item.id)}
       />
     );
   }

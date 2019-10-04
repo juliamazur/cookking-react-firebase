@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {withStyles} from '@material-ui/core/styles';
+import classNames from 'classnames';
+
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -14,20 +16,24 @@ const styles = theme => ({
       width: '90%'
     },
     [theme.breakpoints.up('md')]: {
-      margin: 10
+      margin: 7
     }
+  },
+  // @TODO based on theme
+  grey: {
+    backgroundColor: '#f9f9f9'
   }
 });
 
 class BasicScheduleItem extends React.Component {
 
   render() {
-    const {classes, item, onClick} = this.props;
+    const {classes, item, darker, onClick} = this.props;
 
 
     return (
       <Card
-        className={classes.card}
+        className={darker ? classNames(classes.card, classes.grey) : classes.card}
         onClick={onClick}
       >
         <CardHeader

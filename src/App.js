@@ -340,6 +340,7 @@ class App extends Component {
   handleAddRecipeToColumn(columnId) {
     const newState = {
       ...this.state,
+      recipeListModalOpen: true,
       columnToAddId: columnId
     };
     this.setState(newState);
@@ -443,6 +444,10 @@ class App extends Component {
 
   handleScheduleModalClose = () => {
     this.setState({scheduleModalOpen: false});
+  };
+
+  handleRecipeListModalClose = () => {
+    this.setState({recipeListModalOpen: false});
   };
 
   addRecipe() {
@@ -580,6 +585,10 @@ class App extends Component {
     />);
   }
 
+  getRecipeModalList() {
+    return('siema');
+  }
+
   render() {
 
     const {
@@ -614,6 +623,12 @@ class App extends Component {
             onClose={this.handleScheduleModalClose}
             handleSubmit={this.addSchedule}
             content={this.getScheduleForm()}
+          />
+          <Modal
+            open={this.state.recipeListModalOpen ? this.state.recipeListModalOpen : false}
+            onClose={this.handleRecipeListModalClose}
+            handleSubmit={this.addRecipeToSchedule}
+            content={this.getRecipeModalList()}
           />
           <Schedule
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}

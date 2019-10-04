@@ -34,6 +34,7 @@ class ScheduleColumn extends React.Component {
         <Title>{this.props.column.title}</Title>
         <BasicScheduleItem
           item={{name: 'Dodaj przepis'}}
+          darker='true'
           onClick={() => this.props.handleAddRecipeToColumn(this.props.column.id)}
         />
         <Droppable droppableId={this.props.column.id}>
