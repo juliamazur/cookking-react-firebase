@@ -63,7 +63,7 @@ const
   MEALS = [
     {tag: 'breakfast', 'label': 'Śniadanie'},
     {tag: 'lunch', 'label': 'Obiad'},
-    {tag: 'desert', 'label': 'Obiad'},
+    {tag: 'desert', 'label': 'Deser'},
     {tag: 'dinner', 'label': 'Kolacja'},
     {tag: 'snack', 'label': 'Przekąski'},
     {tag: 'add', 'label': 'Dodatki'}

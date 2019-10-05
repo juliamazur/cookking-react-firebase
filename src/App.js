@@ -6,6 +6,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeLibrary from "./components/RecipeLibrary";
+import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
 import AppSpeedDial from './components/AppSpeedDial';
@@ -308,7 +309,8 @@ class App extends Component {
 
   addToSchedule(id) {
     const newColumns = this.getActiveScheduleColumns();
-    let newColumn = newColumns.find((v) => {return v.id === 'column-0'});
+    const columnId = this.state.columnToAddId ? this.state.columnToAddId : 'column-0';
+    let newColumn = newColumns.find((v) => {return v.id === columnId});
 
     if(!newColumn) {
       newColumn = {
@@ -500,7 +502,7 @@ class App extends Component {
   }
 
   getRandomAvatar() {
-    const images = ['jajo_a.png','pizza_a.png','marchewka_a.png','arbuz_a.png','wisnia_a.png','ciacho_a.png'];
+    const images = ['jajo_a.png','kura_a.png','hamburger_a.png','pizza_a.png','marchewka_a.png','arbuz_a.png','wisnia_a.png','ciacho_a.png'];
     return images[Math.floor(Math.random()*images.length)];
   }
 
@@ -586,7 +588,13 @@ class App extends Component {
   }
 
   getRecipeModalList() {
-    return('siema');
+    return(<RecipeLibraryModal
+      recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+      handleDeleteRecipe={this.deleteRecipe}
+      handleEditRecipe={this.editRecipe}
+      handleAddToSchedule={this.addToSchedule}
+      handleAvatarClick={this.changeAvatar}
+    />);
   }
 
   render() {
