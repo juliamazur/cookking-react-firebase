@@ -314,7 +314,7 @@ class App extends Component {
 
     if(!newColumn) {
       newColumn = {
-        id: 'column-0'
+        id: columnId
       };
     }
 
