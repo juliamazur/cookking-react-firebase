@@ -24,6 +24,8 @@ import { userRef } from './config/firebase'
 import md5 from "md5";
 import firebase from "firebase/index";
 
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -663,6 +665,9 @@ class App extends Component {
     );
   }
 }
+
+// export default withWidth()(App);
+
 
 export default withFirebaseAuth({
   providers,
