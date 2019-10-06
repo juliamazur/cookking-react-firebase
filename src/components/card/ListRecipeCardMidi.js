@@ -10,15 +10,15 @@ class ListRecipeCardMidi extends Component {
       <div>
         <CustomCardAction
           id={id}
-          label='Edytuj'
-          type='edit'
-          onClick={this.props.editRecipe}
-        />
-        <CustomCardAction
-          id={id}
           label='Usuń'
           type='delete'
           onClick={this.props.deleteRecipe}
+        />
+        <CustomCardAction
+          id={id}
+          label='Edytuj'
+          type='edit'
+          onClick={this.props.editRecipe}
         />
         <CustomCardAction
           id={id}
