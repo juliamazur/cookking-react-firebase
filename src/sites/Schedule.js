@@ -38,30 +38,15 @@ class Schedule extends React.Component {
       return [];
     }
     //
+    const newColumns = [];
     column.items.forEach((item) => {
       const recipe = this.props.recipes.find((v) => {
         return v.id === item.recipeId;
       });
-      if (recipe && recipe.name) {
-        item.name = recipe.name;
-      }
-      if (recipe && recipe.type) {
-        item.type = recipe.type;
-      }
-      if (recipe && recipe.avatar) {
-        item.avatar = recipe.avatar;
-      }
-      if (recipe && recipe.description) {
-        item.description = recipe.description;
-      }
-      if (recipe && recipe.ingredients) {
-        item.ingredients = recipe.ingredients;
-      }
-      // @TODO tak by bylo najlepiej ale nie bangla
-      //    item = {...recipe, ...item};
+      newColumns.push({...recipe,...item});
     });
 
-    return column.items;
+    return newColumns;
   }
 
   render() {
