@@ -615,13 +615,6 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
-          <RecipeLibrary
-            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-            handleDeleteRecipe={this.deleteRecipe}
-            handleEditRecipe={this.editRecipe}
-            handleAddToSchedule={this.addToSchedule}
-            handleAvatarClick={this.changeAvatar}
-          />
           <Modal
             open={this.state.modalOpen ? this.state.modalOpen : false}
             onClose={this.handleModalClose}
@@ -653,6 +646,13 @@ class App extends Component {
           <ShoppingList
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
+          />
+          <RecipeLibrary
+            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+            handleDeleteRecipe={this.deleteRecipe}
+            handleEditRecipe={this.editRecipe}
+            handleAddToSchedule={this.addToSchedule}
+            handleAvatarClick={this.changeAvatar}
           />
           <AppSpeedDial
             handleAddRecipe={this.handleModalOpen}

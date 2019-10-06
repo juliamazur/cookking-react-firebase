@@ -43,11 +43,11 @@ function Header(props) {
                 planella
               </TitleFont>
           </Typography>
-          {
-            user
-              ? <p>Hello, {user.displayName}</p>
-              : <p></p>
-          }
+          {/*{*/}
+            {/*user*/}
+              {/*? <p>Hello, {user.displayName}</p>*/}
+              {/*: <p></p>*/}
+          {/*}*/}
           {
             user
               ? <Button color="inherit" onClick={signOut}>Log out</Button>
