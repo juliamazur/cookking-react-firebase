@@ -634,6 +634,7 @@ class App extends Component {
             onClose={this.handleRecipeListModalClose}
             handleSubmit={this.addRecipeToSchedule}
             content={this.getRecipeModalList()}
+            fullScreen={true}
           />
           <Schedule
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}

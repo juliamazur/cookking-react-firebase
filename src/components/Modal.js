@@ -13,13 +13,13 @@ class RecipeFormModal extends React.Component {
 
   render() {
 
-    const { open, content, onClose, handleSubmit } = this.props;
+    const { open, fullScreen, width, content, onClose, handleSubmit } = this.props;
 
     return (
       <div>
         <Dialog
           open={open}
-          fullScreen={!isWidthUp('sm', this.props.width)}
+          fullScreen={fullScreen || !isWidthUp('sm', width)}
           onClose={onClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
