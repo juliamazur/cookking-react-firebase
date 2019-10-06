@@ -314,7 +314,8 @@ class App extends Component {
 
     if(!newColumn) {
       newColumn = {
-        id: columnId
+        id: columnId,
+        items: []
       };
     }
 
@@ -331,6 +332,7 @@ class App extends Component {
     newColumn.items.push(newItem);
     newColumns.push(newColumn);
     this.saveScheduleColumns(newColumns);
+    this.handleRecipeListModalClose();
   }
 
   save(newState) {
@@ -449,7 +451,7 @@ class App extends Component {
   };
 
   handleRecipeListModalClose = () => {
-    this.setState({recipeListModalOpen: false});
+    this.setState({recipeListModalOpen: false, columnToAddId: ''});
   };
 
   addRecipe() {
