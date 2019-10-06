@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 
 const Container = styled.div`
-  background-color: #eee;
+  background-color: #ddd;
   padding-top: 40px;
   padding-bottom: 40px;
 `;
@@ -19,8 +19,8 @@ class ScheduleSelect extends React.Component {
     return (
       <Container>
         <Grid container>
-          <Grid item xs={12} md={1}></Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={10} md={2}>
             <FormControl fullWidth={true}>
               <Select
                 value={this.props.schedule ? this.props.schedule.id : ''}

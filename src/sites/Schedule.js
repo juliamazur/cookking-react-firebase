@@ -54,12 +54,12 @@ class Schedule extends React.Component {
 
     return (
       <div>
-        <ScheduleSelect
-          allSchedules={this.props.allSchedules}
-          schedule={this.props.schedule}
-          handleScheduleChange={this.props.handleScheduleChange}
-        />
         <Paper className={classes.paper}>
+          <ScheduleSelect
+            allSchedules={this.props.allSchedules}
+            schedule={this.props.schedule}
+            handleScheduleChange={this.props.handleScheduleChange}
+          />
           <DragDropContext onDragEnd={(result) => {
             this.props.onDragEnd(result);
           }}>
