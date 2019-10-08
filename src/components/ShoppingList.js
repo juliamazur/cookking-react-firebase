@@ -2,8 +2,7 @@ import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import CardCrossable from "./card/CardCrossable";
 
 const styles = theme => ({
   paper: {
@@ -69,6 +68,14 @@ class ShoppingList extends React.Component {
     return [...new Set(result)]; // return unique values
   }
 
+  getCardContent(ingredient) {
+    return (
+      <span>
+        {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.amount ? ingredient.unit : ''}
+        </span>
+    );
+  }
+
   render() {
 
     const {classes} = this.props;
@@ -84,11 +91,13 @@ class ShoppingList extends React.Component {
                 >
                   {ingredients.map(ingredient => {
                     return (
-                      <Card className={classes.listItem} key={ingredient.id}>
-                        <CardContent className={classes.cardContent}>
-                        {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.amount ? ingredient.unit : ''}
-                        </CardContent>
-                      </Card>
+                      <div key={ingredient.id} className={classes.listItem}>
+                      <CardCrossable
+                        key={ingredient.id}
+                        id={ingredient.id}
+                        content={this.getCardContent(ingredient)}
+                      />
+                      </div>
                     )
                   })
                   }
