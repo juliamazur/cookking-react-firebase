@@ -60,14 +60,14 @@ export default function AppSpeedDial(props) {
         <SpeedDialAction
           key='newSchedule'
           icon={<BorderAllIcon/>}
-          tooltipTitle='Nowy grafik'
+          tooltipTitle='Nowy&nbsp;grafik'
           tooltipOpen
           onClick={handleAddSchedule}
         />
         <SpeedDialAction
           key='newRecipe'
           icon={<StarBorderIcon/>}
-          tooltipTitle='Nowy przepis'
+          tooltipTitle='Nowy&nbsp;przepis'
           tooltipOpen
           onClick={handleAddRecipe}
         />
