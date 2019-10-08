@@ -588,6 +588,7 @@ class App extends Component {
     return (<ScheduleForm
       handleNameInputChange={this.handleScheduleNameInputChange}
       name={this.state.newScheduleName}
+      schedules={this.state.userDoc.schedules}
     />);
   }
 

@@ -34,8 +34,15 @@ class CardCrossable extends Component {
     this.setState(state => ({isActive: !state.isActive}));
   }
 
-  getContent(content, classes, isActive) {
+  getContent(content, noIcon, classes, isActive) {
     // @TODO DRY
+    if(noIcon) {
+      return (
+        <div>
+          <span className={isActive ? classes.contentActive : classes.content}>{content}</span>
+        </div>
+      );
+    }
     return (
       <div>
         <span className={isActive ? classes.contentActive : classes.content}>{content}</span>
@@ -46,7 +53,7 @@ class CardCrossable extends Component {
 
 
   render() {
-    const {id, content, classes} = this.props;
+    const {id, content, noIcon, classes} = this.props;
 
     return (
       <div
@@ -56,7 +63,7 @@ class CardCrossable extends Component {
         <CardBasic
           key={id}
           id={id}
-          content={this.getContent(content, classes, this.state.isActive)}
+          content={this.getContent(content, noIcon, classes, this.state.isActive)}
         />
       </div>
     );

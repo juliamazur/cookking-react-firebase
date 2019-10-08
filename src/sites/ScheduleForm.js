@@ -1,14 +1,43 @@
 import React from 'react';
+import {withStyles} from '@material-ui/core/styles';
 
 import TextInput from '../components/form/TextInput';
 import Grid from '@material-ui/core/Grid';
+import CardCrossable from "../components/card/CardCrossable";
 
+
+const styles = theme => ({
+  card: {
+    margin: '10px',
+    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
+  }
+});
 
 class ScheduleForm extends React.Component {
 
+  renderSchedules(schedules, classes) {
+
+    const result = schedules.sort((a, b) => {
+      return a.name > b.name ? 1 : -1;
+    }).map((item) => {
+      return <div className={classes.card}>
+        <CardCrossable
+          key={item.id}
+          id={item.id}
+          content={item.name}
+          noIcon={true}
+        />
+      </div>;
+    });
+    if (result.length) {
+      return result;
+    }
+    return ('');
+  }
+
   render() {
 
-    const {name, handleNameInputChange} = this.props;
+    const {name, schedules, classes, handleNameInputChange} = this.props;
 
     return (
       <div className="schedule-form-placeholder">
@@ -22,6 +51,9 @@ class ScheduleForm extends React.Component {
               handleChange={handleNameInputChange}
             />
           </Grid>
+          <Grid item xs={12}>
+            {this.renderSchedules(schedules, classes)}
+          </Grid>
         </Grid>
       </div>
     );
@@ -30,4 +62,4 @@ class ScheduleForm extends React.Component {
 
 }
 
-export default ScheduleForm;
+export default withStyles(styles)(ScheduleForm);
