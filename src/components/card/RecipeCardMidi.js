@@ -59,16 +59,6 @@ const styles = theme => ({
   }
 });
 
-const
-  MEALS = [
-    {tag: 'breakfast', 'label': 'Śniadanie'},
-    {tag: 'lunch', 'label': 'Obiad'},
-    {tag: 'desert', 'label': 'Deser'},
-    {tag: 'dinner', 'label': 'Kolacja'},
-    {tag: 'snack', 'label': 'Przekąski'},
-    {tag: 'add', 'label': 'Dodatki'}
-  ];
-
 class RecipeCardMidi extends Component {
 
   state = {expanded: false};
@@ -77,8 +67,9 @@ class RecipeCardMidi extends Component {
     this.setState(state => ({expanded: !state.expanded}));
   };
 
-  getSubheader(tag) {
-    const meal = MEALS.find((v) => { return v.tag === tag; });
+  getSubheader(tag, meals) {
+    if(!tag || !meals) return '';
+    const meal = meals.find((v) => { return v.tag === tag; });
     if(!meal) return '';
     return meal.label;
   }
@@ -101,7 +92,7 @@ class RecipeCardMidi extends Component {
         <CardHeader
           avatar={<RecipeTypeAvatar avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
           title={item.name}
-          subheader={this.getSubheader(item.type)}
+          subheader={this.getSubheader(item.type, this.props.meals)}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">

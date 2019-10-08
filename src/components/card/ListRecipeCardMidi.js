@@ -38,6 +38,7 @@ class ListRecipeCardMidi extends Component {
     return (
       <RecipeCardMidi
         item={item}
+        meals={this.props.meals}
         actions={this.getCardActions(item.id)}
         handleAvatarClick={handleAvatarClick}
       />

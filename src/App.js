@@ -6,6 +6,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeLibrary from "./components/RecipeLibrary";
+import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
 import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
@@ -73,6 +74,18 @@ class App extends Component {
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
   }
+
+  const
+  MEALS = [
+    {id: 0, tag: 'breakfast', label: 'Śniadanie'},
+    {id: 1, tag: 'lunch', label: 'Obiad'},
+    {id: 2, tag: 'dinner', label: 'Kolacja'},
+    {id: 3, tag: 'desert', label: 'Deser'},
+    {id: 4, tag: 'work', label: 'Do pracy'},
+    {id: 5, tag: 'snack', label: 'Przekąski'},
+    {id: 6, tag: 'add', label: 'Dodatki'},
+    {id: 7, tag: 'add', label: 'Pozostałe'}
+  ];
 
   const
   SCHEDULE = {
@@ -638,6 +651,7 @@ class App extends Component {
           <Modal
             open={this.state.recipeListModalOpen ? this.state.recipeListModalOpen : false}
             onClose={this.handleRecipeListModalClose}
+//            @TODO save button should probably be removed from this modal
             handleSubmit={this.addRecipeToSchedule}
             content={this.getRecipeModalList()}
             fullScreen={true}
@@ -656,13 +670,22 @@ class App extends Component {
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
           />
-          <RecipeLibrary
+          <RecipeListTabs
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+            meals={this.MEALS}
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
             handleAvatarClick={this.changeAvatar}
           />
+          {/*<RecipeLibrary*/}
+            {/*recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}*/}
+            {/*meals={this.MEALS}*/}
+            {/*handleDeleteRecipe={this.deleteRecipe}*/}
+            {/*handleEditRecipe={this.editRecipe}*/}
+            {/*handleAddToSchedule={this.addToSchedule}*/}
+            {/*handleAvatarClick={this.changeAvatar}*/}
+          {/*/>*/}
           <AppSpeedDial
             handleAddRecipe={this.handleModalOpen}
             handleAddSchedule={this.handleScheduleModalOpen}
