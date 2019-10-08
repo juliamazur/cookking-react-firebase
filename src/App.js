@@ -246,6 +246,12 @@ class App extends Component {
   }
 
   addSchedule() {
+
+    if(!this.state.newScheduleName) {
+      //@TODO show validation error
+      return;
+    }
+
     const d = new Date();
     const id = md5(d.getTime());
     const newSchedule = {
@@ -588,7 +594,6 @@ class App extends Component {
     return (<ScheduleForm
       handleNameInputChange={this.handleScheduleNameInputChange}
       name={this.state.newScheduleName}
-      schedules={this.state.userDoc.schedules}
     />);
   }
 

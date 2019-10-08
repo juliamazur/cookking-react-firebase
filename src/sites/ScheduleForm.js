@@ -1,51 +1,14 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
 
 import TextInput from '../components/form/TextInput';
 import Grid from '@material-ui/core/Grid';
-import CardCrossable from "../components/card/CardCrossable";
 
-
-const styles = theme => ({
-  card: {
-    margin: '10px',
-    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
-  },
-  description: {
-    fontSize: '.9rem',
-    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
-  }
-});
 
 class ScheduleForm extends React.Component {
 
-  renderSchedules(schedules, classes) {
-
-    if(!schedules || !schedules.length) {
-      return ('');
-    }
-
-    const result = schedules.sort((a, b) => {
-      return a.name > b.name ? 1 : -1;
-    }).map((item) => {
-      return <div className={classes.card}>
-        <CardCrossable
-          key={item.id}
-          id={item.id}
-          content={item.name}
-          noIcon={true}
-        />
-      </div>;
-    });
-    if (result.length) {
-      return result;
-    }
-    return ('');
-  }
-
   render() {
 
-    const {name, schedules, classes, handleNameInputChange} = this.props;
+    const {name, handleNameInputChange} = this.props;
 
     return (
       <div className="schedule-form-placeholder">
@@ -59,12 +22,6 @@ class ScheduleForm extends React.Component {
               handleChange={handleNameInputChange}
             />
           </Grid>
-          <Grid item xs={12}>
-            <p className={classes.description}>Twoje grafiki (kliknij, aby usunąć z listy):</p>
-          </Grid>
-          <Grid item xs={12}>
-            {this.renderSchedules(schedules, classes)}
-          </Grid>
         </Grid>
       </div>
     );
@@ -73,4 +30,4 @@ class ScheduleForm extends React.Component {
 
 }
 
-export default withStyles(styles)(ScheduleForm);
+export default ScheduleForm;
