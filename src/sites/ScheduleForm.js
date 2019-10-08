@@ -10,12 +10,20 @@ const styles = theme => ({
   card: {
     margin: '10px',
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
+  },
+  description: {
+    fontSize: '.9rem',
+    fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   }
 });
 
 class ScheduleForm extends React.Component {
 
   renderSchedules(schedules, classes) {
+
+    if(!schedules || !schedules.length) {
+      return ('');
+    }
 
     const result = schedules.sort((a, b) => {
       return a.name > b.name ? 1 : -1;
@@ -50,6 +58,9 @@ class ScheduleForm extends React.Component {
               label='Nazwa'
               handleChange={handleNameInputChange}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <p className={classes.description}>Twoje grafiki (kliknij, aby usunąć z listy):</p>
           </Grid>
           <Grid item xs={12}>
             {this.renderSchedules(schedules, classes)}
