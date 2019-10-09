@@ -10,7 +10,8 @@ import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
 import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
-import AppSpeedDial from './components/AppSpeedDial';
+import RecipeListFab from './components/recipe_list/RecipeListFab';
+// import AppSpeedDial from './components/AppSpeedDial';
 import Modal from './components/Modal';
 import RecipeForm from './sites/RecipeForm';
 import ScheduleForm from './sites/ScheduleForm';
@@ -84,7 +85,7 @@ class App extends Component {
     {id: 4, tag: 'work', label: 'Do pracy'},
     {id: 5, tag: 'snack', label: 'Przekąski'},
     {id: 6, tag: 'add', label: 'Dodatki'},
-    {id: 7, tag: 'add', label: 'Pozostałe'}
+    {id: 7, tag: 'other', label: 'Pozostałe'}
   ];
 
   const
@@ -686,9 +687,12 @@ class App extends Component {
             {/*handleAddToSchedule={this.addToSchedule}*/}
             {/*handleAvatarClick={this.changeAvatar}*/}
           {/*/>*/}
-          <AppSpeedDial
-            handleAddRecipe={this.handleModalOpen}
-            handleAddSchedule={this.handleScheduleModalOpen}
+          {/*<AppSpeedDial*/}
+            {/*handleAddRecipe={this.handleModalOpen}*/}
+            {/*handleAddSchedule={this.handleScheduleModalOpen}*/}
+          {/*/>*/}
+          <RecipeListFab
+            onClick={this.handleModalOpen}
           />
         </MuiThemeProvider>
       </div>

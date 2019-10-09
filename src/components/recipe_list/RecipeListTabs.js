@@ -20,6 +20,10 @@ function TabPanel(props) {
 }
 
 class RecipeListTabs extends React.Component {
+
+  const
+  OTHER = 'other';
+
   state = {
     value: 0,
     recipeList: this.getFilteredRecipeList(0)
@@ -30,6 +34,11 @@ class RecipeListTabs extends React.Component {
     if(!meal) {
       return [];
     }
+
+    if(meal.tag === this.OTHER) {
+      return this.props.recipeList.filter(recipe => !recipe.type);
+    }
+
     return this.props.recipeList.filter(recipe => recipe.type === meal.tag);
   }
 
