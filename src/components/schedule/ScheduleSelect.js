@@ -34,7 +34,7 @@ class ScheduleSelect extends React.Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={10} md={2}>
+          <Grid item xs={1}>
             <IconButton
             aria-label="Dodaj grafik"
             onClick={this.props.handleAddSchedule}>
