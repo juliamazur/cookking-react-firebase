@@ -21,7 +21,7 @@ class ScheduleSelect extends React.Component {
       <Container>
         <Grid container>
           <Grid item xs={1}></Grid>
-          <Grid item xs={10} md={2}>
+          <Grid item xs={9} md={2}>
             <FormControl fullWidth={true} variant="outlined">
               <Select
                 value={this.props.schedule ? this.props.schedule.id : ''}
