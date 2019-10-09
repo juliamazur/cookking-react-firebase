@@ -71,7 +71,6 @@ class App extends Component {
     this.addToSchedule = this.addToSchedule.bind(this);
     this.changeAvatar = this.changeAvatar.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
-    this.handleCopyItem = this.handleCopyItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
   }
@@ -310,15 +309,6 @@ class App extends Component {
   getActiveScheduleColumns() {
     const activeSchedule = this.getActiveSchedule();
     return activeSchedule.columns ? activeSchedule.columns : [];
-  }
-
-  handleCopyItem(columnId, index) {
-    const newSchedule = this.getActiveSchedule();
-    const newScheduleColumn = newSchedule.columns.find((v) => { return v.id === columnId; });
-    const element = newScheduleColumn.items[index];
-    newScheduleColumn.items.splice(index, 0, element);
-
-    this.saveActiveSchedule(newSchedule);
   }
 
   handleRemoveItem(columnId, index) {
@@ -663,7 +653,6 @@ class App extends Component {
             allSchedules={this.state.userDoc.schedules ? this.state.userDoc.schedules : []}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
-            handleCopyItem={this.handleCopyItem}
             handleAddRecipeToColumn={this.handleAddRecipeToColumn}
             handleScheduleChange={this.handleScheduleChange}
           />

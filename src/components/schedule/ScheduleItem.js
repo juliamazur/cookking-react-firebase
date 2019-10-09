@@ -42,18 +42,13 @@ class Item extends React.Component {
   };
 
   getActions = () => {
-    return(
+    return (
       <div>
-      <IconButton
-        aria-label="Usuń"
-        onClick={this.props.handleRemoveItem}>
-        <ClearIcon/>
-      </IconButton>
-      <IconButton
-    aria-label="Usuń"
-    onClick={this.props.handleCopyItem}>
-  <CopyIcon/>
-    </IconButton>
+        <IconButton
+          aria-label="Usuń"
+          onClick={this.props.handleRemoveItem}>
+          <ClearIcon/>
+        </IconButton>
       </div>
     );
   };
