@@ -655,6 +655,7 @@ class App extends Component {
             handleRemoveItem={this.handleRemoveItem}
             handleAddRecipeToColumn={this.handleAddRecipeToColumn}
             handleScheduleChange={this.handleScheduleChange}
+            handleAddSchedule={this.handleScheduleModalOpen}
           />
           <ShoppingList
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}

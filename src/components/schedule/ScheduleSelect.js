@@ -5,6 +5,8 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add';
 
 const Container = styled.div`
   background-color: #ddd;
@@ -32,6 +34,12 @@ class ScheduleSelect extends React.Component {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={10} md={2}>
+            <IconButton
+            aria-label="Dodaj grafik"
+            onClick={this.props.handleAddSchedule}>
+            <AddIcon/>
+          </IconButton></Grid>
         </Grid>
       </Container>
     );
