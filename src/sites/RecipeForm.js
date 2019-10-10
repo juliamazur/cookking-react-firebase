@@ -4,8 +4,7 @@ import TextInput from '../components/form/TextInput';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
-import RecipeTypeAvatar from '../components/recipe_type_avatar/RecipeTypeAvatar';
-// import RecipeTypeAvatarBar from '../components/recipe_type_avatar/RecipeTypeAvatarBar';
+import IngredientTable from '../components/table/IngredientTable';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -100,33 +99,22 @@ class RecipeForm extends React.Component {
     );
   }
 
+  getIngredientTable() {
+    return(
+      <IngredientTable
+        items={this.props.recipe.ingredients}
+        width={this.props.width}
+        handleRemove={this.props.handleRemoveIngredient}
+        ingredientFormDesktop={this.getIngredientFormDesktop()}
+      />
+    );
+  }
+
   getIngredientList() {
 
     return (<div>
       {isWidthUp('sm', this.props.width) ? '' : this.getIngredientForm()}
-      {/*@TODO size small nie bangla*/}
-      <Table size="small">
-        <TableBody>
-          {isWidthUp('sm', this.props.width) ? this.getIngredientFormDesktop() : ''}
-          {
-            this.props.recipe.ingredients ?
-              this.props.recipe.ingredients.map((v, index) => (
-                <TableRow key={v.id}>
-                  <TableCell>{v.name}</TableCell>
-                  <TableCell>{v.amount}</TableCell>
-                  <TableCell>{v.unit}</TableCell>
-                  <TableCell>
-                    <IconButton
-                      aria-label="Usuń"
-                      onClick={() => this.props.handleRemoveIngredient(index)}>
-                      <ClearIcon/>
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))
-              : ''}
-        </TableBody>
-      </Table>
+      {this.getIngredientTable()}
     </div>);
   }
 
