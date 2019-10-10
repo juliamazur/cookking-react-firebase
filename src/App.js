@@ -600,7 +600,6 @@ class App extends Component {
   }
 
   handleRecipeTabChange = (event, value) => {
-    console.log(value);
     const recipeListFiltered = this.getFilteredRecipeList(value);
     this.setState({
       filterRecipeId: value,
