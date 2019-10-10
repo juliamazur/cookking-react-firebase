@@ -73,7 +73,11 @@ class App extends Component {
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
+    this.handleRecipeTabChange = this.handleRecipeTabChange.bind(this);
   }
+
+  const
+  OTHER = 'other';
 
   const
   MEALS = [
@@ -154,6 +158,8 @@ class App extends Component {
       amount: '',
       unit: ''
     },
+    filterRecipeId: 0,
+    recipeListFiltered: [],
     userDoc: {}
   };
 
@@ -579,6 +585,29 @@ class App extends Component {
     });
   }
 
+  getFilteredRecipeList(value) {
+    const meal=this.MEALS.find(meal => meal.id === value);
+    const recipeList = this.state.userDoc.recipes;
+    if(!meal || !recipeList || !recipeList.length) {
+      return [];
+    }
+
+    if(meal.tag === this.OTHER) {
+      return recipeList.filter(recipe => !recipe.type);
+    }
+
+    return recipeList.filter(recipe => recipe.type === meal.tag);
+  }
+
+  handleRecipeTabChange = (event, value) => {
+    console.log(value);
+    const recipeListFiltered = this.getFilteredRecipeList(value);
+    this.setState({
+      filterRecipeId: value,
+      recipeListFiltered: recipeListFiltered
+    });
+  };
+
   getRecipeForm() {
     return (<RecipeForm
       recipe={this.state.recipeToEdit}
@@ -662,12 +691,14 @@ class App extends Component {
             schedule={this.getActiveSchedule()}
           />
           <RecipeListTabs
-            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+            recipeList={this.state.userDoc.recipes ? this.getFilteredRecipeList(this.state.filterRecipeId) : []}
             meals={this.MEALS}
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
             handleAvatarClick={this.changeAvatar}
+            handleChange={this.handleRecipeTabChange}
+            value={this.state.filterRecipeId}
           />
           {/*<RecipeLibrary*/}
             {/*recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}*/}

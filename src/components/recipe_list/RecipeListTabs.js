@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 
 import RecipeLibrary from "../RecipeLibrary";
 
-// import meals from '../../fixtures/meals.json';
-
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
@@ -21,43 +19,13 @@ function TabPanel(props) {
 
 class RecipeListTabs extends React.Component {
 
-  const
-  OTHER = 'other';
-
-  state = {
-    value: 0,
-    recipeList: this.getFilteredRecipeList(0)
-  };
-
-  getFilteredRecipeList(value) {
-    const meal=this.props.meals.find(meal => meal.id === value);
-    if(!meal) {
-      return [];
-    }
-
-    if(meal.tag === this.OTHER) {
-      return this.props.recipeList.filter(recipe => !recipe.type);
-    }
-
-    return this.props.recipeList.filter(recipe => recipe.type === meal.tag);
-  }
-
-  handleChange = (event, value) => {
-    const recipeListFiltered = this.getFilteredRecipeList(value);
-    this.setState({
-      value: value,
-      recipeList: recipeListFiltered
-    });
-  };
-
   render() {
-    const {value} = this.state;
-    const {meals, content} = this.props;
+    const {meals, value, recipeList, handleChange} = this.props;
 
     return (
       <div>
         <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
+          <Tabs value={value} onChange={handleChange}>
             {meals.map((meal) =>
               <Tab key={meal.id} label={meal.label}/>
             )}
@@ -66,7 +34,7 @@ class RecipeListTabs extends React.Component {
         {meals.map((meal) =>
           <TabPanel value={value} index={meal.id}>
             <RecipeLibrary
-              recipeList={this.state.recipeList}
+              recipeList={recipeList}
               meals={this.props.meals}
               handleDeleteRecipe={this.props.deleteRecipe}
               handleEditRecipe={this.props.editRecipe}
