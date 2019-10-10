@@ -36,10 +36,10 @@ class RecipeListTabs extends React.Component {
             <RecipeLibrary
               recipeList={recipeList}
               meals={this.props.meals}
-              handleDeleteRecipe={this.props.deleteRecipe}
-              handleEditRecipe={this.props.editRecipe}
-              handleAddToSchedule={this.props.addToSchedule}
-              handleAvatarClick={this.props.changeAvatar}
+              handleDeleteRecipe={this.props.handleDeleteRecipe}
+              handleEditRecipe={this.props.handleEditRecipe}
+              handleAddToSchedule={this.props.handleAddToSchedule}
+              handleAvatarClick={this.props.handleAvatarClick}
               pickedMeal={value}
             />
           </TabPanel>
