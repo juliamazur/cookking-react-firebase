@@ -16,7 +16,7 @@ const styles = theme => ({
     padding: 3
   },
   cell: {
-    padding: '3px 24px 3px 16px'
+    padding: 2
   }
 });
 
@@ -30,7 +30,7 @@ class IngredientTable extends Component {
     return (
       <Table size="small">
         <TableBody>
-          {isWidthUp('sm', width) ? ingredientFormDesktop : ''}
+          {ingredientFormDesktop}
           {
             items ?
               items.map((v, index) => (

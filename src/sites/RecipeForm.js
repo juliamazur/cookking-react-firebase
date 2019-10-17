@@ -17,6 +17,8 @@ import Select from '@material-ui/core/Select';
 
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
+
 
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
@@ -57,34 +59,15 @@ class RecipeForm extends React.Component {
     );
   }
 
-  getIngredientForm() {
-    return (
-      <div>
-        <Grid item xs={1}/>
-        <Grid item xs={11}>
-          {this.getIngredientNameInput()}
-        </Grid>
-        <Grid item xs={1}/>
-        <Grid item xs={1}/>
-        <Grid item xs={11}>
-          {this.getIngredientAmountInput()}
-        </Grid>
-        <Grid item xs={1}/>
-        <Grid item xs={1}/>
-        <Grid item xs={11}>
-          {this.getIngredientUnitInput()}
-        </Grid>
-        <Grid item xs={1}/>
-        <Grid item xs={1}/>
-        <Grid item xs={11}>
-          {this.getIngredientButton()}
-        </Grid>
-      </div>
-    );
-  }
-
   getIngredientButton() {
-    return (<Button onClick={this.props.handleAddIngredient}>Dodaj</Button>);
+    // return (<Button onClick={this.props.handleAddIngredient}>Dodaj</Button>);
+    return (
+      <IconButton
+        aria-label="Dodaj"
+        onClick={this.props.handleAddIngredient}>
+        <AddIcon/>
+      </IconButton>
+    );
   }
 
 
@@ -113,7 +96,6 @@ class RecipeForm extends React.Component {
   getIngredientList() {
 
     return (<div>
-      {isWidthUp('sm', this.props.width) ? '' : this.getIngredientForm()}
       {this.getIngredientTable()}
     </div>);
   }
@@ -135,7 +117,18 @@ class RecipeForm extends React.Component {
           <Grid item xs={1} md={2}/>
           <Grid item xs={1} md={2}/>
           <Grid item xs={10} md={8}>
-            <FormControl fullWidth={true}>
+            <TextInput
+              data-test='descriptionInput'
+              name='recipeDescription'
+              value={this.props.recipe ? this.props.recipe.description : ''}
+              label='Uwagi'
+              handleChange={this.props.handleDescriptionInputChange}
+            />
+          </Grid>
+          <Grid item xs={1} md={2}/>
+          <Grid item xs={1} md={2}/>
+          <Grid item xs={10} md={8}>
+            <FormControl fullWidth={true}  variant="outlined">
               <Select
                 label='Posiłek'
                 value={this.props.recipe.type ? this.props.recipe.type : null}
@@ -150,17 +143,6 @@ class RecipeForm extends React.Component {
                 <MenuItem key='add' value='add'>Dodatki</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={1} md={2}/>
-          <Grid item xs={1} md={2}/>
-          <Grid item xs={10} md={8}>
-            <TextInput
-              data-test='descriptionInput'
-              name='recipeDescription'
-              value={this.props.recipe ? this.props.recipe.description : ''}
-              label='Opis'
-              handleChange={this.props.handleDescriptionInputChange}
-            />
           </Grid>
         </Grid>
         {this.getIngredientList()}
