@@ -51,7 +51,11 @@ class RecipeForm extends React.Component {
                 data-test='descriptionInput'
                 name='description'
                 value={this.props.description}
-                label='Uwagi'
+                label='Opis'
+                multiline
+                rows="4"
+                margin="normal"
+                variant="outlined"
                 onChange={handleChange}
               />
             </FormControl>
@@ -62,32 +66,35 @@ class RecipeForm extends React.Component {
         <Table size="small">
           <TableBody>
             <TableRow>
-              <TableCell>
+              <TableCell style={{padding: 3}}>
                 <FormControl fullWidth={true}>
                   <TextField
                     name='ingredientName'
                     value={ingredient.name}
                     label='Składnik'
+                    margin="none"
                     onChange={handleChange}
                   />
                 </FormControl>
               </TableCell>
-              <TableCell>
+              <TableCell style={{padding: 3}}>
                 <FormControl fullWidth={true}>
                   <TextField
                     name='ingredientAmount'
                     value={ingredient.amount}
                     label='Ilość'
+                    margin="none"
                     onChange={handleChange}
                   />
                 </FormControl>
               </TableCell>
-              <TableCell>
+              <TableCell style={{padding: 3}}>
                 <FormControl fullWidth={true}>
                   <TextField
                     name='ingredientUnit'
                     value={ingredient.unit}
                     label='Jednostka'
+                    margin="none"
                     onChange={handleChange}
                   />
                 </FormControl>

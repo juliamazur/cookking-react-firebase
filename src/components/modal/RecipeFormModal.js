@@ -34,9 +34,9 @@ class RecipeFormModal extends React.Component {
       this.setState({ingredient: newIngredient});
     }
 
-    if(name === 'ingredientDescription') {
+    if(name === 'ingredientAmount') {
       const newIngredient = {...this.state.ingredient};
-      newIngredient.description = value;
+      newIngredient.amount = value;
       this.setState({ingredient: newIngredient});
     }
 
