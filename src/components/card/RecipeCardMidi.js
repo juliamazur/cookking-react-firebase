@@ -92,7 +92,7 @@ class RecipeCardMidi extends Component {
         <CardHeader
           avatar={<RecipeTypeAvatar avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
           title={item.name}
-          subheader={this.getSubheader(item.type, this.props.meals)}
+          subheader=''
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">

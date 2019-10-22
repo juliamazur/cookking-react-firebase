@@ -13,7 +13,8 @@ import ShoppingList from "./components/ShoppingList";
 import RecipeListFab from './components/recipe_list/RecipeListFab';
 // import AppSpeedDial from './components/AppSpeedDial';
 import Modal from './components/Modal';
-import RecipeForm from './sites/RecipeForm';
+import RecipeForm from './components/form/RecipeForm';
+import RecipeFormModal from './components/modal/RecipeFormModal';
 import ScheduleForm from './sites/ScheduleForm';
 
 import * as backend from './backend/';
@@ -55,14 +56,6 @@ class App extends Component {
   constructor() {
     super();
     this.handleScheduleNameInputChange = this.handleScheduleNameInputChange.bind(this);
-    this.handleNameInputChange = this.handleNameInputChange.bind(this);
-    this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this);
-    this.handleIngredientNameInputChange = this.handleIngredientNameInputChange.bind(this);
-    this.handleIngredientAmountInputChange = this.handleIngredientAmountInputChange.bind(this);
-    this.handleIngredientUnitInputChange = this.handleIngredientUnitInputChange.bind(this);
-    this.handleTypeInputChange = this.handleTypeInputChange.bind(this);
-    this.addIngredient = this.addIngredient.bind(this);
-    this.handleRemoveIngredient = this.handleRemoveIngredient.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
@@ -73,7 +66,6 @@ class App extends Component {
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
     this.handleScheduleChange = this.handleScheduleChange.bind(this);
-    this.handleRecipeTabChange = this.handleRecipeTabChange.bind(this);
   }
 
   const
@@ -378,80 +370,6 @@ class App extends Component {
     this.setState(newState);
   }
 
-  handleNameInputChange(event) {
-    event.preventDefault();
-
-    const newRecipe = {...this.state.recipeToEdit};
-    newRecipe.name = event.target.value;
-
-    const newState = {
-      ...this.state,
-      recipeToEdit: newRecipe
-    };
-    this.setState(newState);
-  }
-
-  handleDescriptionInputChange(event) {
-    event.preventDefault();
-
-    const newRecipe = {...this.state.recipeToEdit};
-    newRecipe.description = event.target.value;
-
-    const newState = {
-      ...this.state,
-      recipeToEdit: newRecipe
-    };
-    this.setState(newState);
-  }
-
-  handleTypeInputChange(event) {
-
-    event.preventDefault();
-
-    const newType = event.target.value;
-    const newRecipe = {...this.state.recipeToEdit};
-    newRecipe.type = newType;
-
-    const newState = {
-      ...this.state,
-      recipeToEdit: newRecipe
-    };
-    this.setState(newState);
-  }
-
-  handleIngredientNameInputChange(event) {
-    event.preventDefault();
-
-    let newIngredient = this.state.ingredientToEdit;
-    newIngredient.name = event.target.value;
-
-    this.setState({
-      ingredientToEdit: newIngredient,
-    });
-  }
-
-  handleIngredientAmountInputChange(event) {
-    event.preventDefault();
-
-    let newIngredient = this.state.ingredientToEdit;
-    newIngredient.amount = event.target.value;
-
-    this.setState({
-      ingredientToEdit: newIngredient,
-    });
-  }
-
-  handleIngredientUnitInputChange(event) {
-    event.preventDefault();
-
-    let newIngredient = this.state.ingredientToEdit;
-    newIngredient.unit = event.target.value;
-
-    this.setState({
-      ingredientToEdit: newIngredient,
-    });
-  }
-
   handleModalOpen = () => {
     this.setState({modalOpen: true});
   };
@@ -471,6 +389,39 @@ class App extends Component {
   handleRecipeListModalClose = () => {
     this.setState({recipeListModalOpen: false, columnToAddId: ''});
   };
+
+  handleSubmitRecipe() {
+    this.setState({submitRecipeForm: true, modalOpen: false});
+  }
+
+  saveRecipe(recipe) {
+
+    const newUserDoc = {...this.state.userDoc};
+    const newRecipes = newUserDoc.recipes ? newUserDoc.recipes.slice() : [];
+
+    if(!recipe.avatar) {
+      recipe.avatar = this.getRandomAvatar();
+    }
+
+    const currentRecipe = newRecipes.find((v) => { return v.id === recipe.id; });
+    const currentRecipeIndex = newRecipes.findIndex((v) => { return v.id === recipe.id; });
+    if(currentRecipe) {
+      // this is existing recipe - overwrite it
+      newRecipes[currentRecipeIndex] = recipe;
+    } else 
+    {
+      // this is a new recipe - add it
+      const d = new Date();
+      recipe.id = md5(d.getTime());
+      newRecipes.push(recipe);
+      newUserDoc.recipes = newRecipes;
+    }
+
+    // @TODO use save()
+    this.setState({userDoc: newUserDoc, recipeToEdit: {}, modalOpen: false}, () => {
+      this.saveUserDocToDb();
+    });
+  }
 
   addRecipe() {
 
@@ -539,37 +490,6 @@ class App extends Component {
     this.handleModalOpen();
   }
 
-  addIngredient() {
-
-    if (!this.state.ingredientToEdit.name) {
-      return true;
-    }
-
-    let newRecipeToEdit = this.state.recipeToEdit;
-    const d = new Date();
-    let newIngredient = this.state.ingredientToEdit;
-    newIngredient.id = md5(d.getTime());
-
-    if (!newRecipeToEdit.ingredients) {
-      newRecipeToEdit.ingredients = [];
-    }
-    newRecipeToEdit.ingredients.push(newIngredient);
-    this.setState({recipeToEdit: newRecipeToEdit, ingredientToEdit: {}});
-  }
-
-  handleRemoveIngredient(index) {
-    let newRecipeToEdit = this.state.recipeToEdit ? this.state.recipeToEdit : {};
-    newRecipeToEdit.ingredients.splice(index, 1);
-
-    const newState = {
-      ...this.state,
-      recipeToEdit: newRecipeToEdit
-    };
-    this.setState(newState, () => {
-      this.saveUserDocToDb();
-    });
-  }
-
   deleteRecipe(id) {
     // @TODO ladniej
 
@@ -583,43 +503,6 @@ class App extends Component {
     this.setState({userDoc: newUserDoc}, () => {
       this.saveUserDocToDb();
     });
-  }
-
-  getFilteredRecipeList(value) {
-    const meal=this.MEALS.find(meal => meal.id === value);
-    const recipeList = this.state.userDoc.recipes;
-    if(!meal || !recipeList || !recipeList.length) {
-      return [];
-    }
-
-    if(meal.tag === this.OTHER) {
-      return recipeList.filter(recipe => !recipe.type);
-    }
-
-    return recipeList.filter(recipe => recipe.type === meal.tag);
-  }
-
-  handleRecipeTabChange = (event, value) => {
-    const recipeListFiltered = this.getFilteredRecipeList(value);
-    this.setState({
-      filterRecipeId: value,
-      recipeListFiltered: recipeListFiltered
-    });
-  };
-
-  getRecipeForm() {
-    return (<RecipeForm
-      recipe={this.state.recipeToEdit}
-      ingredient={this.state.ingredientToEdit}
-      handleNameInputChange={this.handleNameInputChange}
-      handleDescriptionInputChange={this.handleDescriptionInputChange}
-      handleIngredientNameInputChange={this.handleIngredientNameInputChange}
-      handleIngredientAmountInputChange={this.handleIngredientAmountInputChange}
-      handleIngredientUnitInputChange={this.handleIngredientUnitInputChange}
-      handleAddIngredient={this.addIngredient}
-      handleRemoveIngredient={this.handleRemoveIngredient}
-      handleTypeChange={this.handleTypeInputChange}
-    />);
   }
 
   getScheduleForm() {
@@ -655,11 +538,11 @@ class App extends Component {
             signOut={signOut}
             signInWithGoogle={signInWithGoogle}
           />
-          <Modal
+          <RecipeFormModal
             open={this.state.modalOpen ? this.state.modalOpen : false}
             onClose={this.handleModalClose}
-            handleSubmit={this.addRecipe}
-            content={this.getRecipeForm()}
+            recipe={this.state.recipeToEdit}
+            handleSubmit={this.saveRecipe.bind(this)}
           />
           <Modal
             open={this.state.scheduleModalOpen ? this.state.scheduleModalOpen : false}
@@ -689,28 +572,14 @@ class App extends Component {
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
           />
-          <RecipeListTabs
-            recipeList={this.state.userDoc.recipes ? this.getFilteredRecipeList(this.state.filterRecipeId) : []}
+          <RecipeLibrary
+            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             meals={this.MEALS}
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
             handleAvatarClick={this.changeAvatar}
-            handleChange={this.handleRecipeTabChange}
-            value={this.state.filterRecipeId}
           />
-          {/*<RecipeLibrary*/}
-            {/*recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}*/}
-            {/*meals={this.MEALS}*/}
-            {/*handleDeleteRecipe={this.deleteRecipe}*/}
-            {/*handleEditRecipe={this.editRecipe}*/}
-            {/*handleAddToSchedule={this.addToSchedule}*/}
-            {/*handleAvatarClick={this.changeAvatar}*/}
-          {/*/>*/}
-          {/*<AppSpeedDial*/}
-            {/*handleAddRecipe={this.handleModalOpen}*/}
-            {/*handleAddSchedule={this.handleScheduleModalOpen}*/}
-          {/*/>*/}
           <RecipeListFab
             onClick={this.handleModalOpen}
           />
