@@ -56,8 +56,6 @@ class App extends Component {
   constructor() {
     super();
     this.handleScheduleNameInputChange = this.handleScheduleNameInputChange.bind(this);
-    this.addRecipe = this.addRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
     this.deleteRecipe = this.deleteRecipe.bind(this);
     this.addSchedule = this.addSchedule.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -388,6 +386,7 @@ class App extends Component {
       recipe.avatar = this.getRandomAvatar();
     }
 
+    //@TODO check recipeToEditId instead?
     const currentRecipe = newRecipes.find((v) => { return v.id === recipe.id; });
     const currentRecipeIndex = newRecipes.findIndex((v) => { return v.id === recipe.id; });
     if(currentRecipe) {
@@ -399,48 +398,15 @@ class App extends Component {
       const d = new Date();
       recipe.id = md5(d.getTime());
       newRecipes.push(recipe);
-      newUserDoc.recipes = newRecipes;
     }
 
+    newUserDoc.recipes = newRecipes;
+
     // @TODO use save()
-    this.setState({userDoc: newUserDoc, recipeToEdit: {}, modalOpen: false}, () => {
+    this.setState({userDoc: newUserDoc, recipeToEditId: null, modalOpen: false}, () => {
       this.saveUserDocToDb();
     });
   }
-
-  addRecipe() {
-
-    if (!this.state.recipeToEdit.name) {
-      return true;
-    }
-
-    //@TODO poprawic
-    let newRecipe = this.state.recipeToEdit;
-    let newUserDoc = this.state.userDoc;
-    // this is existing recipe - edit it
-    if(this.state.recipeToEdit.id) {
-      let index = newUserDoc.recipes.findIndex((v) => { return v.id === newRecipe.id; });
-      newUserDoc.recipes[index] = newRecipe;
-    } else {
-      // this is a new recipe - add it
-      const d = new Date();
-      newRecipe.id = md5(d.getTime());
-
-      if(!newRecipe.avatar) {
-        newRecipe.avatar = this.getRandomAvatar();
-      }
-
-      let newRecipes = newUserDoc.recipes ? newUserDoc.recipes : [];
-      newRecipes.push(newRecipe);
-      newUserDoc.recipes = newRecipes;
-    }
-
-    // @TODO use save()
-    this.setState({userDoc: newUserDoc, recipeToEdit: {}, modalOpen: false}, () => {
-      this.saveUserDocToDb();
-    });
-  }
-
 
   changeAvatar(id) {
 
@@ -463,15 +429,7 @@ class App extends Component {
   }
 
   editRecipe(id) {
-
-    const newRecipeToEdit = this.state.userDoc.recipes.find((v) => { return v.id === id; });
-
-    //@TODO - its temporary avatar setup
-    if(!newRecipeToEdit.avatar) {
-      newRecipeToEdit.avatar = this.getRandomAvatar();
-    }
-
-    this.setState({recipeToEdit: newRecipeToEdit});
+    this.setState({recipeToEditId: id});
     this.handleModalOpen();
   }
 
@@ -501,10 +459,31 @@ class App extends Component {
     return(<RecipeLibraryModal
       recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
       handleDeleteRecipe={this.deleteRecipe}
-      handleEditRecipe={this.editRecipe}
+      handleEditRecipe={this.editRecipe.bind(this)}
       handleAddToSchedule={this.addToSchedule}
       handleAvatarClick={this.changeAvatar}
     />);
+  }
+
+  getRecipeToEdit() {
+
+    //@TODO refactor
+    const emptyRecipe = {
+      name: '',
+      description: '',
+      ingredient: {
+        name: '',
+        amount: '',
+        unit: ''
+      },
+      ingredients: []
+    };
+
+    const id = this.state.recipeToEditId;
+    const recipes = this.state.userDoc.recipes ? this.state.userDoc.recipes : [];
+    const recipe = recipes.find((v) => { return v.id === id; });
+    
+    return recipe ? recipe : emptyRecipe;
   }
 
   render() {
@@ -524,9 +503,10 @@ class App extends Component {
             signInWithGoogle={signInWithGoogle}
           />
           <RecipeFormModal
+            key={this.state.recipeToEditId}
             open={this.state.modalOpen ? this.state.modalOpen : false}
             onClose={this.handleModalClose}
-            recipe={this.state.recipeToEdit}
+            recipe={this.getRecipeToEdit()}
             handleSubmit={this.saveRecipe.bind(this)}
           />
           <Modal
@@ -560,7 +540,7 @@ class App extends Component {
           <RecipeLibrary
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             handleDeleteRecipe={this.deleteRecipe}
-            handleEditRecipe={this.editRecipe}
+            handleEditRecipe={this.editRecipe.bind(this)}
             handleAddToSchedule={this.addToSchedule}
             handleAvatarClick={this.changeAvatar}
           />

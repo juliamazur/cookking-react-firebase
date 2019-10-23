@@ -16,7 +16,7 @@ class RecipeFormModal extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {...this.props.recipe};
     this.handleChange = this.handleChange.bind(this);
     this.addIngredient = this.addIngredient.bind(this);
     this.deleteIngredient = this.deleteIngredient.bind(this);
@@ -27,41 +27,20 @@ class RecipeFormModal extends React.Component {
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
-    //@TODO refactor
-    if(name === 'ingredientName') {
-      const newIngredient = {...this.state.ingredient};
-      newIngredient.name = value;
-      this.setState({ingredient: newIngredient});
-    }
-
-    if(name === 'ingredientAmount') {
-      const newIngredient = {...this.state.ingredient};
-      newIngredient.amount = value;
-      this.setState({ingredient: newIngredient});
-    }
-
-    if(name === 'ingredientUnit') {
-      const newIngredient = {...this.state.ingredient};
-      newIngredient.unit = value;
-      this.setState({ingredient: newIngredient});
-    }
-
     this.setState({
       [name]: value
     });
   }
 
-  addIngredient() {
+  addIngredient(newIngredient) {
     //@TODO validation
 
-    if(!this.state.ingredientName) {
+    if(!newIngredient.name) {
       return;
     }
 
     const d = new Date();
     const id = md5(d.getTime());
-
-    const newIngredient = {...this.state.ingredient};
     newIngredient.id = id;
 
     const newIngredients = this.state.ingredients ? this.state.ingredients.slice() : [];
@@ -84,7 +63,7 @@ class RecipeFormModal extends React.Component {
 
   render() {
 
-    const { open, fullScreen, width, recipe, onClose, handleSubmit } = this.props;
+    const { open, fullScreen, width, onClose, handleSubmit } = this.props;
 
     return (
       <div>
@@ -104,10 +83,12 @@ class RecipeFormModal extends React.Component {
           <DialogContent>
             {/*@TODO refactor*/}
             <RecipeForm
-              recipe={recipe}
+              key={this.key}
               handleChange={this.handleChange}
+              name={this.state.name}
+              description={this.state.description}
               ingredients={this.state.ingredients}
-              ingredient={this.state.ingredient ? this.state.ingredient : []}
+              ingredient={this.state.ingredient}
               addIngredient={this.addIngredient}
               deleteIngredient={this.deleteIngredient}
             />

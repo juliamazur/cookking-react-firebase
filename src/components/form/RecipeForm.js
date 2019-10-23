@@ -8,25 +8,32 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
-import IconButton from '@material-ui/core/IconButton';
-import ClearIcon from '@material-ui/icons/Clear';
-import Button from '@material-ui/core/Button';
-
 
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
-
-
+import IngredientForm from './IngredientForm';
+import IngredientList from './IngredientList';
 
 class RecipeForm extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  onChange(event) {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
 
-    const { ingredient, handleChange, addIngredient, deleteIngredient } = this.props;
+    const { handleChange, addIngredient, deleteIngredient } = this.props;
 
     return (
       <div className="recipe-form-placeholder">
@@ -63,66 +70,10 @@ class RecipeForm extends React.Component {
           <Grid item xs={1} md={2} />
           <Grid item xs={1} md={2} />
         </Grid>
-        <Table size="small">
-          <TableBody>
-            <TableRow>
-              <TableCell style={{padding: 3}}>
-                <FormControl fullWidth={true}>
-                  <TextField
-                    name='ingredientName'
-                    value={ingredient.name}
-                    label='Składnik'
-                    margin="none"
-                    onChange={handleChange}
-                  />
-                </FormControl>
-              </TableCell>
-              <TableCell style={{padding: 3}}>
-                <FormControl fullWidth={true}>
-                  <TextField
-                    name='ingredientAmount'
-                    value={ingredient.amount}
-                    label='Ilość'
-                    margin="none"
-                    onChange={handleChange}
-                  />
-                </FormControl>
-              </TableCell>
-              <TableCell style={{padding: 3}}>
-                <FormControl fullWidth={true}>
-                  <TextField
-                    name='ingredientUnit'
-                    value={ingredient.unit}
-                    label='Jednostka'
-                    margin="none"
-                    onChange={handleChange}
-                  />
-                </FormControl>
-              </TableCell>
-              <TableCell>
-                <FormControl fullWidth={true}><Button onClick={addIngredient}>Dodaj</Button></FormControl>
-              </TableCell>
-            </TableRow>
-            {
-              this.props.ingredients ?
-                this.props.ingredients.map((v, index) => (
-                  <TableRow key={v.id}>
-                    <TableCell>{v.name}</TableCell>
-                    <TableCell>{v.amount}</TableCell>
-                    <TableCell>{v.unit}</TableCell>
-                    <TableCell>
-                      <IconButton
-                        aria-label="Usuń"
-                        onClick={() => deleteIngredient(v.id)}
-                      >
-                        <ClearIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))
-                : ''}
-          </TableBody>
-        </Table>
+        <IngredientForm
+          addIngredient={addIngredient}
+        />
+        {this.props.ingredients ? <IngredientList ingredients={this.props.ingredients} deleteIngredient={deleteIngredient} /> : ''}
       </div>
     );
 
