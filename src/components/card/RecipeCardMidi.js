@@ -97,11 +97,11 @@ class RecipeCardMidi extends Component {
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">
             <CardContent className={classes.cardContent} fontSize="small">
-              <i>{item.description}</i>
+              <i style={{fontSize: '.7em'}}>{item.description}</i>
               {item.ingredients ? (
                 <ul>
                   {item.ingredients.map(ingredient => {
-                    return (<li key={ingredient.name}>
+                    return (<li key={ingredient.name} style={{fontSize: '.8em'}}>
                       {ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}
                     </li>)
                   })
