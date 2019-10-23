@@ -9,7 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 
 class IngredientForm extends React.Component {
@@ -31,24 +31,49 @@ class IngredientForm extends React.Component {
 
   render() {
 
-    const { addIngredient } = this.props;
+    const { width, addIngredient } = this.props;
 
     return (
-        <Table size="small">
+      <div>
+      {isWidthUp('sm', width) ? '' :
+      <Table>
+        <TableBody>
+      <TableRow>
+        <TableCell style={{ padding: 3 }}>
+          <FormControl fullWidth={true}>
+            <TextField
+              name='name'
+              value={this.state.name}
+              label='Składnik'
+              margin="none"
+              variant="outlined"
+              onChange={this.onChange.bind(this)}
+            />
+          </FormControl>
+        </TableCell>
+        </TableRow>
+        </TableBody>
+        </Table>
+      }
+        <Table>
           <TableBody>
+
             <TableRow>
-              <TableCell style={{ padding: 3 }}>
-                <FormControl fullWidth={true}>
-                  <TextField
-                    name='name'
-                    value={this.state.name}
-                    label='Składnik'
-                    margin="none"
-                    variant="outlined"
-                    onChange={this.onChange.bind(this)}
-                  />
-                </FormControl>
-              </TableCell>
+            {isWidthUp('sm', width) ?
+            <TableCell style={{ padding: 3 }}>
+              <FormControl fullWidth={true}>
+                <TextField
+                  name='name'
+                  value={this.state.name}
+                  label='Składnik'
+                  margin="none"
+                  variant="outlined"
+                  onChange={this.onChange.bind(this)}
+                />
+              </FormControl>
+            </TableCell>
+            : ''
+            }
               <TableCell style={{ padding: 3 }}>
                 <FormControl fullWidth={true}>
                   <TextField
@@ -66,7 +91,7 @@ class IngredientForm extends React.Component {
                   <TextField
                     name='unit'
                     value={this.state.unit}
-                    label='Jednostka'
+                    label='Jedn.'
                     margin="none"
                     variant="outlined"
                     onChange={this.onChange.bind(this)}
@@ -79,11 +104,11 @@ class IngredientForm extends React.Component {
             </TableRow>
           </TableBody>
         </Table>
+        </div>
     );
 
   }
 
 }
 
-export default IngredientForm;
-
+export default withWidth()(IngredientForm);

@@ -8,10 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 
+import ScheduleMenu from './ScheduleMenu';
+
 const Container = styled.div`
-  background-color: #ddd;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 `;
 
 class ScheduleSelect extends React.Component {
@@ -35,11 +36,10 @@ class ScheduleSelect extends React.Component {
             </FormControl>
           </Grid>
           <Grid item xs={1}>
-            <IconButton
-            aria-label="Dodaj grafik"
-            onClick={this.props.handleAddSchedule}>
-            <AddIcon/>
-          </IconButton></Grid>
+            <ScheduleMenu
+              addSchedule={this.props.handleAddSchedule}
+            />
+          </Grid>
         </Grid>
       </Container>
     );
