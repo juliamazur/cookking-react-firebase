@@ -24,7 +24,6 @@ class RecipeLibrary extends Component {
       return <ListRecipeCardMidi
         key={recipe.id}
         item={recipe}
-        meals={this.props.meals}
         editRecipe={this.props.handleEditRecipe}
         deleteRecipe={this.props.handleDeleteRecipe}
         addToSchedule={this.props.handleAddToSchedule}

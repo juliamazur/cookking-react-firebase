@@ -69,21 +69,6 @@ class App extends Component {
   }
 
   const
-  OTHER = 'other';
-
-  const
-  MEALS = [
-    {id: 0, tag: 'breakfast', label: 'Śniadanie'},
-    {id: 1, tag: 'lunch', label: 'Obiad'},
-    {id: 2, tag: 'dinner', label: 'Kolacja'},
-    {id: 3, tag: 'desert', label: 'Deser'},
-    {id: 4, tag: 'work', label: 'Do pracy'},
-    {id: 5, tag: 'snack', label: 'Przekąski'},
-    {id: 6, tag: 'add', label: 'Dodatki'},
-    {id: 7, tag: 'other', label: 'Pozostałe'}
-  ];
-
-  const
   SCHEDULE = {
     name: 'Pierwszy',
     columns: [
@@ -574,7 +559,6 @@ class App extends Component {
           />
           <RecipeLibrary
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-            meals={this.MEALS}
             handleDeleteRecipe={this.deleteRecipe}
             handleEditRecipe={this.editRecipe}
             handleAddToSchedule={this.addToSchedule}
