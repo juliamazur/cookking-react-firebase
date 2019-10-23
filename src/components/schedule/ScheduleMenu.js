@@ -28,13 +28,15 @@ class ScheduleSelect extends React.Component {
 
   handleClick(event) {
     this.setState({
-      open: true
+      open: true,
+      anchorEl: event.currentTarget
     });
   };
 
   handleClose() {
     this.setState({
-      open: false
+      open: false,
+      anchorEl: null
     });
   };
 
@@ -43,21 +45,26 @@ class ScheduleSelect extends React.Component {
     this.handleClose();
   }
 
+  deleteSchedule() {
+    this.props.deleteSchedule();
+    this.handleClose();
+  }
+
   render() {
     return (
       <div>
       <IconButton
         aria-label="Zarządzaj grafikami"
-        keepMounted
         onClick={this.handleClick.bind(this)}>
         <MoreVertIcon/>
       </IconButton>
       <Menu
-        keepMounted
         open={this.state.open}
+        anchorEl={this.state.anchorEl}
         onClose={this.handleClose.bind(this)}
       >
         <MenuItem key='add' onClick={this.addSchedule.bind(this)}>Dodaj grafik</MenuItem>
+        <MenuItem key='delete' onClick={this.deleteSchedule.bind(this)} style={{color: 'red'}}>Skasuj ten grafik</MenuItem>
       </Menu>
       </div>
     );

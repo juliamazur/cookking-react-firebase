@@ -392,7 +392,7 @@ class App extends Component {
     if(currentRecipe) {
       // this is existing recipe - overwrite it
       newRecipes[currentRecipeIndex] = recipe;
-    } else 
+    } else
     {
       // this is a new recipe - add it
       const d = new Date();
@@ -431,6 +431,18 @@ class App extends Component {
   editRecipe(id) {
     this.setState({recipeToEditId: id});
     this.handleModalOpen();
+  }
+
+  handleDeleteSchedule() {
+    const schedules = this.getSchedules();
+    const newSchedules = schedules.filter((v) => { return v.id !==  this.state.activeScheduleId });
+
+    const newState = {
+      ...this.state,
+      userDoc: {...this.state.userDoc, schedules: newSchedules}
+    };
+
+    this.save(newState);
   }
 
   deleteRecipe(id) {
@@ -482,7 +494,7 @@ class App extends Component {
     const id = this.state.recipeToEditId;
     const recipes = this.state.userDoc.recipes ? this.state.userDoc.recipes : [];
     const recipe = recipes.find((v) => { return v.id === id; });
-    
+
     return recipe ? recipe : emptyRecipe;
   }
 
@@ -532,6 +544,7 @@ class App extends Component {
             handleAddRecipeToColumn={this.handleAddRecipeToColumn}
             handleScheduleChange={this.handleScheduleChange}
             handleAddSchedule={this.handleScheduleModalOpen}
+            handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
           />
           <ShoppingList
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}

@@ -60,6 +60,7 @@ class Schedule extends React.Component {
             schedule={this.props.schedule}
             handleScheduleChange={this.props.handleScheduleChange}
             handleAddSchedule={this.props.handleAddSchedule}
+            handleDeleteSchedule={this.props.handleDeleteSchedule}
           />
           <DragDropContext onDragEnd={(result) => {
             this.props.onDragEnd(result);

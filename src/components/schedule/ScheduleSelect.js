@@ -38,6 +38,7 @@ class ScheduleSelect extends React.Component {
           <Grid item xs={1}>
             <ScheduleMenu
               addSchedule={this.props.handleAddSchedule}
+              deleteSchedule={this.props.handleDeleteSchedule}
             />
           </Grid>
         </Grid>
