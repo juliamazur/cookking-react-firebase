@@ -11,14 +11,12 @@ import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
 import ShoppingList from "./components/ShoppingList";
 import RecipeListFab from './components/recipe_list/RecipeListFab';
-// import AppSpeedDial from './components/AppSpeedDial';
 import Modal from './components/Modal';
 import RecipeForm from './components/form/RecipeForm';
 import RecipeFormModal from './components/modal/RecipeFormModal';
 import ScheduleForm from './sites/ScheduleForm';
 
 import * as backend from './backend/';
-// import * as functions from './functions/';
 import withFirebaseAuth from "react-with-firebase-auth";
 import {firebaseAppAuth, firebaseUser} from './config/firebase'
 import {providers} from './config/firebase'
