@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -52,12 +53,14 @@ class ScheduleSelect extends React.Component {
 
   render() {
     return (
-      <div style={{margin: 10}}>
-      <IconButton
+      <div style={{margin: 15}}>
+      <Fab
+        color="secondary"
+        size="small"
         aria-label="Zarządzaj grafikami"
         onClick={this.handleClick.bind(this)}>
         <MoreVertIcon/>
-      </IconButton>
+      </Fab>
       <Menu
         open={this.state.open}
         anchorEl={this.state.anchorEl}
