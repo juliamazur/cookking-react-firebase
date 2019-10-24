@@ -52,7 +52,7 @@ class ScheduleSelect extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{margin: 10}}>
       <IconButton
         aria-label="Zarządzaj grafikami"
         onClick={this.handleClick.bind(this)}>
