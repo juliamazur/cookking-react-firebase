@@ -121,7 +121,8 @@ class App extends Component {
     ]
   };
 
-  state = {
+  const
+  INITIAL_STATE = {
     recipeToEdit: {
       name: '',
       description: ''
@@ -135,6 +136,8 @@ class App extends Component {
     recipeListFiltered: [],
     userDoc: {}
   };
+
+  state = this.INITIAL_STATE;
 
   componentDidMount() {
     //@TODO handle no logged user
@@ -151,7 +154,7 @@ class App extends Component {
       return;
     }
     backend.fetchUserDoc(uid).then((data) => {
-      this.setState(data);
+      this.setState({uid: uid, ...data});
     });
   }
 
@@ -496,6 +499,23 @@ class App extends Component {
     return recipe ? recipe : emptyRecipe;
   }
 
+  getScheduleComponent() {
+    return(
+      <Schedule
+        key={this.state.uid}
+        recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+        schedule={this.getActiveSchedule()}
+        allSchedules={this.state.userDoc.schedules ? this.state.userDoc.schedules : []}
+        onDragEnd={this.onDragEnd}
+        handleRemoveItem={this.handleRemoveItem}
+        handleAddRecipeToColumn={this.handleAddRecipeToColumn}
+        handleScheduleChange={this.handleScheduleChange}
+        handleAddSchedule={this.handleScheduleModalOpen}
+        handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
+      />
+    );
+  }
+
   render() {
 
     const {
@@ -509,8 +529,8 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <Header
             user={user}
-            signOut={signOut}
-            signInWithGoogle={signInWithGoogle}
+            signOut={() => {signOut().then(() => { this.setState(this.INITIAL_STATE)})}}
+            signInWithGoogle={() => {signInWithGoogle().then(() => {this.setStateFromDB()})}}
           />
           <RecipeFormModal
             key={this.state.recipeToEditId}
@@ -533,17 +553,7 @@ class App extends Component {
             content={this.getRecipeModalList()}
             fullScreen={true}
           />
-          <Schedule
-            recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-            schedule={this.getActiveSchedule()}
-            allSchedules={this.state.userDoc.schedules ? this.state.userDoc.schedules : []}
-            onDragEnd={this.onDragEnd}
-            handleRemoveItem={this.handleRemoveItem}
-            handleAddRecipeToColumn={this.handleAddRecipeToColumn}
-            handleScheduleChange={this.handleScheduleChange}
-            handleAddSchedule={this.handleScheduleModalOpen}
-            handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
-          />
+          {this.getScheduleComponent()}
           <ShoppingList
             recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             schedule={this.getActiveSchedule()}
