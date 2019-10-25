@@ -53,7 +53,7 @@ class ScheduleSelect extends React.Component {
 
   render() {
     return (
-      <div style={{margin: 15}}>
+      <div style={{margin: '15px 5px'}}>
       <Fab
         color="secondary"
         size="small"
