@@ -62,7 +62,7 @@ render() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClick.bind(this)}>
             <MenuIcon />
           </IconButton>
           <Menu
@@ -71,6 +71,7 @@ render() {
             onClose={this.handleClose.bind(this)}
           >
             <MenuItem key='users' onClick={() => {}}>Użytkownicy</MenuItem>
+            <MenuItem key='profile' onClick={() => {}}>Twój profil</MenuItem>
           </Menu>
           <Typography color="inherit" className={classes.grow}>
               <TitleFont>
@@ -85,7 +86,7 @@ render() {
           {/*}*/}
           {
             user
-              ? <Button color="inherit" onClick={signOut}>Wyloguj</Button>
+              ? <Button color="inherit" onClick={signOut}>Log out</Button>
               : ''
           }
         </Toolbar>
