@@ -4,9 +4,19 @@ import {withStyles} from '@material-ui/core/styles';
 import CardBasic from "./CardBasic";
 import CheckIcon from '@material-ui/icons/CheckCircle';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
+import CardHeader from '@material-ui/core/CardHeader';
+import {Avatar} from '@material-ui/core';
+
+
 const styles = theme => ({
   card: {
     cursor: 'pointer'
+  },
+  avatar: {
+    backgroundColor: 'white'
   },
   checkIcon: {
     color: '#3abea0',
@@ -35,20 +45,13 @@ class CardCrossable extends Component {
   }
 
   getContent(content, noIcon, classes, isActive) {
-    // @TODO DRY
-    if(noIcon) {
+    
       return (
         <div>
           <span className={isActive ? classes.contentActive : classes.content}>{content}</span>
         </div>
       );
-    }
-    return (
-      <div>
-        <span className={isActive ? classes.contentActive : classes.content}>{content}</span>
-        <CheckIcon className={isActive ? classes.checkIconActive : classes.checkIcon}/>
-      </div>
-    );
+
   }
 
 
@@ -56,16 +59,20 @@ class CardCrossable extends Component {
     const {id, content, noIcon, classes} = this.props;
 
     return (
-      <div
+      <Card
+        key={id}
         className={classes.card}
         onClick={this.handleClick}
       >
-        <CardBasic
-          key={id}
-          id={id}
-          content={this.getContent(content, noIcon, classes, this.state.isActive)}
+        <CardHeader
+          avatar={<Avatar
+            className={classes.avatar}
+          >
+            <CheckIcon className={this.state.isActive ? classes.checkIconActive : classes.checkIcon}/>
+          </Avatar>}
+          title={this.getContent(content, noIcon, classes, this.state.isActive)}
         />
-      </div>
+      </Card>
     );
   }
 }
