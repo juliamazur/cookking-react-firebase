@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import './App.css';
 
+import {Button} from '@material-ui/core';
+
 import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
@@ -516,6 +518,49 @@ class App extends Component {
     );
   }
 
+  getShoppingListComponent() {
+    return(
+      <ShoppingList
+        recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+        schedule={this.getActiveSchedule()}
+      />
+    );
+  }
+
+  // Photo by Daria Shevtsova from Pexels
+  // https://www.pexels.com/photo/woman-in-white-and-black-striped-sweatshirt-holding-filled-white-ceramic-bowl-923182/
+  getMainNotLoggedInPage() {
+    return(<div style={{
+      backgroundImage: `url(${'/static/images/main.jpg'})`,
+      backgroundSize: '100% auto',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      height: '100vh'
+      }}>
+      <div
+        style={{
+          color: '#fff',
+          fontSize: '50px',
+          fontFamily: 'Sacramento',
+          textShadow: '2px 2px 5px #000',
+          textAlign: 'center',
+          paddingTop: '20%'
+        }}
+      >
+      Co na obiad? To&nbsp;proste!</div>
+      <Button
+        style={{
+          display: 'block',
+          margin: '30px auto',
+          backgroundColor: 'black',
+          color: 'white',
+          padding: '15px 25px'
+        }}
+      >Zaloguj przez Google</Button>
+      </div>);
+  }
+
   render() {
 
     const {
@@ -529,6 +574,7 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <Header
             user={user}
+            uid={this.state.uid}
             signOut={() => {signOut().then(() => { this.setState(this.INITIAL_STATE)})}}
             signInWithGoogle={() => {signInWithGoogle().then(() => {this.setStateFromDB()})}}
           />
@@ -553,11 +599,11 @@ class App extends Component {
             content={this.getRecipeModalList()}
             fullScreen={true}
           />
-          {this.getScheduleComponent()}
-          <ShoppingList
-            recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-            schedule={this.getActiveSchedule()}
-          />
+          {/* @TODO check if user is logged in, dont use uid */}
+          {this.state.uid ? '' : this.getMainNotLoggedInPage()}
+          {this.state.uid ? this.getScheduleComponent() : ''}
+          {this.state.uid ? this.getShoppingListComponent() : ''}
+          {/*
           <RecipeLibrary
             recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
             handleDeleteRecipe={this.deleteRecipe}
@@ -565,9 +611,11 @@ class App extends Component {
             handleAddToSchedule={this.addToSchedule}
             handleAvatarClick={this.changeAvatar}
           />
-          <RecipeListFab
-            onClick={this.handleModalOpen}
-          />
+          */}
+          {this.state.uid ?
+            <RecipeListFab
+              onClick={this.handleModalOpen}
+            /> : ''}
         </MuiThemeProvider>
       </div>
     );
