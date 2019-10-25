@@ -550,6 +550,7 @@ class App extends Component {
       >
       Co na obiad? To&nbsp;proste!</div>
       <Button
+        onClick={this.props.signInWithGoogle}
         style={{
           display: 'block',
           margin: '30px auto',

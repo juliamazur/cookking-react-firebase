@@ -10,6 +10,10 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -28,8 +32,32 @@ const TitleFont = styled.span`
   font-size: 2.2em;
 `;
 
-function Header(props) {
-  const { classes, user, signOut, signInWithGoogle } = props;
+
+  class Header extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
+
+  handleClick(event) {
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget
+    });
+  };
+
+  handleClose() {
+    this.setState({
+      open: false,
+      anchorEl: null
+    });
+  };
+
+render() {
+  const { classes, user, signOut, signInWithGoogle } = this.props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -37,6 +65,13 @@ function Header(props) {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
+          <Menu
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            onClose={this.handleClose.bind(this)}
+          >
+            <MenuItem key='users' onClick={() => {}}>Użytkownicy</MenuItem>
+          </Menu>
           <Typography color="inherit" className={classes.grow}>
               <TitleFont>
                 {/*<AttachmentIcon className={classes.mainIcon}/> */}
@@ -50,14 +85,14 @@ function Header(props) {
           {/*}*/}
           {
             user
-              ? <Button color="inherit" onClick={signOut}>Log out</Button>
-              : <Button color="inherit" onClick={signInWithGoogle}>Sign in</Button>
+              ? <Button color="inherit" onClick={signOut}>Wyloguj</Button>
+              : ''
           }
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+}}
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
