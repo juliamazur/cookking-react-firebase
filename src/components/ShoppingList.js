@@ -71,7 +71,7 @@ class ShoppingList extends React.Component {
   getCardContent(ingredient) {
     return (
       <span>
-        {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount} {ingredient.amount ? ingredient.unit : ''}
+        {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount}&nbsp;{ingredient.amount ? ingredient.unit : ''}
         </span>
     );
   }
