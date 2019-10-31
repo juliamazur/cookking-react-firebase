@@ -57,7 +57,7 @@ const TitleFont = styled.span`
   };
 
 render() {
-  const { classes, user, signOut, signInWithGoogle } = this.props;
+  const { classes, user, signOut, signInWithGoogle, displayMyData } = this.props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -70,8 +70,8 @@ render() {
             anchorEl={this.state.anchorEl}
             onClose={this.handleClose.bind(this)}
           >
-            <MenuItem key='users' onClick={() => {}}>Użytkownicy</MenuItem>
-            <MenuItem key='profile' onClick={() => {}}>Twój profil</MenuItem>
+            <MenuItem key='users' onClick={this.props.handleShowUserList}>Użytkownicy</MenuItem>
+            <MenuItem key='profile' onClick={displayMyData}>Twój profil</MenuItem>
           </Menu>
           <Typography color="inherit" className={classes.grow}>
               <TitleFont>

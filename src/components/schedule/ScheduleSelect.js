@@ -18,28 +18,32 @@ const Container = styled.div`
 class ScheduleSelect extends React.Component {
 
   render() {
+
+    const { editable, pickedScheduleId, scheduleList, handleScheduleChange, handleAddSchedule, handleDeleteSchedule } = this.props;
+    const picked = pickedScheduleId ? pickedScheduleId : null;
+
     return (
       <Container>
         <Grid container>
           <Grid item xs={10} md={2} style={{padding: 10}}>
             <FormControl fullWidth={true} variant="outlined">
               <Select
-                value={this.props.schedule ? this.props.schedule.id : ''}
-                onChange={this.props.handleScheduleChange}
+                value={picked}
+                onChange={handleScheduleChange}
               >
-                {this.props.allSchedules.map(item => {
+                {scheduleList.map(item => {
                   return (<MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)
                 })
                 }
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={1}>
-            <ScheduleMenu
-              addSchedule={this.props.handleAddSchedule}
-              deleteSchedule={this.props.handleDeleteSchedule}
-            />
-          </Grid>
+            {editable ? (
+              <Grid item xs={1}>
+              <ScheduleMenu
+              addSchedule={handleAddSchedule}
+              deleteSchedule={handleDeleteSchedule}
+            /></Grid>) : ''}
         </Grid>
       </Container>
     );

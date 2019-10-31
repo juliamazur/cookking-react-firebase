@@ -11,12 +11,16 @@ import RecipeLibrary from "./components/RecipeLibrary";
 import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
 import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
+import ScheduleView from "./components/schedule/ScheduleView";
 import ShoppingList from "./components/ShoppingList";
 import RecipeListFab from './components/recipe_list/RecipeListFab';
 import Modal from './components/Modal';
 import RecipeForm from './components/form/RecipeForm';
 import RecipeFormModal from './components/modal/RecipeFormModal';
 import ScheduleForm from './sites/ScheduleForm';
+import CardBasic from './components/card/CardBasic';
+import PaperContainer from './components/containers/PaperContainer';
+import ScheduleSelect from "./components/schedule/ScheduleSelect";
 
 import * as backend from './backend/';
 import withFirebaseAuth from "react-with-firebase-auth";
@@ -63,7 +67,6 @@ class App extends Component {
     this.changeAvatar = this.changeAvatar.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
-    this.handleScheduleChange = this.handleScheduleChange.bind(this);
   }
 
   const
@@ -142,42 +145,63 @@ class App extends Component {
   state = this.INITIAL_STATE;
 
   componentDidMount() {
-    //@TODO handle no logged user
     this.setStateFromDB();
-    // this.setState({
-    //   userDoc: this.USER_DOC
-    // });
   }
 
-  async setStateFromDB() {
-    const uid = await this.getUid();
-    if(!uid) {
-      // @TODO handle errors, no user signed in etc
-      return;
+
+   setStateFromDB() {
+       try {
+         firebase.auth().onAuthStateChanged(this.authHandler.bind(this));
+       } catch (e) {
+         this.logError(e);
+       }
+  }
+
+  authHandler(user) {
+
+    if (user) {
+      backend.fetchUserDoc(user.uid).then((data) => {
+        const newState = {uid: user.uid, name: user.displayName, ...data};
+        this.setState(newState);
+        // to have DB doc for new users thtat didnt do anything yet
+        this.save(newState);
+      });
+
+      backend.fetchAllUserDocs().then((data) => {
+        let allUsers = [];
+        for(let uid in data) {
+          let userDoc = data[uid];
+          allUsers.push({uid: uid, name: userDoc.name});
+        }
+        this.setState({allUsers: allUsers});
+      });
+    } else {
+      this.setState(this.INITIAL_STATE);
     }
-    backend.fetchUserDoc(uid).then((data) => {
-      this.setState({uid: uid, ...data});
-    });
+}
+
+  logError(e) {
+    console.error(e.code + ' | ' + e.message);
   }
 
   async saveUserDocToDb() {
-    const uid = await this.getUid();
-    if(!uid) {
+    const user = await this.getUser();
+    if(!user.uid) {
       // @TODO handle errors, no user signed in etc
       return;
     }
 
-    userRef.child(uid).update(this.state);
+    userRef.child(user.uid).update(this.state);
     //userRef.push().set(this.state);
   }
 
-
-  getUid() {
+  getUser() {
+    // @TODO try catch
     return new Promise((resolve, reject) => {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
-          resolve(user.uid);
+          resolve(user);
         } else {
           // No user is signed in.
           // @TODO handle errors, no user signed in etc
@@ -200,7 +224,8 @@ class App extends Component {
       return;
     }
 
-    const newColumns = this.getActiveScheduleColumns();
+    const activeSchedule = this.getActiveSchedule();
+    const newColumns = this.getScheduleColumns(activeSchedule);
     let sourceColumn = newColumns.find((v) => {
       return v.id === source.droppableId
     });
@@ -236,10 +261,6 @@ class App extends Component {
     };
 
     this.save(newState);
-  }
-
-  getSchedules() {
-    return this.state.userDoc.schedules ? this.state.userDoc.schedules.slice() : [];
   }
 
   addSchedule() {
@@ -290,8 +311,11 @@ class App extends Component {
     return schedules.find((v) => { return v.id ===  this.state.activeScheduleId });
   }
 
-  getActiveScheduleColumns() {
-    const activeSchedule = this.getActiveSchedule();
+  getSchedules() {
+    return this.state.userDoc.schedules ? this.state.userDoc.schedules.slice() : [];
+  }
+
+  getScheduleColumns(activeSchedule) {
     return activeSchedule.columns ? activeSchedule.columns : [];
   }
 
@@ -304,7 +328,8 @@ class App extends Component {
   }
 
   addToSchedule(id) {
-    const newColumns = this.getActiveScheduleColumns();
+    const activeSchedule = this.getActiveSchedule();
+    const newColumns = this.getScheduleColumns(activeSchedule);
     const columnId = this.state.columnToAddId ? this.state.columnToAddId : 'column-0';
     let newColumn = newColumns.find((v) => {return v.id === columnId});
 
@@ -332,6 +357,7 @@ class App extends Component {
   }
 
   save(newState) {
+    // @TODO dont save modalOpen, showOtherUserData etc.
     this.setState(newState, () => {
       this.saveUserDocToDb();
     });
@@ -342,6 +368,14 @@ class App extends Component {
       ...this.state,
       recipeListModalOpen: true,
       columnToAddId: columnId
+    };
+    this.setState(newState);
+  }
+
+  handleShowUserList() {
+    const newState = {
+      ...this.state,
+      usersModalOpen: true
     };
     this.setState(newState);
   }
@@ -370,6 +404,10 @@ class App extends Component {
 
   handleScheduleModalClose = () => {
     this.setState({scheduleModalOpen: false});
+  };
+
+  handleUsersModalClose = () => {
+    this.setState({usersModalOpen: false});
   };
 
   handleRecipeListModalClose = () => {
@@ -501,20 +539,92 @@ class App extends Component {
     return recipe ? recipe : emptyRecipe;
   }
 
-  getScheduleComponent() {
+  async displayUserData(user) {
+    // @TODO async await
+    const data = await backend.fetchUserDoc(user.uid)
+    const otherUserData = {uid: user.uid, name: data.name, userDoc: (data.userDoc ? data.userDoc : {})};
+    console.log(otherUserData);
+    this.setState({otherUserData: otherUserData, usersModalOpen: false});
+  }
+
+  displayMyData() {
+    this.setState({otherUserData: ''});
+  }
+
+  getScheduleDashboard() {
+
+    const uid = this.state.uid;
+    const userDoc = this.state.userDoc;
+    const scheduleId = this.state.activeScheduleId;
+
+    const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
+    const scheduleList = userDoc.schedules ?
+      this.state.userDoc.schedules.map(pick('id', 'name'))
+      : [];
+
+    return this.getScheduleComponent(uid, userDoc, scheduleId, scheduleList);
+  }
+
+  getOtherUserSchedule() {
+
+    const uid = this.state.otherUserData.uid;
+    const userDoc = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc : {};
+
+    const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
+    const scheduleList = userDoc.schedules ?
+      userDoc.schedules.map(pick('id', 'name'))
+      : [];
+
+      return(<p>{uid}</p>);
+    return this.getScheduleViewComponent(uid, userDoc, '', scheduleList);
+  }
+
+  getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList) {
+
     return(
-      <Schedule
-        key={this.state.uid}
-        recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-        schedule={this.getActiveSchedule()}
-        allSchedules={this.state.userDoc.schedules ? this.state.userDoc.schedules : []}
+      <div>
+      <ScheduleSelect
+        editable={true}
+        scheduleList={scheduleList}
+        pickedScheduleId={scheduleId}
+        handleScheduleChange={this.handleScheduleChange.bind(this)}
+        handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
+        handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
+      />
+      <ScheduleView
+        key={uid}
+        userDoc={userDoc}
+        scheduleId={scheduleId}
         onDragEnd={this.onDragEnd}
         handleRemoveItem={this.handleRemoveItem}
         handleAddRecipeToColumn={this.handleAddRecipeToColumn}
-        handleScheduleChange={this.handleScheduleChange}
-        handleAddSchedule={this.handleScheduleModalOpen}
+      />
+      </div>
+    );
+  }
+
+
+  getScheduleComponent(uid, userDoc, scheduleId, scheduleList) {
+
+    return(
+      <div>
+      <ScheduleSelect
+        editable={true}
+        scheduleList={scheduleList}
+        pickedScheduleId={scheduleId}
+        handleScheduleChange={this.handleScheduleChange.bind(this)}
+        handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
         handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
       />
+      <Schedule
+        key={uid}
+        userDoc={userDoc}
+        scheduleId={scheduleId}
+        onDragEnd={this.onDragEnd}
+        handleRemoveItem={this.handleRemoveItem}
+        handleAddRecipeToColumn={this.handleAddRecipeToColumn}
+      />
+      </div>
     );
   }
 
@@ -562,6 +672,89 @@ class App extends Component {
       </div>);
   }
 
+  displayModal() {
+
+    if(this.state.modalOpen) {
+      return(
+        <RecipeFormModal
+          key={this.state.recipeToEditId}
+          open={true}
+          onClose={this.handleModalClose}
+          recipe={this.getRecipeToEdit()}
+          handleSubmit={this.saveRecipe.bind(this)}
+        />
+      );
+    }
+
+    if(this.state.scheduleModalOpen) {
+      return(<Modal
+        open={true}
+        onClose={this.handleScheduleModalClose}
+        handleSubmit={this.addSchedule}
+        content={this.getScheduleForm()}
+      />);
+    }
+
+    if(this.state.recipeListModalOpen) {
+      return(<Modal
+        open={true}
+        onClose={this.handleRecipeListModalClose}
+//            @TODO save button should be removed from this modal
+        handleSubmit={this.addRecipeToSchedule}
+        content={this.getRecipeModalList()}
+        fullScreen={true}
+      />);
+    }
+
+    if(this.state.usersModalOpen) {
+      return(
+        <Modal
+          open={true}
+          onClose={this.handleUsersModalClose}
+          content={this.state.allUsers ?
+            this.state.allUsers
+            .map((user) => {
+              return(<CardBasic key={user.uid} content={user.name} onClick={() => {this.displayUserData(user)}}/>)
+            })
+            : ''}
+        />
+      );
+    }
+  }
+
+
+  getDashboard() {
+    return(
+      <div>
+      <PaperContainer
+        content={this.getScheduleDashboard()}
+      />
+      {this.getShoppingListComponent()}
+      <RecipeLibrary
+        recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+        handleDeleteRecipe={this.deleteRecipe}
+        handleEditRecipe={this.editRecipe.bind(this)}
+        handleAddToSchedule={this.addToSchedule}
+        handleAvatarClick={this.changeAvatar}
+      />
+      <RecipeListFab
+        onClick={this.handleModalOpen}
+      />
+      </div>
+    );
+  }
+
+  getApp() {
+    if(this.state.otherUserData) {
+    return(<div>{this.displayOtherUserData()}</div>);
+    }
+    return(<div>{this.getDashboard()}</div>);
+  }
+
+  displayOtherUserData() {
+    return this.getOtherUserSchedule();
+  }
+
   render() {
 
     const {
@@ -573,53 +766,21 @@ class App extends Component {
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
+        {/* @TODO dont show menu when user is logged out */}
           <Header
             user={user}
             uid={this.state.uid}
             signOut={() => {signOut().then(() => { this.setState(this.INITIAL_STATE)})}}
             signInWithGoogle={() => {signInWithGoogle().then(() => {this.setStateFromDB()})}}
+            handleShowUserList={this.handleShowUserList.bind(this)}
+            displayMyData={this.displayMyData.bind(this)}
           />
-          <RecipeFormModal
-            key={this.state.recipeToEditId}
-            open={this.state.modalOpen ? this.state.modalOpen : false}
-            onClose={this.handleModalClose}
-            recipe={this.getRecipeToEdit()}
-            handleSubmit={this.saveRecipe.bind(this)}
-          />
-          <Modal
-            open={this.state.scheduleModalOpen ? this.state.scheduleModalOpen : false}
-            onClose={this.handleScheduleModalClose}
-            handleSubmit={this.addSchedule}
-            content={this.getScheduleForm()}
-          />
-          <Modal
-            open={this.state.recipeListModalOpen ? this.state.recipeListModalOpen : false}
-            onClose={this.handleRecipeListModalClose}
-//            @TODO save button should probably be removed from this modal
-            handleSubmit={this.addRecipeToSchedule}
-            content={this.getRecipeModalList()}
-            fullScreen={true}
-          />
-          {/* @TODO check if user is logged in, dont use uid */}
-          {this.state.uid ? '' : this.getMainNotLoggedInPage()}
-          {this.state.uid ? this.getScheduleComponent() : ''}
-          {this.state.uid ? this.getShoppingListComponent() : ''}
-          {/*
-          <RecipeLibrary
-            recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-            handleDeleteRecipe={this.deleteRecipe}
-            handleEditRecipe={this.editRecipe.bind(this)}
-            handleAddToSchedule={this.addToSchedule}
-            handleAvatarClick={this.changeAvatar}
-          />
-          */}
-          {this.state.uid ?
-            <RecipeListFab
-              onClick={this.handleModalOpen}
-            /> : ''}
+          {this.displayModal()}
+          {user ? '' : this.getMainNotLoggedInPage()}
+          {user ? this.getApp() : ''}
         </MuiThemeProvider>
       </div>
-    );
+     );
   }
 }
 

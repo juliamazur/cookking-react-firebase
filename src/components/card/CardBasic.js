@@ -8,10 +8,14 @@ class CardBasic extends Component {
 
 
   render() {
-    const {id, content} = this.props;
+    const {id, content, onClick} = this.props;
 
     return (
-      <Card key={id}>
+      <Card
+        key={id}
+        style={{margin: 5, cursor: 'pointer'}}
+        onClick={onClick}
+      >
         <CardContent>
           {content}
         </CardContent>

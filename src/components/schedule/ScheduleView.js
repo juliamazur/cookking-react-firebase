@@ -1,12 +1,12 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
 
-import {DragDropContext} from 'react-beautiful-dnd';
-
 import Grid from '@material-ui/core/Grid';
+import Item from './ScheduleItem'
+import BasicScheduleItem from './BasicScheduleItem'
 
-import ScheduleColumn from '../components/schedule/ScheduleColumn'
-import initialScheduleData from '../components/initial-data';
+import ScheduleColumn from './ScheduleColumn'
+import initialScheduleData from '../initial-data';
 
 
 const styles = theme => ({
@@ -15,14 +15,14 @@ const styles = theme => ({
   }
 });
 
-class Schedule extends React.Component {
+class ScheduleView extends React.Component {
 
-  getColumnItems(schedule, recipes, columnId) {
-    if (!schedule || !schedule.columns) {
+  getColumnItems(columnId) {
+    if (!this.props.schedule || !this.props.schedule.columns) {
       return [];
     }
 
-    let column = schedule.columns.find((v) => {
+    let column = this.props.schedule.columns.find((v) => {
       return v.id === columnId;
     });
 
@@ -32,7 +32,7 @@ class Schedule extends React.Component {
 
     const newColumns = [];
     column.items.forEach((item) => {
-      const recipe = recipes.find((v) => {
+      const recipe = this.props.recipes.find((v) => {
         return v.id === item.recipeId;
       });
       newColumns.push({...recipe,...item});
@@ -47,31 +47,26 @@ class Schedule extends React.Component {
     const recipes = userDoc.recipes ? userDoc.recipes : [];
 
     return (
-          <DragDropContext
-            onDragEnd={(result) => {
-              onDragEnd(result);
-          }}>
             <Grid container>
               {
                 initialScheduleData.columnOrder.map(columnId => {
                   const column = initialScheduleData.columns[columnId];
                   return <Grid key={columnId} className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
-                    <ScheduleColumn
-                      key={column.id}
-                      column={column}
-                      items={this.getColumnItems(schedule, recipes, column.id)}
-                      handleRemoveItem={handleRemoveItem}
-                      handleCopyItem={handleCopyItem}
-                      handleAddRecipeToColumn={handleAddRecipeToColumn}
+                  {this.getColumnItems(schedule, recipes, column.id).map((item, index) =>
+                    <Item className={this.props.scheduleItem}
+                          key={item.id}
+                          item={item}
+                          index={index}
+                          handleRemoveItem={() => this.props.handleRemoveItem(this.props.column.id, index)}
                     />
+                  )}
                   </Grid>;
                 })
               }
             </Grid>
-          </DragDropContext>
     );
 
   }
 }
 
-export default withStyles(styles)(Schedule);
+export default withStyles(styles)(ScheduleView);
