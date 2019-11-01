@@ -337,8 +337,8 @@ class App extends Component {
   }
 
   addToSchedule(id) {
-    const activeSchedule = this.state.activeScheduleId;
-    const newColumns = this.getScheduleColumns(activeSchedule);
+    const activeSchedule = this.getActiveSchedule();
+    const newColumns = activeSchedule.columns ? activeSchedule.columns : [];
     const columnId = this.state.columnToAddId ? this.state.columnToAddId : 'column-0';
     let newColumn = newColumns.find((v) => {return v.id === columnId});
 
