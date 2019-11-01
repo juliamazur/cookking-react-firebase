@@ -7,7 +7,6 @@ import {Draggable} from 'react-beautiful-dnd';
 import RecipeCardMini from '../card/RecipeCardMini';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
-import CopyIcon from '@material-ui/icons/FileCopy';
 
 
 const Container = styled.div`

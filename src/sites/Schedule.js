@@ -42,9 +42,8 @@ class Schedule extends React.Component {
   }
 
   render() {
-    const {classes,  scheduleId, userDoc, onDragEnd, handleRemoveItem, handleCopyItem, handleAddRecipeToColumn} = this.props;
-    const schedule = userDoc.schedules ? userDoc.schedules.find((v) => {return (v.id === scheduleId);}) : {};
-    const recipes = userDoc.recipes ? userDoc.recipes : [];
+    const {classes,  schedules, scheduleId, recipes, onDragEnd, handleRemoveItem, handleCopyItem, handleAddRecipeToColumn} = this.props;
+    const schedule = schedules.find((v) => {return (v.id === scheduleId);});
 
     return (
           <DragDropContext

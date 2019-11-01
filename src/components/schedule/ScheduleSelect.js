@@ -5,8 +5,6 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
 
 import ScheduleMenu from './ScheduleMenu';
 
@@ -20,7 +18,6 @@ class ScheduleSelect extends React.Component {
   render() {
 
     const { editable, pickedScheduleId, scheduleList, handleScheduleChange, handleAddSchedule, handleDeleteSchedule } = this.props;
-    const picked = pickedScheduleId ? pickedScheduleId : null;
 
     return (
       <Container>
@@ -28,7 +25,7 @@ class ScheduleSelect extends React.Component {
           <Grid item xs={10} md={2} style={{padding: 10}}>
             <FormControl fullWidth={true} variant="outlined">
               <Select
-                value={picked}
+                value={pickedScheduleId}
                 onChange={handleScheduleChange}
               >
                 {scheduleList.map(item => {

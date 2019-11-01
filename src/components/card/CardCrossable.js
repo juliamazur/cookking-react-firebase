@@ -1,11 +1,8 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
 
-import CardBasic from "./CardBasic";
 import CheckIcon from '@material-ui/icons/CheckCircle';
-
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 import CardHeader from '@material-ui/core/CardHeader';
 import {Avatar} from '@material-ui/core';
@@ -45,7 +42,7 @@ class CardCrossable extends Component {
   }
 
   getContent(content, noIcon, classes, isActive) {
-    
+
       return (
         <div>
           <span className={isActive ? classes.contentActive : classes.content}>{content}</span>

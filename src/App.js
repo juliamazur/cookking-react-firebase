@@ -8,14 +8,14 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
 import Header from './components/Header';
 import RecipeLibrary from "./components/RecipeLibrary";
-import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
+// import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
 import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
-import ScheduleView from "./components/schedule/ScheduleView";
+// import ScheduleView from "./components/schedule/ScheduleView";
 import ShoppingList from "./components/ShoppingList";
 import RecipeListFab from './components/recipe_list/RecipeListFab';
 import Modal from './components/Modal';
-import RecipeForm from './components/form/RecipeForm';
+// import RecipeForm from './components/form/RecipeForm';
 import RecipeFormModal from './components/modal/RecipeFormModal';
 import ScheduleForm from './sites/ScheduleForm';
 import CardBasic from './components/card/CardBasic';
@@ -31,7 +31,7 @@ import { userRef } from './config/firebase'
 import md5 from "md5";
 import firebase from "firebase/index";
 
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+// import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
 
 const theme = createMuiTheme({
@@ -191,7 +191,13 @@ class App extends Component {
       return;
     }
 
-    userRef.child(user.uid).update(this.state);
+    const stateToDb = {};
+    stateToDb.uid = this.state.uid;
+    stateToDb.name = this.state.name;
+    stateToDb.activeScheduleId = this.state.activeScheduleId;
+    stateToDb.userDoc = this.state.userDoc;
+
+    userRef.child(user.uid).update(stateToDb);
     //userRef.push().set(this.state);
   }
 
@@ -307,7 +313,10 @@ class App extends Component {
   }
 
   getActiveSchedule() {
-    const schedules = this.getSchedules();
+    if(!this.state.userDoc.schedules) {
+      return '';
+    }
+    const schedules = this.state.userDoc.schedules;
     return schedules.find((v) => { return v.id ===  this.state.activeScheduleId });
   }
 
@@ -328,7 +337,7 @@ class App extends Component {
   }
 
   addToSchedule(id) {
-    const activeSchedule = this.getActiveSchedule();
+    const activeSchedule = this.state.activeScheduleId;
     const newColumns = this.getScheduleColumns(activeSchedule);
     const columnId = this.state.columnToAddId ? this.state.columnToAddId : 'column-0';
     let newColumn = newColumns.find((v) => {return v.id === columnId});
@@ -543,7 +552,6 @@ class App extends Component {
     // @TODO async await
     const data = await backend.fetchUserDoc(user.uid)
     const otherUserData = {uid: user.uid, name: data.name, userDoc: (data.userDoc ? data.userDoc : {})};
-    console.log(otherUserData);
     this.setState({otherUserData: otherUserData, usersModalOpen: false});
   }
 
@@ -569,36 +577,31 @@ class App extends Component {
 
     const uid = this.state.otherUserData.uid;
     const userDoc = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc : {};
+    const scheduleId = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc.schedules[0].id : '';
 
     const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
     const scheduleList = userDoc.schedules ?
       userDoc.schedules.map(pick('id', 'name'))
       : [];
 
-      return(<p>{uid}</p>);
-    return this.getScheduleViewComponent(uid, userDoc, '', scheduleList);
+    return this.getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList);
   }
 
   getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList) {
 
     return(
       <div>
-      <ScheduleSelect
-        editable={true}
+      {/*<ScheduleSelect
         scheduleList={scheduleList}
         pickedScheduleId={scheduleId}
-        handleScheduleChange={this.handleScheduleChange.bind(this)}
-        handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
-        handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
       />
+
       <ScheduleView
         key={uid}
         userDoc={userDoc}
         scheduleId={scheduleId}
-        onDragEnd={this.onDragEnd}
-        handleRemoveItem={this.handleRemoveItem}
-        handleAddRecipeToColumn={this.handleAddRecipeToColumn}
       />
+      */}
       </div>
     );
   }
@@ -611,14 +614,15 @@ class App extends Component {
       <ScheduleSelect
         editable={true}
         scheduleList={scheduleList}
-        pickedScheduleId={scheduleId}
+        pickedScheduleId={this.state.activeScheduleId ? this.state.activeScheduleId : ''}
         handleScheduleChange={this.handleScheduleChange.bind(this)}
         handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
         handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
       />
       <Schedule
         key={uid}
-        userDoc={userDoc}
+        schedules={userDoc.schedules ? userDoc.schedules : []}
+        recipes={userDoc.recipes ? userDoc.recipes : []}
         scheduleId={scheduleId}
         onDragEnd={this.onDragEnd}
         handleRemoveItem={this.handleRemoveItem}
@@ -642,7 +646,6 @@ class App extends Component {
   getMainNotLoggedInPage() {
     return(<div style={{
       backgroundImage: `url(${'/static/images/main.jpg'})`,
-      backgroundSize: '100% auto',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center center',
