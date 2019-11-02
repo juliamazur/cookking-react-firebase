@@ -1,8 +1,9 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import Grid from '@material-ui/core/Grid';
-import Item from './ScheduleItem'
+import RecipeCardMini from '../card/RecipeCardMini'
 import BasicScheduleItem from './BasicScheduleItem'
 
 import ScheduleColumn from './ScheduleColumn'
@@ -15,14 +16,22 @@ const styles = theme => ({
   }
 });
 
+const Title = styled.div`
+  text-align: center;
+  padding: 15px 5px;
+  font-family: 'Sacramento', cursive;
+  font-size: 2em;
+`;
+
+
 class ScheduleView extends React.Component {
 
-  getColumnItems(columnId) {
-    if (!this.props.schedule || !this.props.schedule.columns) {
+  getColumnItems(schedule, recipes, columnId) {
+    if (!schedule || !schedule.columns) {
       return [];
     }
 
-    let column = this.props.schedule.columns.find((v) => {
+    let column = schedule.columns.find((v) => {
       return v.id === columnId;
     });
 
@@ -30,42 +39,43 @@ class ScheduleView extends React.Component {
       return [];
     }
 
-    const newColumns = [];
+    const items = [];
     column.items.forEach((item) => {
-      const recipe = this.props.recipes.find((v) => {
+      const recipe = recipes.find((v) => {
         return v.id === item.recipeId;
       });
-      newColumns.push({...recipe,...item});
+      items.push({...recipe,...item});
     });
 
-    return newColumns;
+    return items;
   }
 
   render() {
-    const {classes,  scheduleId, userDoc, onDragEnd, handleRemoveItem, handleCopyItem, handleAddRecipeToColumn} = this.props;
-    const schedule = userDoc.schedules ? userDoc.schedules.find((v) => {return (v.id === scheduleId);}) : {};
-    const recipes = userDoc.recipes ? userDoc.recipes : [];
+    const {classes,  scheduleId, schedules, recipes} = this.props;
+    const schedule = schedules ? schedules.find((v) => {return (v.id === scheduleId);}) : {};
 
-    return (
-            <Grid container>
-              {
-                initialScheduleData.columnOrder.map(columnId => {
-                  const column = initialScheduleData.columns[columnId];
-                  return <Grid key={columnId} className={classes.columnGrid} item xs={12} md={6} lg={3} xl={1}>
-                  {this.getColumnItems(schedule, recipes, column.id).map((item, index) =>
-                    <Item className={this.props.scheduleItem}
-                          key={item.id}
-                          item={item}
-                          index={index}
-                          handleRemoveItem={() => this.props.handleRemoveItem(this.props.column.id, index)}
-                    />
-                  )}
-                  </Grid>;
-                })
-              }
-            </Grid>
+    return(
+      <Grid container>
+      {initialScheduleData.columnOrder.map((columnId, index) => {
+
+        const column = initialScheduleData.columns[columnId];
+        const items = this.getColumnItems(schedule, recipes, column.id);
+
+        return (
+          <div key={index}>
+          <Title>{column.title}</Title>
+          {items.map((item, index) =>
+            <RecipeCardMini
+              key={index}
+              item={item}
+              actions=''
+            />
+          )}
+          </div>
+        );
+      })}
+      </Grid>
     );
-
   }
 }
 

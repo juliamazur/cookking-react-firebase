@@ -11,7 +11,7 @@ import RecipeLibrary from "./components/RecipeLibrary";
 // import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
 import RecipeLibraryModal from "./components/recipe_list/RecipeLibraryModal";
 import Schedule from "./sites/Schedule";
-// import ScheduleView from "./components/schedule/ScheduleView";
+import ScheduleView from "./components/schedule/ScheduleView";
 import ShoppingList from "./components/ShoppingList";
 import RecipeListFab from './components/recipe_list/RecipeListFab';
 import Modal from './components/Modal';
@@ -305,6 +305,14 @@ class App extends Component {
     this.save(newState);
   }
 
+  handleOtherScheduleChange(event) {
+    const newState = {
+      ...this.state,
+      otherScheduleId: event.target.value
+    };
+    this.save(newState);
+  }
+
   saveScheduleColumns(newColumns) {
     const newSchedule = this.getActiveSchedule();
     newSchedule.columns = newColumns;
@@ -575,9 +583,13 @@ class App extends Component {
 
   getOtherUserSchedule() {
 
+    if(!this.state.otherUserData.userDoc.schedules) {
+      return '';
+    }
+
     const uid = this.state.otherUserData.uid;
     const userDoc = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc : {};
-    const scheduleId = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc.schedules[0].id : '';
+    const scheduleId = this.state.otherScheduleId ? this.state.otherScheduleId : this.state.otherUserData.userDoc.schedules[0].id;
 
     const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
     const scheduleList = userDoc.schedules ?
@@ -591,17 +603,17 @@ class App extends Component {
 
     return(
       <div>
-      {/*<ScheduleSelect
+      <ScheduleSelect
         scheduleList={scheduleList}
         pickedScheduleId={scheduleId}
+        handleScheduleChange={this.handleOtherScheduleChange.bind(this)}
       />
-
       <ScheduleView
         key={uid}
-        userDoc={userDoc}
+        schedules={userDoc.schedules ? userDoc.schedules : []}
+        recipes={userDoc.recipes ? userDoc.recipes : []}
         scheduleId={scheduleId}
       />
-      */}
       </div>
     );
   }
@@ -755,7 +767,9 @@ class App extends Component {
   }
 
   displayOtherUserData() {
-    return this.getOtherUserSchedule();
+    return (<PaperContainer
+        content={this.getOtherUserSchedule()}
+      />);
   }
 
   render() {
