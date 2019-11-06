@@ -139,22 +139,20 @@ class App extends Component {
     },
     filterRecipeId: 0,
     recipeListFiltered: [],
-    userDoc: {}
+    userDoc: {
+      recipes: [],
+      schedules: []
+    }
   };
 
   state = this.INITIAL_STATE;
 
   componentDidMount() {
-    this.setStateFromDB();
-  }
-
-
-   setStateFromDB() {
-       try {
-         firebase.auth().onAuthStateChanged(this.authHandler.bind(this));
-       } catch (e) {
-         this.logError(e);
-       }
+    try {
+      firebase.auth().onAuthStateChanged(this.authHandler.bind(this));
+    } catch (e) {
+      this.logError(e);
+    }
   }
 
   authHandler(user) {
@@ -162,8 +160,7 @@ class App extends Component {
     if (user) {
       backend.fetchUserDoc(user.uid).then((data) => {
         const newState = {uid: user.uid, name: user.displayName, ...data};
-        this.setState(newState);
-        // to have DB doc for new users thtat didnt do anything yet
+        // to have DB doc for new users that didnt do anything yet
         this.save(newState);
       });
 
@@ -182,23 +179,6 @@ class App extends Component {
 
   logError(e) {
     console.error(e.code + ' | ' + e.message);
-  }
-
-  async saveUserDocToDb() {
-    const user = await this.getUser();
-    if(!user.uid) {
-      // @TODO handle errors, no user signed in etc
-      return;
-    }
-
-    const stateToDb = {};
-    stateToDb.uid = this.state.uid;
-    stateToDb.name = this.state.name;
-    stateToDb.activeScheduleId = this.state.activeScheduleId;
-    stateToDb.userDoc = this.state.userDoc;
-
-    userRef.child(user.uid).update(stateToDb);
-    //userRef.push().set(this.state);
   }
 
   getUser() {
@@ -375,10 +355,47 @@ class App extends Component {
 
   save(newState) {
     // @TODO dont save modalOpen, showOtherUserData etc.
-    this.setState(newState, () => {
-      this.saveUserDocToDb();
-    });
+    this.setState(newState);
+    this.saveDocToDb(newState);
   }
+
+
+
+  saveDocToDb(newState) {
+    let stateToDb = {};
+    stateToDb.uid = newState.uid;
+    stateToDb.name = newState.name;
+    if(newState.activeScheduleId) {
+      stateToDb.activeScheduleId = newState.activeScheduleId;
+    }
+    if(newState.userDoc) {
+      stateToDb.userDoc = newState.userDoc;
+    }
+
+    userRef.child(newState.uid).update(stateToDb);
+  }
+
+
+  async saveUserDocToDb() {
+    const user = await this.getUser();
+    if(!user.uid) {
+      // @TODO handle errors, no user signed in etc
+      return;
+    }
+
+    const stateToDb = {};
+    stateToDb.uid = this.state.uid;
+    stateToDb.name = this.state.name;
+    if(this.state.activeScheduleId) {
+      stateToDb.activeScheduleId = this.state.activeScheduleId;
+    }
+
+    stateToDb.userDoc = this.state.userDoc;
+
+    userRef.child(user.uid).update(stateToDb);
+    //userRef.push().set(this.state);
+  }
+
 
   handleAddRecipeToColumn(columnId) {
     const newState = {
@@ -788,7 +805,7 @@ class App extends Component {
             user={user}
             uid={this.state.uid}
             signOut={() => {signOut().then(() => { this.setState(this.INITIAL_STATE)})}}
-            signInWithGoogle={() => {signInWithGoogle().then(() => {this.setStateFromDB()})}}
+            signInWithGoogle={signInWithGoogle}
             handleShowUserList={this.handleShowUserList.bind(this)}
             displayMyData={this.displayMyData.bind(this)}
           />
