@@ -644,37 +644,52 @@ class App extends Component {
 
 
   getScheduleComponent(uid, userDoc, scheduleId, scheduleList) {
-
-    return(
-      <div>
-      <ScheduleSelect
-        editable={true}
-        scheduleList={scheduleList}
-        pickedScheduleId={this.state.activeScheduleId ? this.state.activeScheduleId : ''}
-        handleScheduleChange={this.handleScheduleChange.bind(this)}
-        handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
-        handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
-      />
-      <Schedule
-        key={uid}
-        schedules={userDoc.schedules ? userDoc.schedules : []}
-        recipes={userDoc.recipes ? userDoc.recipes : []}
-        scheduleId={scheduleId}
-        onDragEnd={this.onDragEnd}
-        handleRemoveItem={this.handleRemoveItem}
-        handleAddRecipeToColumn={this.handleAddRecipeToColumn}
-      />
-      </div>
-    );
+    const recipes = this.state.userDoc.recipes;
+    if(recipes && recipes.length > 0) {
+      return(
+        <div>
+        <ScheduleSelect
+          editable={true}
+          scheduleList={scheduleList}
+          pickedScheduleId={this.state.activeScheduleId ? this.state.activeScheduleId : ''}
+          handleScheduleChange={this.handleScheduleChange.bind(this)}
+          handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
+          handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
+        />
+        <Schedule
+          key={uid}
+          schedules={userDoc.schedules ? userDoc.schedules : []}
+          recipes={userDoc.recipes ? userDoc.recipes : []}
+          scheduleId={scheduleId}
+          onDragEnd={this.onDragEnd}
+          handleRemoveItem={this.handleRemoveItem}
+          handleAddRecipeToColumn={this.handleAddRecipeToColumn}
+        />
+        </div>
+      );
+    } else {
+      return(
+        <div style={{textAlign: 'center', padding: 30}}>
+          <h3>Dobrze Cię widzieć!</h3>
+          <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogranięcia jadłospisu na ten tydzień :)</p>
+          <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu i dodaj swój pierwszy przepis.</p>
+        </div>
+      );
+    }
   }
 
   getShoppingListComponent() {
-    return(
-      <ShoppingList
-        recipes={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-        schedule={this.getActiveSchedule()}
-      />
-    );
+    const recipes = this.state.userDoc.recipes;
+    if(this.state.activeSchedule && recipes &&recipes.length > 0) {
+      return(
+        <ShoppingList
+          recipes={this.state.userDoc.recipes}
+          schedule={this.getActiveSchedule()}
+        />
+      );
+    } else {
+      return('');
+    }
   }
 
   // Photo by Daria Shevtsova from Pexels
