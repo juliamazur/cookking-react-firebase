@@ -362,10 +362,16 @@ class App extends Component {
 
 
   saveDocToDb(newState) {
+    if(!newState.uid) {
+      return;
+    }
+
     let stateToDb = {};
     stateToDb.uid = newState.uid;
-    stateToDb.name = newState.name;
-    if(newState.activeScheduleId) {
+    if(newState.name) {
+      stateToDb.name = newState.name;
+    }
+    if(newState.activeScheduleId !== undefined) {
       stateToDb.activeScheduleId = newState.activeScheduleId;
     }
     if(newState.userDoc) {
@@ -375,10 +381,10 @@ class App extends Component {
     userRef.child(newState.uid).update(stateToDb);
   }
 
-
+// @TODO do wywalenia
   async saveUserDocToDb() {
     const user = await this.getUser();
-    if(!user.uid) {
+    if(!user.uid || !this.state.uid) {
       // @TODO handle errors, no user signed in etc
       return;
     }
@@ -514,6 +520,7 @@ class App extends Component {
 
     const newState = {
       ...this.state,
+      activeScheduleId: '',
       userDoc: {...this.state.userDoc, schedules: newSchedules}
     };
 
@@ -646,27 +653,33 @@ class App extends Component {
   getScheduleComponent(uid, userDoc, scheduleId, scheduleList) {
     const recipes = this.state.userDoc.recipes;
     if(recipes && recipes.length > 0) {
-      return(
-        <div>
-        <ScheduleSelect
-          editable={true}
-          scheduleList={scheduleList}
-          pickedScheduleId={this.state.activeScheduleId ? this.state.activeScheduleId : ''}
-          handleScheduleChange={this.handleScheduleChange.bind(this)}
-          handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
-          handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
-        />
-        <Schedule
-          key={uid}
-          schedules={userDoc.schedules ? userDoc.schedules : []}
-          recipes={userDoc.recipes ? userDoc.recipes : []}
-          scheduleId={scheduleId}
-          onDragEnd={this.onDragEnd}
-          handleRemoveItem={this.handleRemoveItem}
-          handleAddRecipeToColumn={this.handleAddRecipeToColumn}
-        />
-        </div>
-      );
+      if(this.state.activeScheduleId) {
+        return(
+          <div>
+          <ScheduleSelect
+            editable={true}
+            scheduleList={scheduleList}
+            pickedScheduleId={this.state.activeScheduleId ? this.state.activeScheduleId : ''}
+            handleScheduleChange={this.handleScheduleChange.bind(this)}
+            handleAddSchedule={this.handleScheduleModalOpen.bind(this)}
+            handleDeleteSchedule={this.handleDeleteSchedule.bind(this)}
+          />
+          <Schedule
+            key={uid}
+            schedules={userDoc.schedules ? userDoc.schedules : []}
+            recipes={userDoc.recipes ? userDoc.recipes : []}
+            scheduleId={scheduleId}
+            onDragEnd={this.onDragEnd}
+            handleRemoveItem={this.handleRemoveItem}
+            handleAddRecipeToColumn={this.handleAddRecipeToColumn}
+          />
+          </div>
+        );
+      } else {
+          return(<Button
+            style={{margin: 30}}
+            onClick={this.handleScheduleModalOpen.bind(this)}>Nowy jadłospis</Button>);
+      }
     } else {
       return(
         <div style={{textAlign: 'center', padding: 30}}>
