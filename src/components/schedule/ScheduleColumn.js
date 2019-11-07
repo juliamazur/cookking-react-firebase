@@ -33,7 +33,7 @@ class ScheduleColumn extends React.Component {
       <Container>
         <Title>{this.props.column.title}</Title>
         <BasicScheduleItem
-          item={{name: 'Dodaj przepis'}}
+          item={{name: 'Dodaj przepisy'}}
           darker='true'
           onClick={() => this.props.handleAddRecipeToColumn(this.props.column.id)}
         />

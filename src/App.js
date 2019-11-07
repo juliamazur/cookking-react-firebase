@@ -544,11 +544,12 @@ class App extends Component {
 
   getRecipeModalList() {
     return(<RecipeLibraryModal
+      open={true}
+      title='Dodaj przepisy do jadłospisu'
+      onClose={this.handleRecipeListModalClose}
+      handleSubmit={this.addRecipesToSchedule.bind(this)}
+      fullScreen={true}
       recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-      handleDeleteRecipe={this.deleteRecipe}
-      handleEditRecipe={this.editRecipe.bind(this)}
-      handleAddToSchedule={this.addToSchedule}
-      handleAvatarClick={this.changeAvatar}
     />);
   }
 
@@ -571,6 +572,12 @@ class App extends Component {
     const recipe = recipes.find((v) => { return v.id === id; });
 
     return recipe ? recipe : emptyRecipe;
+  }
+
+  addRecipesToSchedule(picked) {
+    picked.map(item => {
+      this.addToSchedule(item);
+    });
   }
 
   async displayUserData(user) {
@@ -728,14 +735,7 @@ class App extends Component {
     }
 
     if(this.state.recipeListModalOpen) {
-      return(<Modal
-        open={true}
-        onClose={this.handleRecipeListModalClose}
-//            @TODO save button should be removed from this modal
-        handleSubmit={this.addRecipeToSchedule}
-        content={this.getRecipeModalList()}
-        fullScreen={true}
-      />);
+      return this.getRecipeModalList();
     }
 
     if(this.state.usersModalOpen) {

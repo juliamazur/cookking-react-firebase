@@ -9,8 +9,6 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 
 class RecipeFormModal extends React.Component {
 
@@ -75,10 +73,7 @@ class RecipeFormModal extends React.Component {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="form-dialog-title">
-            {/*@TODO move to the right place*/}
-            <IconButton aria-label="close" onClick={onClose}>
-              <CloseIcon />
-            </IconButton>
+            Dodaj przepis
           </DialogTitle>
           <DialogContent>
             {/*@TODO refactor*/}
