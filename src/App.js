@@ -782,6 +782,23 @@ class App extends Component {
     }
   }
 
+  getRecipeLibrary() {
+    if(this.state.userDoc.recipes) {
+      return(<PaperContainer
+        content={
+          <RecipeLibrary
+          recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+          handleDeleteRecipe={this.deleteRecipe}
+          handleEditRecipe={this.editRecipe.bind(this)}
+          handleAddToSchedule={this.addToSchedule}
+          handleAvatarClick={this.changeAvatar}
+        />}
+      />);
+    }
+
+    return '';
+  }
+
 
   getDashboard() {
     return(
@@ -790,13 +807,7 @@ class App extends Component {
         content={this.getScheduleDashboard()}
       />
       {this.getShoppingListComponent()}
-      <RecipeLibrary
-        recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
-        handleDeleteRecipe={this.deleteRecipe}
-        handleEditRecipe={this.editRecipe.bind(this)}
-        handleAddToSchedule={this.addToSchedule}
-        handleAvatarClick={this.changeAvatar}
-      />
+      {this.getRecipeLibrary()}
       <RecipeListFab
         onClick={this.handleModalOpen}
       />

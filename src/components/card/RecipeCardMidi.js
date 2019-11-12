@@ -29,7 +29,7 @@ const styles = theme => ({
     },
     [theme.breakpoints.up('md')]: {
       margin: 7,
-      width: 295
+      width: 285
     }
   },
   cardContent: {

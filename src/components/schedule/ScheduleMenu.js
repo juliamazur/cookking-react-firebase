@@ -62,8 +62,8 @@ class ScheduleSelect extends React.Component {
         anchorEl={this.state.anchorEl}
         onClose={this.handleClose.bind(this)}
       >
-        <MenuItem key='add' onClick={this.addSchedule.bind(this)}>Dodaj grafik</MenuItem>
-        <MenuItem key='delete' onClick={this.deleteSchedule.bind(this)} style={{color: 'red'}}>Skasuj ten grafik</MenuItem>
+        <MenuItem key='add' onClick={this.addSchedule.bind(this)}>Dodaj jadłospis</MenuItem>
+        <MenuItem key='delete' onClick={this.deleteSchedule.bind(this)} style={{color: 'red'}}>Skasuj ten jadłospis</MenuItem>
       </Menu>
       </div>
     );

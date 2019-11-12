@@ -42,6 +42,7 @@ class RecipeLibrary extends Component {
 
     return (
       <div className={classes.container}>
+        <div style={{width: '100%'}}><h3>moje przepisy</h3></div>
         {this.renderRecipesCompact()}
       </div>
     );
