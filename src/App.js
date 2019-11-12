@@ -693,11 +693,12 @@ class App extends Component {
 
   getShoppingListComponent() {
     const recipes = this.state.userDoc.recipes;
-    if(this.state.activeSchedule && recipes &&recipes.length > 0) {
+    const schedule = this.getActiveSchedule();
+      if(schedule && recipes) {
       return(
         <ShoppingList
-          recipes={this.state.userDoc.recipes}
-          schedule={this.getActiveSchedule()}
+          recipes={recipes}
+          schedule={schedule}
         />
       );
     } else {
