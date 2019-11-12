@@ -12,6 +12,9 @@ const styles = theme => ({
   card: {
     cursor: 'pointer'
   },
+  header: {
+    padding: 3
+  },
   avatar: {
     backgroundColor: 'white'
   },
@@ -62,6 +65,7 @@ class CardCrossable extends Component {
         onClick={this.handleClick}
       >
         <CardHeader
+          className={classes.header}
           avatar={<Avatar
             className={classes.avatar}
           >

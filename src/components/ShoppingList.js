@@ -28,7 +28,7 @@ const styles = theme => ({
     },
     [theme.breakpoints.up('md')]: {
       width: 260,
-      margin: 10
+      margin: 5
     },
 
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
@@ -83,7 +83,7 @@ class ShoppingList extends React.Component {
 
     return (
       <Paper className={classes.paper}>
-        <h3 className={classes.title}>Lista Zakupów</h3>
+        <h3 className={classes.title}>lista zakupów</h3>
 
             {
               ingredients ? (
