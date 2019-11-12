@@ -62,6 +62,7 @@ render() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          {/*
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClick.bind(this)}>
             <MenuIcon />
           </IconButton>
@@ -72,7 +73,7 @@ render() {
           >
             <MenuItem key='users' onClick={this.props.handleShowUserList}>Użytkownicy</MenuItem>
             <MenuItem key='profile' onClick={displayMyData}>Twój profil</MenuItem>
-          </Menu>
+          </Menu>*/}
           <Typography color="inherit" className={classes.grow}>
               <TitleFont>
                 {/*<AttachmentIcon className={classes.mainIcon}/> */}
