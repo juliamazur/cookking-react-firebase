@@ -43,9 +43,8 @@ class RecipeLibraryModal extends Component {
   }
 
 
-  renderRecipesCompact() {
-    const {width, recipeList} = this.props;
-    const recipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
+  renderRecipesCompact(recipeList) {
+    const recipes = recipeList.map((recipe) => {
       return <ListRecipeCardMini
         key={recipe.id}
         item={recipe}
@@ -61,7 +60,8 @@ class RecipeLibraryModal extends Component {
   render() {
 
     const {classes} = this.props;
-    const { open, title, fullScreen, width, content, onClose, handleSubmit } = this.props;
+    const { open, title, recipeList, defaultRecipes, fullScreen, width, content, onClose, handleSubmit } = this.props;
+    const allRecipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).concat(defaultRecipes);
 
     return (
       <div>
@@ -77,7 +77,7 @@ class RecipeLibraryModal extends Component {
           </DialogTitle>
           <DialogContent>
           <div className={classes.container}>
-            {this.renderRecipesCompact()}
+            {this.renderRecipesCompact(allRecipes)}
           </div>
           </DialogContent>
           <DialogActions>

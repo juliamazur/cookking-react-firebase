@@ -69,6 +69,46 @@ class App extends Component {
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
   }
 
+  const 
+  DEFAULT_RECIPES = [
+    {
+      id: 1,
+      name: 'Szakszuka',
+      image: 'szakszuka.jpg'
+    },
+    {
+      id: 2,
+      name: 'Owsianka pieczona',
+      image: 'oatmeal.jpg'
+    },
+    {
+      id: 3,
+      name: 'Pankejki',
+      image: 'pancakes.jpg'
+    },
+    {
+      id: 4,
+      name: 'Spaghetti z pomidorami',
+      image: 'spaghetti.jpg'
+    },
+    {
+      id: 5,
+      name: 'Pizza na tortilli',
+      image: 'pizza.jpg'
+    },
+    {
+      id: 6,
+      name: 'Sałatka grecka',
+      image: 'greek_salad.jpg'
+    },
+    {
+      id: 7,
+      name: 'Łosoś pieczony',
+      image: 'salmon.jpg'
+    }
+  ];
+
+
   const
   SCHEDULE = {
     name: 'Pierwszy',
@@ -557,6 +597,7 @@ class App extends Component {
       handleSubmit={this.addRecipesToSchedule.bind(this)}
       fullScreen={true}
       recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+      defaultRecipes={this.DEFAULT_RECIPES}
     />);
   }
 
@@ -686,6 +727,18 @@ class App extends Component {
           <h3>Dobrze Cię widzieć!</h3>
           <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogranięcia jadłospisu na ten tydzień :)</p>
           <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu i dodaj swój pierwszy przepis.</p>
+          <p>
+            <Button
+            style={{
+              margin: '30px',
+              backgroundColor: 'black',
+              color: 'white',
+              padding: '15px 25px'
+            }}
+            onClick={this.handleScheduleModalOpen.bind(this)}>
+              Nowy jadłospis
+            </Button>
+          </p>
         </div>
       );
     }
@@ -801,54 +854,12 @@ class App extends Component {
   }
 
   getDefaultLibrary() {
-
-    const defaultRecipes = [
-      {
-        id: 1,
-        name: 'Szakszuka',
-        image: 'szakszuka.jpg'
-      },
-      {
-        id: 2,
-        name: 'Owsianka pieczona',
-        image: 'oatmeal.jpg'
-      },
-      {
-        id: 3,
-        name: 'Pankejki',
-        image: 'pancakes.jpg'
-      },
-      {
-        id: 4,
-        name: 'Spaghetti z pomidorami',
-        image: 'spaghetti.jpg'
-      },
-      {
-        id: 5,
-        name: 'Pizza na tortilli',
-        image: 'pizza.jpg'
-      },
-      {
-        id: 6,
-        name: 'Sałatka grecka',
-        image: 'greek_salad.jpg'
-      },
-      {
-        id: 7,
-        name: 'Łosoś pieczony',
-        image: 'salmon.jpg'
-      }
-    ];
-
       return(<PaperContainer
         content={
           <RecipeLibrary
           title="polecane"
-          recipeList={defaultRecipes}
-          handleDeleteRecipe={this.deleteRecipe}
-          handleEditRecipe={this.editRecipe.bind(this)}
-          handleAddToSchedule={this.addToSchedule}
-          handleAvatarClick={this.changeAvatar}
+          noEdit={true}
+          recipeList={this.DEFAULT_RECIPES}
         />}
       />);
   }

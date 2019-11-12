@@ -58,7 +58,8 @@ class ListRecipeCardMini extends Component {
       <Card className={classes.card} key={item.id} onClick={() => {this.setPicked(item)}}>
       <CardHeader
         className={classes.cardHeader}
-        avatar={this.state.picked ? <Avatar className={classes.checked}><CheckIcon className={classes.checkedIcon}/></Avatar> : <RecipeTypeAvatar avatar={item.avatar}/>}
+        avatar={this.state.picked ? <Avatar className={classes.checked}><CheckIcon className={classes.checkedIcon}/></Avatar>
+         : <RecipeTypeAvatar avatar={item.avatar} image={item.image}/>}
         title={item.name}
       />
       </Card>

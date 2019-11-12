@@ -5,7 +5,12 @@ import CustomCardAction from "./CustomCardAction";
 
 class ListRecipeCardMidi extends Component {
 
-  getCardActions(id) {
+  getCardActions(id, noEdit) {
+
+    if(noEdit) {
+      return '';
+    }
+
     return (
       <div>
         <CustomCardAction
@@ -27,13 +32,13 @@ class ListRecipeCardMidi extends Component {
 
   render() {
 
-    const {item, handleAvatarClick} = this.props;
+    const {item, handleAvatarClick, noEdit} = this.props;
 
     return (
       <RecipeCardMidi
         item={item}
         meals={this.props.meals}
-        actions={this.getCardActions(item.id)}
+        actions={this.getCardActions(item.id, noEdit)}
         handleAvatarClick={handleAvatarClick}
       />
     );
