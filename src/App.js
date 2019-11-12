@@ -788,7 +788,7 @@ class App extends Component {
       return(<PaperContainer
         content={
           <RecipeLibrary
-          recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
+          recipeList={this.state.userDoc.recipes}
           handleDeleteRecipe={this.deleteRecipe}
           handleEditRecipe={this.editRecipe.bind(this)}
           handleAddToSchedule={this.addToSchedule}
@@ -800,6 +800,59 @@ class App extends Component {
     return '';
   }
 
+  getDefaultLibrary() {
+
+    const defaultRecipes = [
+      {
+        id: 1,
+        name: 'Szakszuka',
+        image: 'szakszuka.jpg'
+      },
+      {
+        id: 2,
+        name: 'Owsianka pieczona',
+        image: 'oatmeal.jpg'
+      },
+      {
+        id: 3,
+        name: 'Pankejki',
+        image: 'pancakes.jpg'
+      },
+      {
+        id: 4,
+        name: 'Spaghetti z pomidorami',
+        image: 'spaghetti.jpg'
+      },
+      {
+        id: 5,
+        name: 'Pizza na tortilli',
+        image: 'pizza.jpg'
+      },
+      {
+        id: 6,
+        name: 'Sałatka grecka',
+        image: 'greek_salad.jpg'
+      },
+      {
+        id: 7,
+        name: 'Łosoś pieczony',
+        image: 'salmon.jpg'
+      }
+    ];
+
+      return(<PaperContainer
+        content={
+          <RecipeLibrary
+          title="polecane"
+          recipeList={defaultRecipes}
+          handleDeleteRecipe={this.deleteRecipe}
+          handleEditRecipe={this.editRecipe.bind(this)}
+          handleAddToSchedule={this.addToSchedule}
+          handleAvatarClick={this.changeAvatar}
+        />}
+      />);
+  }
+
 
   getDashboard() {
     return(
@@ -809,6 +862,7 @@ class App extends Component {
       />
       {this.getShoppingListComponent()}
       {this.getRecipeLibrary()}
+      {this.getDefaultLibrary()}
       <RecipeListFab
         onClick={this.handleModalOpen}
       />

@@ -90,7 +90,7 @@ class RecipeCardMidi extends Component {
           <ExpandMoreIcon/>
         </IconButton>
         <CardHeader
-          avatar={<RecipeTypeAvatar avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
+          avatar={<RecipeTypeAvatar image={item.image} avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
           title={item.name}
           subheader=''
         />
@@ -110,13 +110,10 @@ class RecipeCardMidi extends Component {
               ) : ('')}
             </CardContent>
           </Typography>
-        </Collapse>
-
-        <CardActions className={classes.actions}>
+          <CardActions className={classes.actions}>
           {actions}
         </CardActions>
-
-
+        </Collapse>
       </Card>
     );
   }

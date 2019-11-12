@@ -16,13 +16,25 @@ const DEFAULT_IMAGE = 'sztucce_a.png';
 
 class RecipeTypeAvatar extends React.Component {
 
+  getAvatarSrc(image, avatar) {
+    if(image) {
+      return '/static/images/free/' + image;
+    }
+
+    if(avatar) {
+      return '/static/images/icons/' + avatar;
+    }
+
+    return '/static/images/icons/' + DEFAULT_IMAGE;
+  }
+
   render() {
 
-    const {classes, onClick} = this.props;
+    const {classes, onClick, image, avatar} = this.props;
 
     return (
       <Avatar
-        src={'/static/images/icons/' + (this.props.avatar ? this.props.avatar : DEFAULT_IMAGE)}
+        src={this.getAvatarSrc(image, avatar)}
         className={classes.avatar}
         onClick={onClick ? () => {onClick(this.props.id)} : () => {}}
       >

@@ -18,8 +18,7 @@ const styles = theme => ({
 
 class RecipeLibrary extends Component {
 
-  renderRecipesCompact() {
-    const {recipeList} = this.props;
+  renderRecipesCompact(recipeList) {
     const recipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
       return <ListRecipeCardMidi
         key={recipe.id}
@@ -38,12 +37,12 @@ class RecipeLibrary extends Component {
 
   render() {
 
-    const {classes} = this.props;
+    const {classes, title, recipeList} = this.props;
 
     return (
       <div className={classes.container}>
-        <div style={{width: '100%'}}><h3>moje przepisy</h3></div>
-        {this.renderRecipesCompact()}
+        <div style={{width: '100%'}}><h3>{title ? title : 'moje przepisy'}</h3></div>
+        {this.renderRecipesCompact(recipeList)}
       </div>
     );
   }
