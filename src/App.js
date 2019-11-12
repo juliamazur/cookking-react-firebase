@@ -783,7 +783,7 @@ class App extends Component {
   }
 
   getRecipeLibrary() {
-    if(this.state.userDoc.recipes) {
+    if(this.state.userDoc.recipes && this.state.userDoc.recipes.length > 0) {
       return(<PaperContainer
         content={
           <RecipeLibrary
