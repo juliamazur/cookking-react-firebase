@@ -33,8 +33,7 @@ class RecipeForm extends React.Component {
     return (
       <div className="recipe-form-placeholder">
         <Grid container>
-          <Grid item xs={1} md={2} />
-          <Grid item xs={10} md={8}>
+          <Grid item xs={12}>
             <FormControl fullWidth={true}>
               <TextField
                 data-test='nameInput'
@@ -45,9 +44,13 @@ class RecipeForm extends React.Component {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={1} md={2} />
-          <Grid item xs={1} md={2} />
-          <Grid item xs={10} md={8}>
+        </Grid>
+        <IngredientForm
+          addIngredient={addIngredient}
+        />
+        {this.props.ingredients ? <IngredientList ingredients={this.props.ingredients} deleteIngredient={deleteIngredient} /> : ''}
+        <Grid container>
+        <Grid item xs={12}>
             <FormControl fullWidth={true}>
               <TextField
                 data-test='descriptionInput'
@@ -62,13 +65,7 @@ class RecipeForm extends React.Component {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={1} md={2} />
-          <Grid item xs={1} md={2} />
-        </Grid>
-        <IngredientForm
-          addIngredient={addIngredient}
-        />
-        {this.props.ingredients ? <IngredientList ingredients={this.props.ingredients} deleteIngredient={deleteIngredient} /> : ''}
+          </Grid>
       </div>
     );
 

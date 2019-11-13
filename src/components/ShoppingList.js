@@ -6,6 +6,9 @@ import CardCrossable from "./card/CardCrossable";
 
 const styles = theme => ({
   paper: {
+    [theme.breakpoints.down('sm')]: {
+      padding: 5
+    },
     [theme.breakpoints.up('md')]: {
       margin: 30,
       padding: 10

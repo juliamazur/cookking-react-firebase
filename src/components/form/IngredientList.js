@@ -26,7 +26,7 @@ class IngredientList extends React.Component {
               <TableCell>{v.unit}</TableCell>
               <TableCell>
                 <IconButton
-                  style={{padding: 3}}
+                  style={{padding: 3, float: 'right'}}
                   aria-label="Usuń"
                   onClick={() => deleteIngredient(v.id)}
                 >

@@ -29,9 +29,14 @@ class IngredientForm extends React.Component {
     });
   }
 
+  addIngredientHandler() {
+    this.props.addIngredient(this.state);
+    this.setState({name: '', amount: '', unit: ''});
+  }
+
   render() {
 
-    const { width, addIngredient } = this.props;
+    const { width } = this.props;
 
     return (
       <div>
@@ -99,7 +104,7 @@ class IngredientForm extends React.Component {
                 </FormControl>
               </TableCell>
               <TableCell>
-                <FormControl fullWidth={true}><Button onClick={() => addIngredient(this.state)}>Dodaj</Button></FormControl>
+                <FormControl fullWidth={true}><Button color="secondary" onClick={() => this.addIngredientHandler()}>Dodaj</Button></FormControl>
               </TableCell>
             </TableRow>
           </TableBody>

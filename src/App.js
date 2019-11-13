@@ -33,14 +33,13 @@ import firebase from "firebase/index";
 
 // import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 
-
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#111',
     },
     secondary: {
-      main: '#eee',
+      main: '#666',
     },
   },
   typography: {
