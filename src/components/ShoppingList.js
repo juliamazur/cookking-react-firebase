@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 import CardCrossable from "./card/CardCrossable";
@@ -45,24 +45,24 @@ class ShoppingList extends React.Component {
     let result = [];
     this.getUsedRecipeIds().forEach((recipeId) => {
       const recipe = this.props.recipes.find((v) => { return v.id === recipeId; });
-      if(recipe && recipe.ingredients) {
+      if (recipe && recipe.ingredients) {
         recipe.ingredients.forEach((item) => {
           result.push(item);
         });
       }
     });
 
-    return result.sort((a,b) => { return a.name > b.name ? 1 : -1; });
+    return result.sort((a, b) => { return a.name > b.name ? 1 : -1; });
   }
 
   getUsedRecipeIds() {
-    if(!this.props.schedule || !this.props.schedule.columns) {
+    if (!this.props.schedule || !this.props.schedule.columns) {
       return [];
     }
 
     let result = [];
     this.props.schedule.columns.forEach((column) => {
-      if(column.items) {
+      if (column.items) {
         column.items.forEach((item) => {
           result.push(item.recipeId);
         });
@@ -76,40 +76,38 @@ class ShoppingList extends React.Component {
     return (
       <span>
         {ingredient.name} {ingredient.amount ? '-' : ''} {ingredient.amount}&nbsp;{ingredient.amount ? ingredient.unit : ''}
-        </span>
+      </span>
     );
   }
 
   render() {
 
-    const {classes} = this.props;
+    const { classes } = this.props;
     const ingredients = this.getIngredients();
+
+    if (!ingredients || !ingredients.length) {
+      return '';
+    }
 
     return (
       <Paper className={classes.paper}>
         <h3 className={classes.title}>lista zakupów</h3>
-
-            {
-              ingredients ? (
-                <div className={classes.listContainer}
-                >
-                  {ingredients.map(ingredient => {
-                    return (
-                      <div key={ingredient.id} className={classes.listItem}>
-                      <CardCrossable
-                        key={ingredient.id}
-                        id={ingredient.id}
-                        content={this.getCardContent(ingredient)}
-                      />
-                      </div>
-                    )
-                  })
-                  }
-                </div>
-
-              ) : ('')
-            }
-           </Paper>
+        <div className={classes.listContainer}
+        >
+          {ingredients.map(ingredient => {
+            return (
+              <div key={ingredient.id} className={classes.listItem}>
+                <CardCrossable
+                  key={ingredient.id}
+                  id={ingredient.id}
+                  content={this.getCardContent(ingredient)}
+                />
+              </div>
+            )
+          })
+          }
+        </div>
+      </Paper>
     );
 
   }

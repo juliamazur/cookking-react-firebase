@@ -83,7 +83,7 @@ class RecipeCardMini extends Component {
           <ExpandMoreIcon/>
         </IconButton>
         <CardHeader
-          avatar={<RecipeTypeAvatar avatar={item.avatar}/>}
+          avatar={<RecipeTypeAvatar avatar={item.avatar} image={item.image}/>}
           title={item.name}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>

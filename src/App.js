@@ -691,8 +691,8 @@ class App extends Component {
 
 
   getScheduleComponent(uid, userDoc, scheduleId, scheduleList) {
-    const recipes = this.state.userDoc.recipes;
-    if(recipes && recipes.length > 0) {
+    const recipes = this.DEFAULT_RECIPES.concat(userDoc.recipes);
+
       if(this.state.activeScheduleId) {
         return(
           <div>
@@ -707,7 +707,7 @@ class App extends Component {
           <Schedule
             key={uid}
             schedules={userDoc.schedules ? userDoc.schedules : []}
-            recipes={userDoc.recipes ? userDoc.recipes : []}
+            recipes={recipes}
             scheduleId={scheduleId}
             onDragEnd={this.onDragEnd}
             handleRemoveItem={this.handleRemoveItem}
@@ -716,35 +716,37 @@ class App extends Component {
           </div>
         );
       } else {
-          return(<Button
-            style={{margin: 30}}
-            onClick={this.handleScheduleModalOpen.bind(this)}>Nowy jadłospis</Button>);
+        return this.getWelcomeComponent();
       }
-    } else {
-      return(
-        <div style={{textAlign: 'center', padding: 30}}>
-          <h3>Dobrze Cię widzieć!</h3>
-          <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogranięcia jadłospisu na ten tydzień :)</p>
-          <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu i dodaj swój pierwszy przepis.</p>
-          <p>
-            <Button
-            style={{
-              margin: '30px',
-              backgroundColor: 'black',
-              color: 'white',
-              padding: '15px 25px'
-            }}
-            onClick={this.handleScheduleModalOpen.bind(this)}>
-              Nowy jadłospis
-            </Button>
-          </p>
-        </div>
-      );
-    }
+    
+  }
+
+  getWelcomeComponent() {
+    return(
+      <div style={{textAlign: 'center', padding: 30}}>
+        <h3>Dobrze Cię widzieć!</h3>
+        <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogranięcia jadłospisu na ten tydzień :)</p>
+        <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu aby dodać przepis.</p>
+        <p>
+          <Button
+          style={{
+            margin: '30px',
+            backgroundColor: 'black',
+            color: 'white',
+            padding: '15px 25px'
+          }}
+          onClick={this.handleScheduleModalOpen.bind(this)}>
+            Nowy jadłospis
+          </Button>
+        </p>
+
+      </div>
+    );
   }
 
   getShoppingListComponent() {
-    const recipes = this.state.userDoc.recipes;
+    const userRecipes = this.state.userDoc.recipes ? this.state.userDoc.recipes.slice() : [];
+    const recipes = this.DEFAULT_RECIPES.concat(userRecipes);
     const schedule = this.getActiveSchedule();
       if(schedule && recipes) {
       return(
