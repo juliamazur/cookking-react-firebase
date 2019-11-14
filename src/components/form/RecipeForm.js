@@ -34,7 +34,7 @@ class RecipeForm extends React.Component {
       <div className="recipe-form-placeholder">
         <Grid container>
           <Grid item xs={12}>
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth={true} style={{margin: '5px'}}>
               <TextField
                 data-test='nameInput'
                 name='name'
@@ -51,7 +51,7 @@ class RecipeForm extends React.Component {
         {this.props.ingredients ? <IngredientList ingredients={this.props.ingredients} deleteIngredient={deleteIngredient} /> : ''}
         <Grid container>
         <Grid item xs={12}>
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth={true} style={{margin: '5px'}}>
               <TextField
                 data-test='descriptionInput'
                 name='description'
