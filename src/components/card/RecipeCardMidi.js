@@ -33,6 +33,7 @@ const styles = theme => ({
     }
   },
   cardContent: {
+    lineHeight: 1,
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   },
   media: {
@@ -101,7 +102,7 @@ class RecipeCardMidi extends Component {
               {item.ingredients ? (
                 <ul>
                   {item.ingredients.map(ingredient => {
-                    return (<li key={ingredient.name} style={{fontSize: '.8em'}}>
+                    return (<li key={ingredient.name} style={{fontSize: '.7em', lineHeight: 1.5}}>
                       {ingredient.name} {ingredient.amount ? ' - ' + ingredient.amount + ' ' + ingredient.unit : ''}
                     </li>)
                   })

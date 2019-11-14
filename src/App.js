@@ -73,7 +73,18 @@ class App extends Component {
     {
       id: 1,
       name: 'Szakszuka',
-      image: 'szakszuka.jpg'
+      image: 'szakszuka.jpg',
+      description: "Cebulę i czosnek zeszklić na oliwie, na średnim gazie. Dodać pomidory i sos sojowy, chwilę poddusić. \
+        Wbić ostrożnie jajka, poczekać aż białko się zetnie, posolić, opruszyć fetą i listkami bazylii.",
+      ingredients: [
+        {name: 'jajka', amount: '4', unit: 'szt'},
+        {name: 'czosnek', amount: '1', unit: 'ząbek'},
+        {name: 'cebula', amount: '1', unit: 'szt'},
+        {name: 'pomidory krojone', amount: '1', unit: 'puszka'},
+        {name: 'sos sojowy', amount: '2', unit: 'łyżki'},
+        {name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
+        {name: 'ser feta', amount: '1/2', unit: 'opakowania'}
+      ]  
     },
     {
       id: 2,
@@ -93,7 +104,16 @@ class App extends Component {
     {
       id: 5,
       name: 'Pizza na tortilli',
-      image: 'pizza.jpg'
+      image: 'pizza.jpg',
+      description: "Tortillę położyć na talerzu. Posmarować sosem pomidorowym, posypać serem i dodatkami. \
+      Patelnię rozgrzać do średniej temperatury, zsunąć tortillę i podgrzewać, aż ser się rozpuści.",
+      ingredients: [
+        {name: 'tortilla', amount: '1', unit: 'szt'},
+        {name: 'ser mozarella tarty', amount: '100', unit: 'g'},
+        {name: 'sos pomidorowy z bazylią', amount: '1/2', unit: 'słoika'},
+        {name: 'oliwki czarne', amount: '10', unit: 'szt'},
+        {name: 'fenkuł w oleju', amount: '2', unit: 'szt'}, 
+      ]
     },
     {
       id: 6,
@@ -696,6 +716,7 @@ class App extends Component {
       if(this.state.activeScheduleId) {
         return(
           <div>
+           <h3 style={{padding: 15}}>mój jadłospis</h3>
           <ScheduleSelect
             editable={true}
             scheduleList={scheduleList}
@@ -764,20 +785,21 @@ class App extends Component {
   // https://www.pexels.com/photo/woman-in-white-and-black-striped-sweatshirt-holding-filled-white-ceramic-bowl-923182/
   getMainNotLoggedInPage() {
     return(<div style={{
-      backgroundImage: `url(${'/static/images/main.jpg'})`,
+      /* backgroundImage: `url(${'/static/images/main.jpg'})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center center',
-      height: '100vh'
+      height: '100vh' */
       }}>
       <div
         style={{
-          color: '#fff',
+          /* color: '#fff', */
           fontSize: '50px',
           fontFamily: 'Sacramento',
-          textShadow: '2px 2px 5px #000',
+          /* textShadow: '2px 2px 5px #000', */
           textAlign: 'center',
-          paddingTop: '20%'
+          /* paddingTop: '20%' */
+          paddingTop: '10%'
         }}
       >
       Co na obiad? To&nbsp;proste!</div>

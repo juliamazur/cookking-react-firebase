@@ -42,7 +42,7 @@ class RecipeLibrary extends Component {
 
     return (
       <div className={classes.container}>
-        <div style={{width: '100%', padding: 15}}><h3>{title ? title : 'moje przepisy'}</h3></div>
+        <div><h3 style={{padding: 15}}>{title ? title : 'moje przepisy'}</h3></div>
         {this.renderRecipesCompact(recipeList, noEdit)}
       </div>
     );

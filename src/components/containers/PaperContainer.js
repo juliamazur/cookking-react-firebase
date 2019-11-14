@@ -6,7 +6,8 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
   paper: {
     [theme.breakpoints.down('sm')]: {
-      padding: 5
+      margin: 5,
+      paddingBottom: 5
     },
     [theme.breakpoints.up('md')]: {
       margin: 30

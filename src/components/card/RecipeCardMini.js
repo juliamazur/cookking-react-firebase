@@ -33,6 +33,7 @@ const styles = theme => ({
     }
   },
   cardContent: {
+    lineHeight: 1,
     fontFamily: 'Montserrat, arial' // hack - mui set font family doesn't work very well with react app
   },
   media: {
