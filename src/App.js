@@ -799,9 +799,22 @@ class App extends Component {
           /* textShadow: '2px 2px 5px #000', */
           textAlign: 'center',
           /* paddingTop: '20%' */
-          paddingTop: '10%'
+          paddingTop: '5%'
         }}
       >
+        <div
+        style={{
+          textAlign: 'center',
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          margin: '10px auto',
+          backgroundImage: `url(${'/static/images/main_mini.jpg'})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+        }}
+      ></div>
       Co na obiad? To&nbsp;proste!</div>
       <Button
         onClick={this.props.signInWithGoogle}
