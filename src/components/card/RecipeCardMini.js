@@ -28,8 +28,7 @@ const styles = theme => ({
       width: '90%'
     },
     [theme.breakpoints.up('md')]: {
-      margin: 7,
-      minWidth: 300
+      margin: 7
     }
   },
   cardContent: {
