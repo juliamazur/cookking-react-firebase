@@ -68,7 +68,7 @@ class App extends Component {
     this.handleAddRecipeToColumn = this.handleAddRecipeToColumn.bind(this);
   }
 
-  const 
+  const
   DEFAULT_RECIPES = [
     {
       id: 1,
@@ -84,7 +84,7 @@ class App extends Component {
         {name: 'sos sojowy', amount: '2', unit: 'łyżki'},
         {name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
         {name: 'ser feta', amount: '1/2', unit: 'opakowania'}
-      ]  
+      ]
     },
     {
       id: 2,
@@ -93,8 +93,17 @@ class App extends Component {
     },
     {
       id: 3,
-      name: 'Pankejki',
-      image: 'pancakes.jpg'
+      name: 'Bananowe pankejki',
+      image: 'pancakes.jpg',
+      description: "Banana rozgnieść widelcem, wymieszać dokładnie z jajkami. Patelnię rozgrzać do średniej temperatury, \
+      posmarować masłem. Nakładać łyżką ciasto, formując niewielkie placuszki. Smażyć z dwóch stron. Można podać z owocami \
+      i syropem klonowym albo miodem.",
+      ingredients: [
+        {name: 'banan', amount: '1', unit: 'szt'},
+        {name: 'jajka', amount: '2', unit: 'szt'},
+        {name: 'maliny', amount: '10', unit: 'szt'},
+        {name: 'syrop klonowy', amount: '2', unit: 'łyżki'}
+      ]
     },
     {
       id: 4,
@@ -112,7 +121,7 @@ class App extends Component {
         {name: 'ser mozarella tarty', amount: '100', unit: 'g'},
         {name: 'sos pomidorowy z bazylią', amount: '1/2', unit: 'słoika'},
         {name: 'oliwki czarne', amount: '10', unit: 'szt'},
-        {name: 'fenkuł w oleju', amount: '2', unit: 'szt'}, 
+        {name: 'fenkuł w oleju', amount: '2', unit: 'szt'},
       ]
     },
     {
@@ -739,7 +748,7 @@ class App extends Component {
       } else {
         return this.getWelcomeComponent();
       }
-    
+
   }
 
   getWelcomeComponent() {
@@ -785,11 +794,11 @@ class App extends Component {
   // https://www.pexels.com/photo/woman-in-white-and-black-striped-sweatshirt-holding-filled-white-ceramic-bowl-923182/
   getMainNotLoggedInPage() {
     return(<div style={{
-      /* backgroundImage: `url(${'/static/images/main.jpg'})`,
+      backgroundImage: `url(${'/static/images/main.jpg'})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center center',
-      height: '100vh' */
+      height: '100vh' 
       }}>
       <div
         style={{
@@ -804,7 +813,7 @@ class App extends Component {
       >
         <div
         style={{
-          textAlign: 'center',
+          /* textAlign: 'center',
           width: '200px',
           height: '200px',
           borderRadius: '50%',
@@ -812,7 +821,7 @@ class App extends Component {
           backgroundImage: `url(${'/static/images/main_mini.jpg'})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
-          backgroundPosition: 'center center',
+          backgroundPosition: 'center center', */
         }}
       ></div>
       Co na obiad? To&nbsp;proste!</div>
