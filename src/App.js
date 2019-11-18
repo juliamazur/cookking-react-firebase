@@ -127,7 +127,17 @@ class App extends Component {
     {
       id: 6,
       name: 'Sałatka grecka',
-      image: 'greek_salad.jpg'
+      image: 'greek_salad.jpg',
+      description: 'Warzywa i ser pokroić w grubą kostkę, wszystko wymieszać w misce.',
+      ingredients: [
+        {name: 'pomiddor', amount: '2', unit: 'szt'},
+        {name: 'papryka', amount: '1', unit: 'szt'},
+        {name: 'ogórek długi', amount: '1/2', unit: 'szt'},
+        {name: 'cebula (jeśli lubimy)', amount: '1/2', unit: 'szt'},
+        {name: 'oliwki czarne', amount: '10', unit: 'szt'},
+        {name: 'oliwa z oliwek', amount: '3', unit: 'łyżki'},
+        {name: 'ser feta', amount: '1/2', unit: 'opakowania'}
+      ]
     },
     {
       id: 7,
