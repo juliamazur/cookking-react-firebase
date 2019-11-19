@@ -76,7 +76,7 @@ class App extends Component {
       id: 1,
       name: 'Szakszuka',
       image: 'szakszuka.jpg',
-      description: "Cebulę i czosnek zeszklić na oliwie, na średnim gazie. Dodać pomidory i sos sojowy, chwilę poddusić. \
+      description: "Cebulę i czosnek zeszklić na oliwie. Dodać pomidory i sos sojowy, chwilę poddusić. \
         Wbić ostrożnie jajka, poczekać aż białko się zetnie, posolić, opruszyć fetą i listkami bazylii.",
       ingredients: [
         {name: 'jajka', amount: '4', unit: 'szt'},
@@ -97,8 +97,10 @@ class App extends Component {
       id: 3,
       name: 'Bananowe pankejki',
       image: 'pancakes.jpg',
-      description: "Banana rozgnieść widelcem, wymieszać dokładnie z jajkami. Patelnię rozgrzać do średniej temperatury, \
-      posmarować masłem. Nakładać łyżką ciasto, formując niewielkie placuszki. Smażyć z dwóch stron. Można podać z owocami \
+      description: "Banana rozgnieść widelcem, wymieszać dokładnie z jajkami. Patelnię rozgrzać, \
+      posmarować masłem. Nakładać łyżką ciasto, formując niewielkie placuszki. Smażyć z dwóch stron, \
+      uważając, żeby się nie przypaliły. \
+      Można podać z owocami \
       i syropem klonowym albo miodem.",
       ingredients: [
         {name: 'banan', amount: '1', unit: 'szt'},
@@ -110,14 +112,23 @@ class App extends Component {
     {
       id: 4,
       name: 'Spaghetti z pomidorami',
-      image: 'spaghetti.jpg'
+      image: 'spaghetti.jpg',
+      ingredients: [
+        {name: 'makaron spaghetti', amount: '1/2', unit: 'opakowania'},
+        {name: 'pomidory krojone', amount: '1', unit: 'puszka'},
+        {name: 'cebula', amount: '1', unit: 'szt'},
+        {name: 'czosnek', amount: '2', unit: 'ząbki'},
+        {name: 'oliwa', amount: '50', unit: 'ml'},
+        {name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
+        {name: 'ser parmezan', amount: '50', unit: 'g'}
+      ]
     },
     {
       id: 5,
       name: 'Pizza na tortilli',
       image: 'pizza.jpg',
       description: "Tortillę położyć na talerzu. Posmarować sosem pomidorowym, posypać serem i dodatkami. \
-      Patelnię rozgrzać do średniej temperatury, zsunąć tortillę i podgrzewać, aż ser się rozpuści.",
+      Patelnię rozgrzać, zsunąć tortillę i podgrzewać, aż ser się rozpuści.",
       ingredients: [
         {name: 'tortilla', amount: '1', unit: 'szt'},
         {name: 'ser mozarella tarty', amount: '100', unit: 'g'},
