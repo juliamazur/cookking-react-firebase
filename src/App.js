@@ -22,6 +22,8 @@ import CardBasic from './components/card/CardBasic';
 import PaperContainer from './components/containers/PaperContainer';
 import ScheduleSelect from "./components/schedule/ScheduleSelect";
 
+import PrivacyPolicy from "./components/PrivacyPolicy";
+
 import * as backend from './backend/';
 import withFirebaseAuth from "react-with-firebase-auth";
 import {firebaseAppAuth, firebaseUser} from './config/firebase'
@@ -532,6 +534,14 @@ class App extends Component {
     this.setState({recipeListModalOpen: false, columnToAddId: ''});
   };
 
+  handlePrivacyPolicyModalOpen = () => {
+    this.setState({privacyPolicyModalOpen: true});
+  };
+
+  handlePrivacyPolicyModalClose = () => {
+    this.setState({privacyPolicyModalOpen: false});
+  };
+
   handleSubmitRecipe() {
     this.setState({submitRecipeForm: true, modalOpen: false});
   }
@@ -637,6 +647,10 @@ class App extends Component {
       recipeList={this.state.userDoc.recipes ? this.state.userDoc.recipes : []}
       defaultRecipes={this.DEFAULT_RECIPES}
     />);
+  }
+
+  getPrivacyPolicy() {
+    return (<PrivacyPolicy/>);
   }
 
   getRecipeToEdit() {
@@ -803,7 +817,9 @@ class App extends Component {
   // Photo by Daria Shevtsova from Pexels
   // https://www.pexels.com/photo/woman-in-white-and-black-striped-sweatshirt-holding-filled-white-ceramic-bowl-923182/
   getMainNotLoggedInPage() {
-    return(<div style={{
+    return(
+    <div>
+    <div style={{
       backgroundImage: `url(${'/static/images/main.jpg'})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -845,7 +861,27 @@ class App extends Component {
           padding: '15px 25px'
         }}
       >Zaloguj przez Google</Button>
-      </div>);
+      </div>
+      <div style={{
+        backgroundColor: '#000',
+        fontSize: '11px',
+        fontWeight: 'light',
+        fontFamily: 'arial', 
+        width: '100%',
+        position: 'fixed', 
+        bottom: 0, 
+        textAlign: 'center', 
+        color: '#fff'}}>
+        <p>
+          Twoje dane przetważane są zgodnie z 
+          <span
+            style={{color: 'red', cursor: 'pointer'}} 
+            onClick={this.handlePrivacyPolicyModalOpen}> Polityką Prywatności</span>.
+          Logując się do aplikacji, akceptujesz jej warunki.
+        </p>
+      </div>
+      </div>
+      );
   }
 
   displayModal() {
@@ -873,6 +909,14 @@ class App extends Component {
 
     if(this.state.recipeListModalOpen) {
       return this.getRecipeModalList();
+    }
+
+    if(this.state.privacyPolicyModalOpen) {
+      return(<Modal
+        open={true}
+        onClose={this.handlePrivacyPolicyModalClose}
+        content={this.getPrivacyPolicy()}
+      />);
     }
 
     if(this.state.usersModalOpen) {
