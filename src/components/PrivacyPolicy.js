@@ -7,7 +7,7 @@ class PrivacyPolicy extends React.Component {
         return (
 
             <div class="politykaPrywatnosci">
-                <h1>Polityka prywatności <span class="label bc-1 c-grey-16">wzór</span></h1>
+                <h1>Polityka prywatności</h1>
                 <hr />
                 <h2>Polityka prywatności opisuje zasady przetwarzania przez nas informacji na Twój temat, w tym danych osobowych
         oraz ciasteczek, czyli tzw. cookies.</h2>
