@@ -244,14 +244,18 @@ class App extends Component {
         this.save(newState);
       });
 
-      backend.fetchAllUserDocs().then((data) => {
-        let allUsers = [];
-        for(let uid in data) {
-          let userDoc = data[uid];
-          allUsers.push({uid: uid, name: userDoc.name});
-        }
-        this.setState({allUsers: allUsers});
-      });
+      // backend.fetchAllUserDocs().then((data) => {
+      //   let allUsers = [];
+      //   for(let uid in data) {
+      //     let userDoc = data[uid];
+      //     allUsers.push({uid: uid, name: userDoc.name});
+      //     // if(userDoc.userDoc && userDoc.userDoc.recipes) {
+      //     //   userDoc.userDoc.recipes.forEach((item) => { console.log(item.name); });
+      //     // }
+      //     //console.log(userDoc.userDoc ? userDoc.userDoc.recipes : '');
+      //   }
+      //   this.setState({allUsers: allUsers});
+      // });
     } else {
       this.setState(this.INITIAL_STATE);
     }
@@ -779,8 +783,8 @@ class App extends Component {
     return(
       <div style={{textAlign: 'center', padding: 30}}>
         <h3>Dobrze Cię widzieć!</h3>
-        <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogranięcia jadłospisu na ten tydzień :)</p>
-        <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu aby dodać przepis.</p>
+        <p style={{fontSize: '1.2em'}}>Jesteś o krok od ogarnięcia jadłospisu na ten tydzień :)</p>
+        <p style={{fontSize: '1.2em'}}>Kliknij przycisk w prawym dolnym rogu, aby dodać przepis.</p>
         <p>
           <Button
           style={{
