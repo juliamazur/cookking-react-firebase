@@ -94,6 +94,8 @@ class RecipeCardMidi extends Component {
           avatar={<RecipeTypeAvatar image={item.image} avatar={item.avatar} id={item.id} onClick={handleAvatarClick}/>}
           title={item.name}
           subheader=''
+          onClick={this.handleExpandClick}
+          style={{cursor: 'pointer'}}
         />
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Typography component="div">
