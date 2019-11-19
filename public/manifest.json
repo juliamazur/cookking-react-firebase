@@ -2,12 +2,12 @@
   "short_name": "Planella",
   "name": "Planella",
   "icons": [{
-    "src": "images/favicon.png",
+    "src": "favicon.png",
     "sizes": "192x192",
     "type": "image/png"
   },
   {
-    "src": "images/favicon_512.png",
+    "src": "favicon_512.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
