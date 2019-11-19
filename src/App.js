@@ -250,7 +250,7 @@ class App extends Component {
 
     if (user) {
       backend.fetchUserDoc(user.uid).then((data) => {
-        const newState = {uid: user.uid, name: user.displayName, ...data};
+        const newState = {uid: user.uid, name: '', ...data};
         // to have DB doc for new users that didnt do anything yet
         this.save(newState);
       });
@@ -695,12 +695,8 @@ class App extends Component {
     });
   }
 
-  async displayUserData(user) {
-    // @TODO async await
-    const data = await backend.fetchUserDoc(user.uid)
-    const otherUserData = {uid: user.uid, name: data.name, userDoc: (data.userDoc ? data.userDoc : {})};
-    this.setState({otherUserData: otherUserData, usersModalOpen: false});
-  }
+  // async displayUserData(user) {
+  // }
 
   displayMyData() {
     this.setState({otherUserData: ''});
@@ -720,23 +716,23 @@ class App extends Component {
     return this.getScheduleComponent(uid, userDoc, scheduleId, scheduleList);
   }
 
-  getOtherUserSchedule() {
+  // getOtherUserSchedule() {
 
-    if(!this.state.otherUserData.userDoc.schedules) {
-      return '';
-    }
+  //   if(!this.state.otherUserData.userDoc.schedules) {
+  //     return '';
+  //   }
 
-    const uid = this.state.otherUserData.uid;
-    const userDoc = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc : {};
-    const scheduleId = this.state.otherScheduleId ? this.state.otherScheduleId : this.state.otherUserData.userDoc.schedules[0].id;
+  //   const uid = this.state.otherUserData.uid;
+  //   const userDoc = this.state.otherUserData.userDoc ? this.state.otherUserData.userDoc : {};
+  //   const scheduleId = this.state.otherScheduleId ? this.state.otherScheduleId : this.state.otherUserData.userDoc.schedules[0].id;
 
-    const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
-    const scheduleList = userDoc.schedules ?
-      userDoc.schedules.map(pick('id', 'name'))
-      : [];
+  //   const pick = (...props) => o => props.reduce((a, e) => ({ ...a, [e]: o[e] }), {});
+  //   const scheduleList = userDoc.schedules ?
+  //     userDoc.schedules.map(pick('id', 'name'))
+  //     : [];
 
-    return this.getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList);
-  }
+  //   return this.getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList);
+  // }
 
   getScheduleViewComponent(uid, userDoc, scheduleId, scheduleList) {
 
@@ -935,18 +931,18 @@ class App extends Component {
     }
 
     if(this.state.usersModalOpen) {
-      return(
-        <Modal
-          open={true}
-          onClose={this.handleUsersModalClose}
-          content={this.state.allUsers ?
-            this.state.allUsers
-            .map((user) => {
-              return(<CardBasic key={user.uid} content={user.name} onClick={() => {this.displayUserData(user)}}/>)
-            })
-            : ''}
-        />
-      );
+      // return(
+      //   <Modal
+      //     open={true}
+      //     onClose={this.handleUsersModalClose}
+      //     content={this.state.allUsers ?
+      //       this.state.allUsers
+      //       .map((user) => {
+      //         return(<CardBasic key={user.uid} content={user.name} onClick={() => {this.displayUserData(user)}}/>)
+      //       })
+      //       : ''}
+      //   />
+      // );
     }
   }
 
@@ -996,17 +992,17 @@ class App extends Component {
   }
 
   getApp() {
-    if(this.state.otherUserData) {
-    return(<div>{this.displayOtherUserData()}</div>);
-    }
+    // if(this.state.otherUserData) {
+    // return(<div>{this.displayOtherUserData()}</div>);
+    // }
     return(<div>{this.getDashboard()}</div>);
   }
 
-  displayOtherUserData() {
-    return (<PaperContainer
-        content={this.getOtherUserSchedule()}
-      />);
-  }
+  // displayOtherUserData() {
+  //   return (<PaperContainer
+  //       content={this.getOtherUserSchedule()}
+  //     />);
+  // }
 
   render() {
 
