@@ -6,6 +6,9 @@ import {Button} from '@material-ui/core';
 import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 
+import NetworkDetector from './components/NetworkDetector';
+
+
 import Header from './components/Header';
 import RecipeLibrary from "./components/RecipeLibrary";
 // import RecipeListTabs from "./components/recipe_list/RecipeListTabs";
@@ -1040,6 +1043,6 @@ export default withFirebaseAuth({
   providers,
   firebaseAppAuth,
   firebaseUser
-})(App);
+})(NetworkDetector(App));
 
 // export default App;
