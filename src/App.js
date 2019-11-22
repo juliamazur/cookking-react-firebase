@@ -159,6 +159,26 @@ class App extends Component {
       id: 7,
       name: 'Łosoś pieczony',
       image: 'salmon.jpg'
+    },
+    {
+      id: 8,
+      name: 'Jajecznica',
+      image: 'jajecznica.jpeg'
+    },
+    {
+      id: 9,
+      name: 'Shake truskawkowy',
+      image: 'shake_truskawkowy.jpeg'
+    },
+    {
+      id: 10,
+      name: 'Shake jagodowy',
+      image: 'shake_jagodowy.jpeg'
+    },
+    {
+      id: 11,
+      name: 'Shake matcha',
+      image: 'shake_matcha.jpeg'
     }
   ];
 
