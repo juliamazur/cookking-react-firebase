@@ -16,8 +16,9 @@ class SearchInput extends React.Component {
 
         return (
             <Grid container>
-          <Grid item xs={12} md={3}>
-            <FormControl fullWidth={true} style={{margin: '5px 5px 20px'}}>
+                <Grid item xs={1} md={9}></Grid>
+          <Grid item xs={10} md={3}>
+            <FormControl fullWidth={true} style={{marginBottom: '20px'}}>
               <TextField
                 data-test='searchInput'
                 name='search'
