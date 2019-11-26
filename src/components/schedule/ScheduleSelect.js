@@ -22,7 +22,7 @@ class ScheduleSelect extends React.Component {
     return (
       <Container>
         <Grid container>
-        <Grid item xs={0} md={9}></Grid>
+        <Grid item xs={1} md={9}></Grid>
           <Grid item xs={10} md={2} style={{padding: 10}}>
             <FormControl fullWidth={true} variant="outlined">
               <Select

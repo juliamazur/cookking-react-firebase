@@ -28,13 +28,21 @@ class RecipeLibrary extends Component {
   }
 
   renderRecipesCompact(recipeList, noEdit) {
-    const recipes = recipeList.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
+
+    const filteredRecipes = this.state.searchValue ?
+    recipeList
+      .slice()
+      .filter((item) => {return item.name.toLowerCase().includes(this.state.searchValue.toLowerCase())})
+    : recipeList;  
+
+    const recipes = filteredRecipes.sort((a,b) => { return a.name > b.name ? 1 : -1; }).map((recipe) => {
       return <ListRecipeCardMidi
         key={recipe.id}
         item={recipe}
         noEdit={noEdit}
         editRecipe={this.props.handleEditRecipe}
         deleteRecipe={this.props.handleDeleteRecipe}
+        copyRecipe={this.props.handleCopyRecipe}
         addToSchedule={this.props.handleAddToSchedule}
         handleAvatarClick={this.props.handleAvatarClick}
       />;
@@ -66,7 +74,7 @@ class RecipeLibrary extends Component {
           value={this.state.searchValue}
           handleChange={this.handleSearchChange.bind(this)}
         />
-        {this.renderRecipesCompact(this.state.filteredList, noEdit)}
+        {this.renderRecipesCompact(recipeList, noEdit)}
       </div>
     );
   }

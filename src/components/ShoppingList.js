@@ -94,11 +94,10 @@ class ShoppingList extends React.Component {
         <h3 className={classes.title}>lista zakupów</h3>
         <div className={classes.listContainer}
         >
-          {ingredients.map(ingredient => {
+          {ingredients.map((ingredient,index) => {
             return (
-              <div key={ingredient.id} className={classes.listItem}>
+              <div key={index} className={classes.listItem}>
                 <CardCrossable
-                  key={ingredient.id}
                   id={ingredient.id}
                   content={this.getCardContent(ingredient)}
                 />

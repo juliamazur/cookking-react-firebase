@@ -64,7 +64,6 @@ class App extends Component {
   constructor() {
     super();
     this.handleScheduleNameInputChange = this.handleScheduleNameInputChange.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
     this.addSchedule = this.addSchedule.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.addToSchedule = this.addToSchedule.bind(this);
@@ -82,13 +81,13 @@ class App extends Component {
       description: "Cebulę i czosnek zeszklić na oliwie. Dodać pomidory i sos sojowy, chwilę poddusić. \
         Wbić ostrożnie jajka, poczekać aż białko się zetnie, posolić, opruszyć fetą i listkami bazylii.",
       ingredients: [
-        {name: 'jajka', amount: '4', unit: 'szt'},
-        {name: 'czosnek', amount: '1', unit: 'ząbek'},
-        {name: 'cebula', amount: '1', unit: 'szt'},
-        {name: 'pomidory krojone', amount: '1', unit: 'puszka'},
-        {name: 'sos sojowy', amount: '2', unit: 'łyżki'},
-        {name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
-        {name: 'ser feta', amount: '1/2', unit: 'opakowania'}
+        {id: 1, name: 'jajka', amount: '4', unit: 'szt'},
+        {id: 2, name: 'czosnek', amount: '1', unit: 'ząbek'},
+        {id: 3, name: 'cebula', amount: '1', unit: 'szt'},
+        {id: 4, name: 'pomidory krojone', amount: '1', unit: 'puszka'},
+        {id: 5, name: 'sos sojowy', amount: '2', unit: 'łyżki'},
+        {id: 6, name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
+        {id: 7, name: 'ser feta', amount: '1/2', unit: 'opakowania'}
       ]
     },
     {
@@ -106,10 +105,10 @@ class App extends Component {
       Można podać z owocami \
       i syropem klonowym albo miodem.",
       ingredients: [
-        {name: 'banan', amount: '1', unit: 'szt'},
-        {name: 'jajka', amount: '2', unit: 'szt'},
-        {name: 'maliny', amount: '10', unit: 'szt'},
-        {name: 'syrop klonowy', amount: '2', unit: 'łyżki'}
+        {id: 1, name: 'banan', amount: '1', unit: 'szt'},
+        {id: 2, name: 'jajka', amount: '2', unit: 'szt'},
+        {id: 3, name: 'maliny', amount: '10', unit: 'szt'},
+        {id: 4, name: 'syrop klonowy', amount: '2', unit: 'łyżki'}
       ]
     },
     {
@@ -117,13 +116,13 @@ class App extends Component {
       name: 'Spaghetti z pomidorami',
       image: 'spaghetti.jpg',
       ingredients: [
-        {name: 'makaron spaghetti', amount: '1/2', unit: 'opakowania'},
-        {name: 'pomidory krojone', amount: '1', unit: 'puszka'},
-        {name: 'cebula', amount: '1', unit: 'szt'},
-        {name: 'czosnek', amount: '2', unit: 'ząbki'},
-        {name: 'oliwa', amount: '50', unit: 'ml'},
-        {name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
-        {name: 'ser parmezan', amount: '50', unit: 'g'}
+        {id: 1, name: 'makaron spaghetti', amount: '1/2', unit: 'opakowania'},
+        {id: 2, name: 'pomidory krojone', amount: '1', unit: 'puszka'},
+        {id: 3, name: 'cebula', amount: '1', unit: 'szt'},
+        {id: 4, name: 'czosnek', amount: '2', unit: 'ząbki'},
+        {id: 5, name: 'oliwa', amount: '50', unit: 'ml'},
+        {id: 6, name: 'bazylia - świeże liście', amount: '1', unit: 'garść'},
+        {id: 7, name: 'ser parmezan', amount: '50', unit: 'g'}
       ]
     },
     {
@@ -133,11 +132,11 @@ class App extends Component {
       description: "Tortillę położyć na talerzu. Posmarować sosem pomidorowym, posypać serem i dodatkami. \
       Patelnię rozgrzać, zsunąć tortillę i podgrzewać, aż ser się rozpuści.",
       ingredients: [
-        {name: 'tortilla', amount: '1', unit: 'szt'},
-        {name: 'ser mozarella tarty', amount: '100', unit: 'g'},
-        {name: 'sos pomidorowy z bazylią', amount: '1/2', unit: 'słoika'},
-        {name: 'oliwki czarne', amount: '10', unit: 'szt'},
-        {name: 'fenkuł w oleju', amount: '2', unit: 'szt'},
+        {id: 1, name: 'tortilla', amount: '1', unit: 'szt'},
+        {id: 2, name: 'ser mozarella tarty', amount: '100', unit: 'g'},
+        {id: 3, name: 'sos pomidorowy z bazylią', amount: '1/2', unit: 'słoika'},
+        {id: 4, name: 'oliwki czarne', amount: '10', unit: 'szt'},
+        {id: 5, name: 'fenkuł w oleju', amount: '2', unit: 'szt'},
       ]
     },
     {
@@ -146,13 +145,13 @@ class App extends Component {
       image: 'greek_salad.jpg',
       description: 'Warzywa i ser pokroić w grubą kostkę, wszystko wymieszać w misce.',
       ingredients: [
-        {name: 'pomiddor', amount: '2', unit: 'szt'},
-        {name: 'papryka', amount: '1', unit: 'szt'},
-        {name: 'ogórek długi', amount: '1/2', unit: 'szt'},
-        {name: 'cebula (jeśli lubimy)', amount: '1/2', unit: 'szt'},
-        {name: 'oliwki czarne', amount: '10', unit: 'szt'},
-        {name: 'oliwa z oliwek', amount: '3', unit: 'łyżki'},
-        {name: 'ser feta', amount: '1/2', unit: 'opakowania'}
+        {id: 1, name: 'pomiddor', amount: '2', unit: 'szt'},
+        {id: 2, name: 'papryka', amount: '1', unit: 'szt'},
+        {id: 3, name: 'ogórek długi', amount: '1/2', unit: 'szt'},
+        {id: 4, name: 'cebula (jeśli lubimy)', amount: '1/2', unit: 'szt'},
+        {id: 5, name: 'oliwki czarne', amount: '10', unit: 'szt'},
+        {id: 6, name: 'oliwa z oliwek', amount: '3', unit: 'łyżki'},
+        {id: 7, name: 'ser feta', amount: '1/2', unit: 'opakowania'}
       ]
     },
     {
@@ -168,17 +167,38 @@ class App extends Component {
     {
       id: 9,
       name: 'Shake truskawkowy',
-      image: 'shake_truskawkowy.jpeg'
+      image: 'shake_truskawkowy.jpeg',
+      description: 'Wszystkie składniki zblendować.',
+      ingredients: [
+        {id: 1, name: 'kefir', amount: '900', unit: 'ml'},
+        {id: 2, name: 'banan', amount: '1', unit: 'szt'},
+        {id: 3, name: 'truskawki mrożone', amount: '1', unit: 'opakowanie'},
+        {id: 4, name: 'cukier puder', amount: '50', unit: 'g'}
+      ]
     },
     {
       id: 10,
       name: 'Shake jagodowy',
-      image: 'shake_jagodowy.jpeg'
+      image: 'shake_jagodowy.jpeg',
+      description: 'Wszystkie składniki zblendować.',
+      ingredients: [
+        {id: 1, name: 'kefir', amount: '900', unit: 'ml'},
+        {id: 2, name: 'banan', amount: '2', unit: 'szt'},
+        {id: 3, name: 'jagody mrożone', amount: '1', unit: 'opakowanie'},
+        {id: 4, name: 'cukier puder', amount: '50', unit: 'g'}
+      ]
     },
     {
       id: 11,
       name: 'Shake matcha',
-      image: 'shake_matcha.jpeg'
+      image: 'shake_matcha.jpeg',
+      description: 'Wszystkie składniki zblendować. Daktyle warto wcześniej namoczyć w gorącej wodzie.',
+      ingredients: [
+        {id: 1, name: 'kefir', amount: '900', unit: 'ml'},
+        {id: 2, name: 'banan', amount: '2', unit: 'szt'},
+        {id: 3, name: 'herbarta matcha', amount: '3', unit: 'łyżeczki'},
+        {id: 4, name: 'daktyle', amount: '10', unit: 'szt'}
+      ]
     }
   ];
 
@@ -653,19 +673,39 @@ class App extends Component {
     this.save(newState);
   }
 
-  deleteRecipe(id) {
-    // @TODO ladniej
-
+  deleteRecipe(id) {    
     // @TODO jesli jest w grafiku to poinformuj i nie usuwaj
-
     const newRecipes = this.state.userDoc.recipes.filter((r) => {
       return r.id !== id;
     });
-    let newUserDoc = this.state.userDoc;
-    newUserDoc.recipes = newRecipes;
-    this.setState({userDoc: newUserDoc}, () => {
-      this.saveUserDocToDb();
-    });
+
+    const newState = {
+      ...this.state,
+      userDoc: {...this.state.userDoc, recipes: newRecipes}
+    };
+
+    this.save(newState);
+  }
+
+  copyRecipe(recipe) {
+
+    const newUserDoc = {...this.state.userDoc};
+    const recipes = newUserDoc.recipes ? newUserDoc.recipes.slice() : [];
+
+    // deep cloning, works if there are just strings, numbers and arrays
+    const newRecipe = JSON.parse(JSON.stringify(recipe));
+
+    const d = new Date();
+    newRecipe.id = md5(d.getTime());
+    recipes.push(newRecipe);
+
+
+    const newState = {
+      ...this.state,
+      userDoc: {...this.state.userDoc, recipes: recipes}
+    };
+
+    this.save(newState);
   }
 
   getScheduleForm() {
@@ -975,7 +1015,7 @@ class App extends Component {
         content={
           <RecipeLibrary
           recipeList={this.state.userDoc.recipes}
-          handleDeleteRecipe={this.deleteRecipe}
+          handleDeleteRecipe={this.deleteRecipe.bind(this)}
           handleEditRecipe={this.editRecipe.bind(this)}
           handleAddToSchedule={this.addToSchedule}
           handleAvatarClick={this.changeAvatar}
@@ -993,6 +1033,7 @@ class App extends Component {
           title="polecane"
           noEdit={true}
           recipeList={this.DEFAULT_RECIPES}
+          handleCopyRecipe={this.copyRecipe.bind(this)}
         />}
       />);
   }
