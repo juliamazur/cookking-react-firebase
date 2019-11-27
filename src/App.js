@@ -115,6 +115,8 @@ class App extends Component {
       id: 4,
       name: 'Spaghetti z pomidorami',
       image: 'spaghetti.jpg',
+      description: 'Cebulę zeszklić na oliwie, dodać wyciśnięty przez praskę czosnek, pomidory. \
+      Makaron ugotować wg przepisu na opakowaniu, do gotowania dodać łyżkę oliwy. Podawać z tartym parmezanem i bazylią.',
       ingredients: [
         {id: 1, name: 'makaron spaghetti', amount: '1/2', unit: 'opakowania'},
         {id: 2, name: 'pomidory krojone', amount: '1', unit: 'puszka'},
@@ -145,7 +147,7 @@ class App extends Component {
       image: 'greek_salad.jpg',
       description: 'Warzywa i ser pokroić w grubą kostkę, wszystko wymieszać w misce.',
       ingredients: [
-        {id: 1, name: 'pomiddor', amount: '2', unit: 'szt'},
+        {id: 1, name: 'pomidor', amount: '2', unit: 'szt'},
         {id: 2, name: 'papryka', amount: '1', unit: 'szt'},
         {id: 3, name: 'ogórek długi', amount: '1/2', unit: 'szt'},
         {id: 4, name: 'cebula (jeśli lubimy)', amount: '1/2', unit: 'szt'},
@@ -157,7 +159,14 @@ class App extends Component {
     {
       id: 7,
       name: 'Łosoś pieczony',
-      image: 'salmon.jpg'
+      image: 'salmon.jpg',
+      ingredients: [
+        {id: 1, name: 'łosoś', amount: '300', unit: 'g'},
+        {id: 2, name: 'papryka', amount: '1', unit: 'szt'},
+        {id: 3, name: 'cukinia', amount: '1', unit: 'szt'},
+        {id: 4, name: 'cebula', amount: '1', unit: 'szt'},
+        {id: 5, name: 'czosnek', amount: '2', unit: 'ząbki'}
+      ]
     },
     {
       id: 8,
