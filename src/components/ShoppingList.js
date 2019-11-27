@@ -95,7 +95,6 @@ class ShoppingList extends React.Component {
     }
 
     let result = [];
-    console.log(this.props.schedule.columns);
     this.props.schedule.columns.forEach((column) => {
       if (column.items) {
         column.items.forEach((item) => {
