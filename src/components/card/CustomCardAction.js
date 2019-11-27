@@ -18,19 +18,13 @@ class CustomCardAction extends Component {
     return(<EditIcon/>);
   }
 
-  onClick(id) {
-    this.props.onClick(id);
-    console.log(id);
-  }
-
-
   render() {
 
-    const { id, label, type } = this.props;
+    const { id, label, type, onClick } = this.props;
 
 
     return (
-      <IconButton aria-label={label} onClick={() => this.onClick(id)}>
+      <IconButton aria-label={label} onClick={() => onClick(id)}>
         {this.getIcon(type)}
       </IconButton>
     );

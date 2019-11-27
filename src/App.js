@@ -295,7 +295,11 @@ class App extends Component {
       backend.fetchUserDoc(user.uid).then((data) => {
         const newState = {uid: user.uid, name: '', ...data};
         // to have DB doc for new users that didnt do anything yet
-        this.save(newState);
+        if(!newState.userDoc) {
+          this.save(newState);
+        } else {
+          this.setState(newState);
+        }
       });
 
       // backend.fetchAllUserDocs().then((data) => {
@@ -464,20 +468,8 @@ class App extends Component {
 
   addToSchedule(id) {
     const activeSchedule = this.getActiveSchedule();
-    const newColumns = activeSchedule.columns ? activeSchedule.columns : [];
-    const columnId = this.state.columnToAddId ? this.state.columnToAddId : 'column-0';
-    let newColumn = newColumns.find((v) => {return v.id === columnId});
-
-    if(!newColumn) {
-      newColumn = {
-        id: columnId,
-        items: []
-      };
-    }
-
-    if(!newColumn.items) {
-      newColumn.items = [];
-    }
+    const COLUMN_ZERO = 'column-0';
+    const columnToAddId = this.state.columnToAddId ? this.state.columnToAddId : COLUMN_ZERO;
 
     const d = new Date();
     const newItem = {
@@ -485,9 +477,25 @@ class App extends Component {
       recipeId: id
     };
 
-    newColumn.items.push(newItem);
-    newColumns.push(newColumn);
-    this.saveScheduleColumns(newColumns);
+    if(!activeSchedule.columns) {
+      activeSchedule.columns = [];
+    }
+
+    let columnToAdd = activeSchedule.columns.find((v) => {return v.id === columnToAddId});
+    if(!columnToAdd) {
+      activeSchedule.columns.push({
+        id: columnToAddId
+      });
+      columnToAdd = activeSchedule.columns.find((v) => {return v.id === columnToAddId});
+    }
+
+    if(!columnToAdd.items) {
+      columnToAdd.items = [];
+    }
+
+    columnToAdd.items.push(newItem);
+
+    this.saveScheduleColumns(activeSchedule.columns);
     this.handleRecipeListModalClose();
   }
 
@@ -516,7 +524,15 @@ class App extends Component {
       stateToDb.userDoc = newState.userDoc;
     }
 
-    userRef.child(newState.uid).update(stateToDb);
+    this.updateUserRef(newState.uid, stateToDb);
+  }
+
+  async updateUserRef(uid, doc) {
+    try {
+      await userRef.child(uid).update(doc);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 // @TODO do wywalenia

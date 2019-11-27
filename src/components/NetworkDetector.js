@@ -46,7 +46,7 @@ export default function (ComposedComponent) {
 
         render() {
             const { isDisconnected } = this.state;
-            const message = 'Jesteś offline. Wprowadzone zmiany nie zostaną zapisane.';
+            const message = 'Jesteś offline. Wprowadzone zmiany mogą nie zostać zapisane na serwerze.';
             return (
                 <div>
                     {isDisconnected && (<SnackbarContent

@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
 import CardCrossable from "./card/CardCrossable";
+import { isString, isNumber } from 'util';
 
 const styles = theme => ({
   paper: {
@@ -47,12 +48,45 @@ class ShoppingList extends React.Component {
       const recipe = this.props.recipes.find((v) => { return v.id === recipeId; });
       if (recipe && recipe.ingredients) {
         recipe.ingredients.forEach((item) => {
-          result.push(item);
+          result.push({ ...item });
         });
       }
     });
 
-    return result.sort((a, b) => { return a.name > b.name ? 1 : -1; });
+    const sorted = result.sort((a, b) => { return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1; });
+    const squeezed = [];
+    let prevItem = {};
+    sorted.forEach((item) => {
+      if (!squeezed.length) {
+        squeezed.push(item);
+      } else {
+        prevItem = squeezed[squeezed.length - 1];
+
+        let isSameName = (prevItem && prevItem.name.toLowerCase() === item.name.toLowerCase()) ? true : false;
+        let isSameUnit = (prevItem.unit === item.unit) ? true : false;
+        let isAmountFloat = (prevItem.amount && parseFloat(prevItem.amount) == prevItem.amount
+          && item.amount && parseFloat(item.amount) == item.amount) ? true : false;
+
+        if (isSameName) {
+          // add float amounts
+          if (isSameUnit && isAmountFloat) {
+            prevItem.amount = parseFloat(prevItem.amount) + parseFloat(item.amount);
+          }
+          // concatenate string amounts
+          if (isSameUnit && item.amount && !isAmountFloat) {
+            prevItem.amount = prevItem.amount + ' + ' + item.amount;
+          }
+          // if no amount given - just show this ingredient once on a list (don't add any amount)
+          if (isSameUnit && !item.amount) {
+            prevItem.amount = '';
+          }
+        } else {
+          squeezed.push(item);
+        }
+      }
+    });
+
+    return squeezed;
   }
 
   getUsedRecipeIds() {
@@ -61,6 +95,7 @@ class ShoppingList extends React.Component {
     }
 
     let result = [];
+    console.log(this.props.schedule.columns);
     this.props.schedule.columns.forEach((column) => {
       if (column.items) {
         column.items.forEach((item) => {
@@ -69,7 +104,7 @@ class ShoppingList extends React.Component {
       }
     });
 
-    return [...new Set(result)]; // return unique values
+    return result;
   }
 
   getCardContent(ingredient) {
@@ -94,7 +129,7 @@ class ShoppingList extends React.Component {
         <h3 className={classes.title}>lista zakupów</h3>
         <div className={classes.listContainer}
         >
-          {ingredients.map((ingredient,index) => {
+          {ingredients.map((ingredient, index) => {
             return (
               <div key={index} className={classes.listItem}>
                 <CardCrossable
